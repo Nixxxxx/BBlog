@@ -1,10 +1,10 @@
 # BBlog 个人博客
-*java web 
-*jdk：1.8.0_73
-*Web 服务器：apache-tomcat-7.0.72
-*MySQL 版本：5.5.8
-*框架：Struts2 Hibernate4
-*前端：bootstrap3
+* java web 
+* jdk：1.8.0_73
+* Web 服务器：apache-tomcat-7.0.72
+* MySQL 版本：5.5.8
+* 框架：Struts2 Hibernate4
+* 前端：bootstrap3
 
 
 日志
@@ -16,8 +16,8 @@
 网站写完后部署在腾讯云的服务器上
 网址www.jiangh.me
 ####相关知识：
-*html css JavaScript (jsp&servlet)
-*JQuery el表达式 ajax&json 
+* html css JavaScript (jsp&servlet)
+* JQuery el表达式 ajax&json 
 
 
 ###5.9
