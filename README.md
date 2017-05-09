@@ -1,10 +1,23 @@
 # BBlog 个人博客
+#### 项目基本信息
 * java web 
 * jdk：1.8.0_73
 * Web 服务器：apache-tomcat-7.0.72
 * MySQL 版本：5.5.8
 * 框架：Struts2 Hibernate4
 * 前端：bootstrap3
+
+
+##### 相关知识：
+* html css JavaScript (jsp&servlet)
+* JQuery el表达式 ajax&json 
+
+##### 项目内容
+个人博客网站:<br>
+* 用户登陆、注册<br>
+* 用户对博客文章的查看及个人信息的查看修改<br>
+* 管理员对博客文章的增删改查功能<br>
+* 回到顶部按钮<br>
 
 
 日志
@@ -15,9 +28,6 @@
 大约一个月的时间写完了博客网站，但还存在很多问题。<br>
 网站写完后部署在腾讯云的服务器上
 网址www.jiangh.me<br>
-#### 相关知识：
-* html css JavaScript (jsp&servlet)
-* JQuery el表达式 ajax&json 
 
 
 ### 5.9
