@@ -52,8 +52,8 @@ public class BlogTypeDao {
 	}
 	
 	public List<BlogType> blogTypeList(){
-		Session session=HibernateUtil.getSessionFactory().openSession(); // Éú³ÉÒ»¸ösession
-	    session.beginTransaction(); // ¿ªÆôÊÂÎñ
+		Session session=HibernateUtil.getSessionFactory().openSession(); // ç”Ÿæˆä¸€ä¸ªsession
+	    session.beginTransaction(); // å¼€å¯äº‹åŠ¡
 		List<BlogType> blogTypeList=session.createCriteria(BlogType.class).list();
 		session.getTransaction().commit();
 		session.close();

@@ -7,7 +7,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.entity.Blog;
-import com.entity.BlogType;
 import com.util.HibernateUtil;
 
 public class BlogDao {
@@ -55,8 +54,8 @@ public class BlogDao {
 	}
 	
 	public List<Blog> getBlogs(){
-		Session session=HibernateUtil.getSessionFactory().openSession(); // Éú³ÉÒ»¸ösession
-	    session.beginTransaction(); // ¿ªÆôÊÂÎñ
+		Session session=HibernateUtil.getSessionFactory().openSession(); // ç”Ÿæˆä¸€ä¸ªsession
+	    session.beginTransaction(); // å¼€å¯äº‹åŠ¡
 		List<Blog> blogs=session.createCriteria(Blog.class).list();
 		session.getTransaction().commit();
 		session.close();

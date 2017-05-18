@@ -50,9 +50,9 @@ public class UserAction extends ActionSupport implements ServletRequestAware{
 				flag=0;
 		}
 		if(flag==0){
-			result="¸ÃÓÃ»§ÃûÒÑ´æÔÚ";
+			result="è¯¥ç”¨æˆ·åå·²å­˜åœ¨";
 		}else{
-			result="¸ÃÓÃ»§Ãû¿ÉÓÃ";
+			result="è¯¥ç”¨æˆ·åå¯ç”¨";
 		}
 		resultJson.put("result",result);
 		ResponseUtil.writeJson(response,resultJson);
@@ -72,7 +72,7 @@ public class UserAction extends ActionSupport implements ServletRequestAware{
 		User currentUser = userDao.login(user);
 		if(currentUser==null){
 			request.setAttribute("user", user);
-			request.setAttribute("error", "ÓÃ»§Ãû»òÃÜÂë´íÎó£¡");
+			request.setAttribute("error", "ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯ï¼");
 			return ERROR;
 		}else{
 //			if("remember-me".equals(remember)){
@@ -93,7 +93,7 @@ public class UserAction extends ActionSupport implements ServletRequestAware{
 		HttpSession session=request.getSession();
 		User currentUser = userDao.checkUserName(user.getUserName());
 		if(currentUser!=null){
-			request.setAttribute("error", "ÓÃ»§ÃûÒÑ´æÔÚ£¡");
+			request.setAttribute("error", "ç”¨æˆ·åå·²å­˜åœ¨ï¼");
 			return SUCCESS;
 		}else{
 			currentUser=userDao.update(user);

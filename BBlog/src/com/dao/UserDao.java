@@ -13,55 +13,55 @@ public class UserDao {
 	
 	
 	public User register(User user){
-	    Session session=HibernateUtil.getSessionFactory().openSession(); // Éú³ÉÒ»¸ösession
-	    session.beginTransaction(); // ¿ªÆôÊÂÎñ
+	    Session session=HibernateUtil.getSessionFactory().openSession(); // ç”Ÿæˆä¸€ä¸ªsession
+	    session.beginTransaction(); // å¼€å¯äº‹åŠ¡
 	    session.save(user);
-	    session.getTransaction().commit(); // Ìá½»ÊÂÎñ
-	    session.close(); // ¹Ø±Õsession
+	    session.getTransaction().commit(); // æäº¤äº‹åŠ¡
+	    session.close(); // å…³é—­session
 		User resultUser=login(user);
 	    return resultUser;
 	}
 		
 	
 	public User login(User user){
-	    Session session=HibernateUtil.getSessionFactory().openSession(); // Éú³ÉÒ»¸ösession
-	    session.beginTransaction(); // ¿ªÆôÊÂÎñ
+	    Session session=HibernateUtil.getSessionFactory().openSession(); // ç”Ÿæˆä¸€ä¸ªsession
+	    session.beginTransaction(); // å¼€å¯äº‹åŠ¡
 	    Query query=session.createQuery("from User where userName=:userName and password=:password");
 		query.setString("userName", user.getUserName());
 		query.setString("password", user.getPassword());
 		User resultUser=(User)query.uniqueResult();
-	    session.getTransaction().commit(); // Ìá½»ÊÂÎñ
+	    session.getTransaction().commit(); // æäº¤äº‹åŠ¡
 	    session.close();
 	    return resultUser;
 	}
 	
 	public User checkUserName(String userName){
-	    Session session=HibernateUtil.getSessionFactory().openSession(); // Éú³ÉÒ»¸ösession
-	    session.beginTransaction(); // ¿ªÆôÊÂÎñ
+	    Session session=HibernateUtil.getSessionFactory().openSession(); // ç”Ÿæˆä¸€ä¸ªsession
+	    session.beginTransaction(); // å¼€å¯äº‹åŠ¡
 	    Query query=session.createQuery("from User where userName=:userName");
 		query.setString("userName", userName);
 		User resultUser=(User)query.uniqueResult();
-	    session.getTransaction().commit(); // Ìá½»ÊÂÎñ
+	    session.getTransaction().commit(); // æäº¤äº‹åŠ¡
 	    session.close();
 	    return resultUser;
 	}
 	
 	public User update(User user){
-	    Session session=HibernateUtil.getSessionFactory().openSession(); // Éú³ÉÒ»¸ösession
-	    session.beginTransaction(); // ¿ªÆôÊÂÎñ
+	    Session session=HibernateUtil.getSessionFactory().openSession(); // ç”Ÿæˆä¸€ä¸ªsession
+	    session.beginTransaction(); // å¼€å¯äº‹åŠ¡
 	    session.merge(user);
-	    session.getTransaction().commit(); // Ìá½»ÊÂÎñ
-	    session.close(); // ¹Ø±Õsession
+	    session.getTransaction().commit(); // æäº¤äº‹åŠ¡
+	    session.close(); // å…³é—­session
 		User resultUser=login(user);
 	    return resultUser;
 	}
 
 	public List<User> getUsers(){
-		Session session=HibernateUtil.getSessionFactory().openSession(); // Éú³ÉÒ»¸ösession
-	    session.beginTransaction(); // ¿ªÆôÊÂÎñ
+		Session session=HibernateUtil.getSessionFactory().openSession(); // ç”Ÿæˆä¸€ä¸ªsession
+	    session.beginTransaction(); // å¼€å¯äº‹åŠ¡
 		List<User> users=session.createCriteria(User.class).list();
-		session.getTransaction().commit(); // Ìá½»ÊÂÎñ
-	    session.close(); // ¹Ø±Õsession
+		session.getTransaction().commit(); // æäº¤äº‹åŠ¡
+	    session.close(); // å…³é—­session
 		return users;
 	}
 	

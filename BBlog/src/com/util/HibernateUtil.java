@@ -9,9 +9,9 @@ public class HibernateUtil {
 	private static final SessionFactory sessionFactory=buildSessionFactory();
 
     private static SessionFactory buildSessionFactory(){
-        Configuration configuration=new Configuration().configure(); // ÊµÀı»¯ÅäÖÃÎÄ¼ş
-        ServiceRegistry serviceRegistry=new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry(); // ÊµÀı»¯·şÎñµÇ¼Ç
-        return configuration.buildSessionFactory(serviceRegistry); // »ñÈ¡Session¹¤³§
+        Configuration configuration=new Configuration().configure(); // å®ä¾‹åŒ–é…ç½®æ–‡ä»¶
+        ServiceRegistry serviceRegistry=new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry(); // å®ä¾‹åŒ–æœåŠ¡ç™»è®°
+        return configuration.buildSessionFactory(serviceRegistry); // è·å–Sessionå·¥å‚
     }
     
     public static SessionFactory getSessionFactory(){
