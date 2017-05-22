@@ -1,7 +1,7 @@
 # BBlog 个人博客
 #### 项目基本信息
-* java web 
-* jdk：1.8.0_73
+* java web (编码格式 UTF-8)
+* jdk：1.8.0_73 64-bit
 * Web 服务器：apache-tomcat-7.0.72
 * MySQL 版本：5.5.8
 * 框架：Struts2 Hibernate4
