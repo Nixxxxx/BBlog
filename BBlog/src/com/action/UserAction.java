@@ -14,6 +14,7 @@ import org.apache.struts2.interceptor.ServletRequestAware;
 import com.dao.UserDao;
 import com.entity.User;
 import com.opensymphony.xwork2.ActionSupport;
+import com.util.MD5Util;
 import com.util.ResponseUtil;
 
 import net.sf.json.JSONObject;
@@ -27,6 +28,7 @@ public class UserAction extends ActionSupport implements ServletRequestAware{
 	HttpServletRequest request;
 	private UserDao userDao=new UserDao();
 	private User user;
+	private String checkbox;
 	
 	public User getUser() {
 		return user;
@@ -35,7 +37,14 @@ public class UserAction extends ActionSupport implements ServletRequestAware{
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
+	public String getCheckbox() {
+		return checkbox;
+	}
+
+	public void setCheckbox(String checkbox) {
+		this.checkbox = checkbox;
+	}
 
 	public void checkUserName() throws IOException {
 	    HttpServletResponse response = null;
@@ -61,26 +70,43 @@ public class UserAction extends ActionSupport implements ServletRequestAware{
 	
 	public String register(){
 		HttpSession session=request.getSession();
+		user.setPassword(MD5Util.getMD5Code(user.getPassword()));
 		User currentUser = userDao.register(user);
 		session.setAttribute("currentUser", currentUser);
 		return SUCCESS;
 	}
 	
 	
-	public String login(){
-		HttpSession session=request.getSession();
-		User currentUser = userDao.login(user);
-		if(currentUser==null){
-			request.setAttribute("user", user);
-			request.setAttribute("error", "用户名或密码错误！");
-			return ERROR;
-		}else{
-//			if("remember-me".equals(remember)){
-//				rememberMe(userName,password,response);
-//			}
-			session.setAttribute("currentUser", currentUser);
-			return SUCCESS;
+	public void login(){
+		String userName=request.getParameter("userName");
+		String password=request.getParameter("password");
+		String checkbox=request.getParameter("checkbox");
+		List<User> users=userDao.getUsers();
+		HttpServletResponse response = null;
+        response = ServletActionContext.getResponse();
+		boolean success=false;
+		String result="";
+		JSONObject resultJson=new JSONObject();
+		for(User user:users){
+			if(user.getUserName().equals(userName)&&MD5Util.getMD5Code(password).equals(user.getPassword())){
+				User currentUser=userDao.findByUserId(user.getUserId());
+				request.getSession().setAttribute("currentUser", currentUser);
+				if("true".equals(checkbox)){
+					Cookie cookie=new Cookie(user.getUserName(),user.getPassword());
+					cookie.setMaxAge(1*60*60*24*7);
+				}
+				success=true;break;
+			}
 		}
+		if(!success) 
+			result="用户名或密码错误";
+		resultJson.put("success", success);
+		resultJson.put("result",result);
+		ResponseUtil.writeJson(response,resultJson);
+	}
+	
+	public String main(){
+		return SUCCESS;
 	}
 
 	
@@ -88,6 +114,7 @@ public class UserAction extends ActionSupport implements ServletRequestAware{
 		request.getSession().removeAttribute("currentUser");
 		return SUCCESS;
 	}
+	
 	
 	public String update(){
 		HttpSession session=request.getSession();
@@ -101,25 +128,17 @@ public class UserAction extends ActionSupport implements ServletRequestAware{
 			return SUCCESS;
 		}
 	}
-	
-	public void rememberMe(String userName,String password,HttpServletResponse response){
-		Cookie user=new Cookie("user",userName+"-"+password);
-		user.setMaxAge(1*60*60*24*7);
-		response.addCookie(user);
-	}
-
 
 	public String pageJump(){
 		String key=request.getParameter("key");
-		request.getSession().setAttribute("mainPage","/user/"+key+".jsp");
+		request.getSession().setAttribute("mainPage","/back/user/"+key+".jsp");
 		return SUCCESS;
 	}
-	
-	
+
 	@Override
 	public void setServletRequest(HttpServletRequest request) {
-		// TODO Auto-generated method stub
 		this.request=request;
 	}
+	
 	
 }

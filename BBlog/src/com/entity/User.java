@@ -12,7 +12,7 @@ public class User implements Serializable{
 	private String userName;
 	private String password;
 	private String mood;
-	private int administrator;
+	private int administrator=0;
 	
 
 	public User() {

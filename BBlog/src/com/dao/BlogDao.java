@@ -7,11 +7,12 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.entity.Blog;
+import com.entity.PageBean;
 import com.util.HibernateUtil;
 
 public class BlogDao {
 
-	public Blog search(int blogId){
+	public Blog findById(int blogId){
 		Session session=HibernateUtil.getSessionFactory().openSession();
 		Transaction tx=session.beginTransaction();
 	    Query query=session.createQuery("from Blog where blogId=:blogId");
@@ -22,18 +23,22 @@ public class BlogDao {
 		return resultBlog;
 	}
 	
-	public List<Blog> blogListSearch(int typeId){
+	
+	public List<Blog> find(PageBean pageBean, int typeId){
+		StringBuffer sb=new StringBuffer("from Blog");
+		if(typeId!=0){
+			sb.append(" and typeId="+typeId);
+		}
 		Session session=HibernateUtil.getSessionFactory().openSession();
 		Transaction tx=session.beginTransaction();
-	    Query query=session.createQuery("from Blog where typeId=:typeId");
-		query.setInteger("typeId",typeId);
-		List<Blog> resultBlogList=(List<Blog>) query.list();
-		tx.commit();
-		session.close();
-		return resultBlogList;
+		Query q = session.createQuery(sb.toString());
+		q.setFirstResult(pageBean.getStart());
+        q.setMaxResults(pageBean.getPageSize());
+        List<Blog> blogList=q.list();
+        tx.commit();
+        session.close();
+		return blogList;
 	}
-	
-	
 	
 	public Blog saveOrUpdate(Blog blog){
 		Session session=HibernateUtil.getSessionFactory().openSession();
@@ -41,7 +46,7 @@ public class BlogDao {
 		session.merge(blog);
 		tx.commit();
 		session.close();
-		Blog resultBlog=search(blog.getBlogId());
+		Blog resultBlog=findById(blog.getBlogId());
 		return resultBlog;
 	}
 	
@@ -53,13 +58,18 @@ public class BlogDao {
 		session.close();
 	}
 	
-	public List<Blog> getBlogs(){
-		Session session=HibernateUtil.getSessionFactory().openSession(); // 生成一个session
-	    session.beginTransaction(); // 开启事务
-		List<Blog> blogs=session.createCriteria(Blog.class).list();
-		session.getTransaction().commit();
-		session.close();
-		return blogs;
+	public List<Blog> findByTypeId(int typeId){
+		StringBuffer sb=new StringBuffer("from Blog");
+		if(typeId!=0){
+			sb.append(" and typeId="+typeId);
+		}
+		Session session=HibernateUtil.getSessionFactory().openSession();
+		Transaction tx=session.beginTransaction();
+		Query q = session.createQuery(sb.toString());
+        List<Blog> blogList=q.list();
+        tx.commit();
+        session.close();
+		return blogList;
 	}
 	
 }

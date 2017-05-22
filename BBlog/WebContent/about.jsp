@@ -3,12 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
     
-    <link href="${pageContext.request.contextPath}/bootstrap3/css/bootstrap.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/bootstrap3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/statics/bootstrap3/css/bootstrap.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/statics/bootstrap3/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="${pageContext.request.contextPath}/bootstrap3/css/main.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/statics/bootstrap3/css/main.css" rel="stylesheet">
  
-	<link type="text/css" rel="stylesheet" charset="UTF-8" href="${pageContext.request.contextPath}/bootstrap3/css/translateelement.css">
+	<link type="text/css" rel="stylesheet" charset="UTF-8" href="${pageContext.request.contextPath}/static/bootstrap3/css/translateelement.css">
   <script type="text/javascript">
   try {
 	var AG_onLoad=function(func){

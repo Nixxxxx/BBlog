@@ -2,32 +2,19 @@
     pageEncoding="utf-8" import="com.entity.User,com.entity.BlogType,java.util.List,com.action.BlogTypeAction" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="/struts-tags" prefix="s" %>
-<%
-	if(pageContext.getSession().getAttribute("mainPage")==null||
-	pageContext.getSession().getAttribute("mainPage")=="")
-		pageContext.getSession().setAttribute("mainPage","main/message.jsp"); 
-		%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Nix的个人博客</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap3/css/index.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap3/css/blog.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap3/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap3/css/bootstrap-theme.min.css">
-<script src="${pageContext.request.contextPath}/bootstrap3/js/jquery-3.1.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/bootstrap3/js/bootstrap.min.js"></script>
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/statics/images/avater.jpg">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/bootstrap3/css/index.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/bootstrap3/css/blog.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/bootstrap3/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/bootstrap3/css/bootstrap-theme.min.css">
+<script src="${pageContext.request.contextPath}/statics/bootstrap3/js/jquery-3.1.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/statics/bootstrap3/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-	window.onload=function(){
-		window.location.href="blogType!blogTypeCountList"
-	}
-	
-	$(document).ready(function(){
-	    $(document).off('click.bs.dropdown.data-api');
-	});
-	
-	
 	function logout(){
 		if(confirm("您确定要退出系统吗？")){
 			window.location.href="user!logout";
@@ -54,25 +41,23 @@
 	
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		    <ul class="nav navbar-nav">
-		    	<li><a href="blog!blogList">博客</a></li>
+		    	<li><a href="blog!showBlogList?blogTypeId=0">博客</a></li>
 		        <li><a href="main!pageJump?key=message">留言 </a></li>
 		        <li><a href="about.jsp">关于</a></li>
 		     </ul>
 	      
-	<%  
-	if(session.getAttribute("currentUser")!=null){
-		User currentUser=(User)session.getAttribute("currentUser");
-		%>
+	      
+		<c:if test="${currentUser!=null }">
 		<div>
 		 <ul class="nav navbar-nav navbar-right">
-			<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= currentUser.getUserName()%> <span class="caret"> </span></a>
+			<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${currentUser.userName }<span class="caret"> </span></a>
 				<ul class="dropdown-menu">
-				<li><a href="user!pageJump?key=message">当前用户：<%= currentUser.getUserName()%></a></li>
+				<li><a href="#">当前用户：${currentUser.userName }</a></li>
 				<li role="separator" class="divider"></li>
-	<% if(currentUser.getAdministrator()==1){%>
-				<li><a href="blogType!blogTypeList">管理</a></li>
-				<li><a href="blog!blogWriting">写博客</a></li>
-	<% } %>
+			<c:if test="${currentUser.administrator==1 }">
+				<li><a href="blogType!showBlogTypeList">管理</a></li>
+				<li><a href="blog!writing">写博客</a></li>
+			</c:if>
 				<li><a href="#">私信</a></li>
 	 			<li role="separator" class="divider"></li>
 				<li><a href="user!pageJump?key=message">个人中心</a></li>
@@ -82,12 +67,13 @@
 		 	</li> 
 		 </ul> 
 		</div>
-	<%}else{%>
+		</c:if>
+		<c:if test="${currentUser==null }">
 		<ul class="nav navbar-nav navbar-right">
 			<li ><a href="login.jsp">登录</a>
 		 	</li>
 		 </ul>
-	<%} %> 
+		</c:if>
 	  </div>
 	 </div>
 	</div>
@@ -97,17 +83,19 @@
 <div class="container" style="padding-top:75px;">
 	<div class="row-fluid">
 		<div class="col-md-9">
+			<c:if test="${mainPage!=null }">
 			<jsp:include page="${mainPage }"></jsp:include>
+			</c:if>
 		</div>
 		<div class="col-md-3">
-	        <form class="form-horizontal" role="form"  action="" method="post">
+	        <form class="form-horizontal" action="" method="post">
 	            <input  id="search" class="form-control" name="s" type="text" value="" >
 	            <button type="submit" style="display:none" class="animation red-btn"><span class="glyphicon glyphicon glyphicon-search"></span></button>
 	        </form> 
 			<div class="card">
-	            <div class="header" style="background:url(${pageContext.request.contextPath}/images/avater.jpg)"></div>
+	            <div class="header" style="background:url(${pageContext.request.contextPath}/statics/images/avater.jpg)"></div>
 	            <div class="avater">
-	                <img alt="avater" src="${pageContext.request.contextPath}/images/avater.jpg">
+	                <img alt="avater" src="${pageContext.request.contextPath}/statics/images/avater.jpg">
 	            </div>
 	            <div class="content">
 	                <h3>Nix</h3>
@@ -125,19 +113,13 @@
 					<span class="glyphicon glyphicon-th-list"></span>&nbsp;分类
 				</div>
 				<ul class="nav nav-sidebar">
-					<c:if test="${blogTypeCountList!=null }">
-	<%
-	if(session.getAttribute("blogTypeCountList")!=null){
-		List<BlogType> blogTypeCountList=(List<BlogType>)session.getAttribute("blogTypeCountList");
-	for(BlogType blogTypeCount:blogTypeCountList){
-		 %>
-					<%-- <c:forEach var="blogTypeCount" items="blogTypeCountList"> --%>
+		 			<c:if test="${blogTypeCountList!=null }">
+					<c:forEach var="blogTypeCount" items="${blogTypeCountList }">
 		            <li class="active">
-		                <a href="blog!blogListSearch?blogTypeId=<%=blogTypeCount.getBlogTypeId() %>"><%=blogTypeCount.getTypeName() %><sup><%=blogTypeCount.getBlogCount() %></sup></a>
+		                <a href="blog!showBlogList?blogTypeId=${blogTypeCount.blogTypeId }">${blogTypeCount.typeName }<sup>${blogTypeCount.blogCount }</sup></a>
 		            </li>
-		          <%--  </c:forEach> --%>
-		          <%} }%>
-		           </c:if>
+		            </c:forEach>
+		            </c:if>
 	       		</ul>
 			</div>
 		</div>
@@ -147,7 +129,7 @@
 
 
 
-<div class='main-footer'>
+<div class="main-footer">
         <div class="container">
             <div class="logo">
             NIX BLOG

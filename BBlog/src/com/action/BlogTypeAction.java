@@ -33,16 +33,15 @@ public class BlogTypeAction extends ActionSupport implements ServletRequestAware
 	}
 
 
-	public String blogTypeList(){
-		HttpSession session=request.getSession();
+	public String showBlogTypeList(){
 		List<BlogType> blogTypeList=blogTypeDao.blogTypeList();
-		session.setAttribute("blogTypeList", blogTypeList);
-		session.setAttribute("mainPage", "blog/blogTypeList.jsp");
+		request.setAttribute("blogTypeList", blogTypeList);
+		request.setAttribute("mainPage", "/back/blog/blogTypeList.jsp");
 		return SUCCESS;
 	}
 	
 	
-	public String blogTypeSave() throws IOException{
+	public String save() throws IOException{
 		String typeName=request.getParameter("typeName");
 		if(checkBlogTypeName(typeName)){
 			BlogType blogType=new BlogType(typeName);
@@ -51,12 +50,12 @@ public class BlogTypeAction extends ActionSupport implements ServletRequestAware
 		}else {
 			request.setAttribute("result", false);
 		}
-		blogTypeList();
+		showBlogTypeList();
 		return SUCCESS;
 	}
 	
 	
-	public String blogTypeUpdate() throws IOException{
+	public String update() throws IOException{
 		int blogTypeId=Integer.parseInt(request.getParameter("blogTypeId"));
 		String typeName=request.getParameter("typeName");
 		if(checkBlogTypeName(typeName)){
@@ -66,24 +65,23 @@ public class BlogTypeAction extends ActionSupport implements ServletRequestAware
 		}else {
 			request.setAttribute("result", false);
 		}
-		blogTypeList();
+		showBlogTypeList();
 		return SUCCESS;
 	}
 	
-	public String blogTypeDelete(){
-		List<Blog> blogs=blogDao.blogListSearch(blogType.getBlogTypeId());
-		if(blogs.isEmpty()){
+	public String delete(){
+		List<Blog> blogList=blogDao.findByTypeId(blogType.getBlogTypeId());
+		if(blogList.isEmpty()){
 			blogTypeDao.delete(blogType);
-			blogTypeList();
+			showBlogTypeList();
 			request.setAttribute("result", true);
 		}else request.setAttribute("result", false);
 		return SUCCESS;
 	}
 	
 	public void blogTypeCountList(){
-		HttpSession session=request.getSession();
 		List<BlogType> blogTypeCountList=blogTypeDao.blogTypeCountList();
-		session.setAttribute("blogTypeCountList", blogTypeCountList);
+		request.setAttribute("blogTypeCountList", blogTypeCountList);
 	}
 	
 	public boolean checkBlogTypeName(String typeName) throws IOException {

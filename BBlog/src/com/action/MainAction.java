@@ -15,7 +15,7 @@ public class MainAction extends ActionSupport implements ServletRequestAware{
 	
 	public String pageJump(){
 		String key=request.getParameter("key");
-		request.getSession().setAttribute("mainPage","/main/"+key+".jsp");
+		request.setAttribute("mainPage","/back/main/"+key+".jsp");
 		return SUCCESS;
 	}
 	

@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"
 	import="com.entity.Blog"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap3/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap3/css/bootstrap-theme.min.css">
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <style>
 body{
 	background-color:rgb(221,221,221);
@@ -17,29 +16,29 @@ body{
 		return false;
 	}
 </script>
-
 	<ol class="breadcrumb">
-	  <li><i class="glyphicon glyphicon-menu-left"><a href="javascript:history.back()">返回：${currentBlog.typeName }</i></a></li>
+	  <li>博客</li>
+	  <li>${currentBlog.typeName }</li>
 	</ol>
 	<div class="data_list">
 		<div class="data_list_title">
 		<div class="blog_title"><h3>${currentBlog.title }</h3></div>
 		<div class="blog_info">
-			发布时间：<fmt:formatDate value="${currentBlog.releaseDate }" type="date" pattern="yyyy-MM-dd HH:mm:ss"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日志类别：${currentBlog.typeName}
+			发布时间：<fmt:formatDate value="${currentBlog.releaseDate }" type="date" pattern="yyyy-MM-dd HH:mm:ss"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日志类别：${currentBlog.typeName }
 		</div>
 		</div>
 		<div class="blog_content">
 			${currentBlog.content }
 		</div>
-		<%-- <c:if test="${currentUser.administrator }==1"> --%>
+		<c:if test="${currentUser.administrator==1 }">
 		<div class="blog_action">
-			<form id="blog_form" action="blog!blogDelete" onsubmit="return blogDelete()">
-				<button class="btn btn-primary" type="button" onclick="javascript:window.location='blog!blogWriting'">修改博客</button>
+			<form id="blog_form" action="blog!delete" onsubmit="return blogDelete()">
+				<button class="btn btn-primary" type="button" onclick="javascript:window.location='blog!writing'">修改博客</button>
 				<input class="btn btn-danger" type="submit" value="删除博客"></input>
-				<input type="hidden" id="blogId" name="blog.blogId" value="${currentBlog.blogId }"/>
+				<input type="hidden" name="blog.blogId" value="${currentBlog.blogId }"/>
 			</form>
 		</div>
-		<%-- </c:if> --%>
+		</c:if>
 		
 		
 		

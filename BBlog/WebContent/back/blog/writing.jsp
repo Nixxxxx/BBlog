@@ -2,11 +2,7 @@
 	import="com.entity.Blog"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap3/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap3/css/bootstrap-theme.min.css">
-<script src="${pageContext.request.contextPath}/bootstrap3/js/jquery-3.1.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/bootstrap3/js/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/ckeditor/ckeditor.js"></script>
+<script src="${pageContext.request.contextPath}/statics/js/ckeditor/ckeditor.js"></script>
 <style>
 body{
 	background-color:rgb(221,221,221);
@@ -14,9 +10,9 @@ body{
 </style>
 <script type="text/javascript">
 	function checkForm(){
-		/* var title=$("title").val();
+		var title=$("#title").val();
 		var content=CKEDITOR.instances.content.getData();
-		var typeId=$("typeId").val();
+		var typeId=$("#typeId").val();
 		if(title==null||title==""){
 			$("error").text("标题不能为空！");
 			return false;
@@ -28,7 +24,7 @@ body{
 		if(typeId==null||typeId==""){
 			$("error").text("请选择日志类别！");
 			return false;
-		} */
+		}
 		return true;
 	}
 </script>
@@ -57,7 +53,6 @@ body{
 					<option value="">请选择日志类别...</option>
 					<c:forEach var="blogTypeCount" items="${blogTypeCountList }">
 						<option value="${blogTypeCount.blogTypeId }" ${blogTypeCount.blogTypeId==blog.typeId?'selected':'' }>${blogTypeCount.typeName }</option>
-						<%-- <input type="hidden" name="blog.typeName" value="${blogTypeCount.typeName }"> --%>
 					</c:forEach>
 				</select>
 			</div>

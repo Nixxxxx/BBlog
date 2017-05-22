@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.entity.User" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap3/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap3/css/bootstrap-theme.min.css">
-<script src="${pageContext.request.contextPath}/bootstrap3/js/jquery-3.1.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/bootstrap3/js/bootstrap.min.js"></script>
 <style>
 body{
 	background-color:rgb(221,221,221);
@@ -33,7 +29,7 @@ body{
 <div class="sidebar-content">
 	<div class="row">
 		<div class="col-sm-3 thumbnail">
-			<img src="./images/avater.jpg">
+			<img src="./statics/images/avater.jpg">
 			<font id="error" color="red">${error }</font>
 		</div>
 		<div class="col-sm-9">
