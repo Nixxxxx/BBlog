@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8" import="com.entity.User,com.entity.BlogType,java.util.List,com.action.BlogTypeAction" %>
+    pageEncoding="utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -8,19 +8,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Nix的个人博客</title>
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/statics/images/avater.jpg">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/bootstrap3/css/index.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/bootstrap3/css/blog.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/bootstrap3/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/bootstrap3/css/bootstrap-theme.min.css">
-<script src="${pageContext.request.contextPath}/statics/bootstrap3/js/jquery-3.1.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/statics/bootstrap3/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-	function logout(){
-		if(confirm("您确定要退出系统吗？")){
-			window.location.href="user!logout";
-		}
-	}
-</script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/css/index.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/css/blog.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/bootstrap/css/bootstrap-theme.min.css">
+
 </head>
 <body>
 	<s:action name="blogType!blogTypeCountList" namespace="/" executeResult="true">
@@ -113,7 +105,7 @@
 					<span class="glyphicon glyphicon-th-list"></span>&nbsp;分类
 				</div>
 				<ul class="nav nav-sidebar">
-		 			<c:if test="${blogTypeCountList!=null }">
+		 			<c:if test="${blogTypeCountList != null }">
 					<c:forEach var="blogTypeCount" items="${blogTypeCountList }">
 		            <li class="active">
 		                <a href="blog!showBlogList?blogTypeId=${blogTypeCount.blogTypeId }">${blogTypeCount.typeName }<sup>${blogTypeCount.blogCount }</sup></a>
@@ -148,8 +140,15 @@
 	<span class="toptext">Top</span>
 </a> 
        
-
+<script src="${pageContext.request.contextPath}/statics/bootstrap3/js/jquery-3.1.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/statics/bootstrap3/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+	function logout(){
+		if(confirm("您确定要退出系统吗？")){
+			window.location.href="user!logout";
+		}
+	}
+	
 	window.onload=function(){//回到顶部
 		var clientHeight=document.documentElement.clientHeight;
 		var timer=null;
