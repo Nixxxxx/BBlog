@@ -38,7 +38,7 @@
 		     </ul>
 	      
 	      
-		<c:if test="${currentUser!=null }">
+		<c:if test="${currentUser != null }">
 		<div>
 		 <ul class="nav navbar-nav navbar-right">
 			<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${currentUser.userName }<span class="caret"> </span></a>
