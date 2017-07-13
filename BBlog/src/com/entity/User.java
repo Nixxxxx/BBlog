@@ -54,7 +54,7 @@ public class User {
 		this.password = password;
 	}
 	
-	@Column(name = "imagePath",nullable = false,length = 20)
+	@Column(name = "imagePath",nullable = false,length = 40)
 	public String getImagePath() {
 		return imagePath;
 	}
@@ -70,7 +70,7 @@ public class User {
 		this.mood = mood;
 	}
 	
-	@Column(name = "imagePath",nullable = false,length = 1)
+	@Column(name = "administrator",nullable = false,length = 1)
 	public String getAdministrator() {
 		return administrator;
 	}
