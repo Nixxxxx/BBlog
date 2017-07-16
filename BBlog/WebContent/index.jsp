@@ -9,13 +9,11 @@
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/statics/images/avater.jpg">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/statics/css/index.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/statics/css/blog.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/bootstrap/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/bootstrap3/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/bootstrap3/css/bootstrap-theme.min.css">
 
 </head>
 <body>
-	<s:action name="blogType!blogTypeCountList" namespace="/" executeResult="true">
-	</s:action>
 <div class="navbar navbar-inverse navbar-fixed-top">
 	<div class="navbar-inner">
 	  <div class="container-fluid container">
@@ -32,36 +30,36 @@
 	
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		    <ul class="nav navbar-nav">
-		    	<li><a href="blog!showBlogList?blogTypeId=0">博客</a></li>
-		        <li><a href="main!pageJump?key=message">留言 </a></li>
+		    	<li><a href="blog/showBlogList?blogTypeId=0">博客</a></li>
+		        <li><a href="main/pageJump?key=message">留言 </a></li>
 		        <li><a href="about.jsp">关于</a></li>
 		     </ul>
 	      
 	      
-		<c:if test="${currentUser != null }">
+		<c:if test="${user != null }">
 		<div>
 		 <ul class="nav navbar-nav navbar-right">
-			<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${currentUser.userName }<span class="caret"> </span></a>
+			<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${user.userName }<span class="caret"> </span></a>
 				<ul class="dropdown-menu">
-				<li><a href="#">当前用户：${currentUser.userName }</a></li>
+				<li><a href="#">当前用户：${user.userName }</a></li>
 				<li role="separator" class="divider"></li>
-			<c:if test="${currentUser.administrator==1 }">
-				<li><a href="blogType!showBlogTypeList">管理</a></li>
-				<li><a href="blog!writing">写博客</a></li>
+			<c:if test="${user.administrator == 1 }">
+				<li><a href="blogType/showBlogTypeList">管理</a></li>
+				<li><a href="blog/writing">写博客</a></li>
 			</c:if>
 				<li><a href="#">私信</a></li>
 	 			<li role="separator" class="divider"></li>
-				<li><a href="user!pageJump?key=message">个人中心</a></li>
-	  			<li><a href="login.jsp">切换账号</a> </li>
-		 		<li><a href="javascript:logout()">退出</a></li>
+				<li><a href="user/pageJump?key=message">个人中心</a></li>
+	  			<li><a href="signIn.jsp">切换账号</a> </li>
+		 		<li><a href="javascript:signOut()">退出</a></li>
 		 		</ul> 
 		 	</li> 
 		 </ul> 
 		</div>
 		</c:if>
-		<c:if test="${currentUser==null }">
+		<c:if test="${user == null }">
 		<ul class="nav navbar-nav navbar-right">
-			<li ><a href="login.jsp">登录</a>
+			<li ><a href="signIn.jsp">登录</a>
 		 	</li>
 		 </ul>
 		</c:if>
@@ -74,13 +72,11 @@
 <div class="container" style="padding-top:75px;">
 	<div class="row-fluid">
 		<div class="col-md-9">
-			<c:if test="${mainPage!=null }">
-			<jsp:include page="${mainPage }"></jsp:include>
-			</c:if>
+   		 <iframe name="container" style="zoom: 1;" height="650px;" src="/Xungeng/main/showInfo" frameBorder="0" width="100%"></iframe>
 		</div>
 		<div class="col-md-3">
 	        <form class="form-horizontal" action="" method="post">
-	            <input  id="search" class="form-control" name="s" type="text" value="" >
+	            <input  id="search" class="form-control" name="s" type="text">
 	            <button type="submit" style="display:none" class="animation red-btn"><span class="glyphicon glyphicon glyphicon-search"></span></button>
 	        </form> 
 			<div class="card">
@@ -107,7 +103,7 @@
 		 			<c:if test="${blogTypeCountList != null }">
 					<c:forEach var="blogTypeCount" items="${blogTypeCountList }">
 		            <li class="active">
-		                <a href="blog!showBlogList?blogTypeId=${blogTypeCount.blogTypeId }">${blogTypeCount.typeName }<sup>${blogTypeCount.blogCount }</sup></a>
+		                <a href="blog/showBlogList?blogTypeId=${blogTypeCount.blogTypeId }">${blogTypeCount.typeName }<sup>${blogTypeCount.blogCount }</sup></a>
 		            </li>
 		            </c:forEach>
 		            </c:if>
@@ -142,20 +138,22 @@
 <script src="${pageContext.request.contextPath}/statics/bootstrap3/js/jquery-3.1.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/statics/bootstrap3/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-	function logout(){
+	function signOut(){
 		if(confirm("您确定要退出系统吗？")){
-			window.location.href="user!logout";
+			window.location.href="user/signOut";
 		}
 	}
 	
-	window.onload=function(){//回到顶部
-		var clientHeight=document.documentElement.clientHeight;
-		var timer=null;
-		var isTop=true;
+	$(function(){//回到顶部
 		
-		window.onscroll=function(){
-			var osTop=document.documentElement.scrollTop||document.body.scrollTop;
-			if(osTop>=clientHeight){
+		$("a [href]").css("target","container");
+		var clientHeight = document.documentElement.clientHeight;
+		var timer = null;
+		var isTop = true;
+		
+		window.onscroll = function(){
+			var osTop = document.documentElement.scrollTop||document.body.scrollTop;
+			if(osTop >= clientHeight){
 				$("#toTop").css("display","block");
 			}else{
 				$("#toTop").css("display","none");
@@ -163,21 +161,21 @@
 			if(!isTop){
 				clearInterval(timer);
 			}
-			isTop=false;
+			isTop = false;
 		}
 		
 		$("#toTop").click(function(){
-			timer=setInterval(function(){
-				var osTop=document.documentElement.scrollTop||document.body.scrollTop;
-				var speed=Math.floor(-osTop/6);
-				document.documentElement.scrollTop=document.body.scrollTop=osTop+speed;
-				isTop=true;
-				if(osTop==0){
+			timer = setInterval(function(){
+				var osTop = document.documentElement.scrollTop||document.body.scrollTop;
+				var speed = Math.floor(-osTop/6);
+				document.documentElement.scrollTop = document.body.scrollTop = osTop+speed;
+				isTop = true;
+				if(osTop == 0){
 					clearInterval(timer);
 				}
 		},30);
 		})
-	}
+	})
 	
 </script>       
 

@@ -18,4 +18,6 @@ public class BlogController {
 	private String msg;
 	private boolean success;
 	private JSONObject resultJson=new JSONObject();
+	
+	
 }

@@ -27,28 +27,28 @@ body {
 	<div class="container  w-xxl w-auto-xs">
 		<div class="row">
 			<div class="col-lg-4 col-lg-offset-4">
-				<h3 class="text-center">登录</h3>
+				<hr class="clean">
+				<h3 class="text-center">Sign in</h3>
 				<hr class="clean">
 				<form id="signInForm" class="form-horizontal">
 					<div class="text-danger wrapper-xs text-center invisible"
 						id="errorMsg">错误信息</div>
 					<div class="form-group input-group">
-						<span class="input-group-addon">邮箱</span> <input type="text"
-							class="form-control" id="email" placeholder="email">
+						<span class="input-group-addon">邮&nbsp&nbsp&nbsp箱</span> 
+						<input type="text" class="form-control" id="email" placeholder="Email">
 					</div>
 					<div class="form-group input-group">
-						<span class="input-group-addon">密码</span> <input type="password"
-							class="form-control" id="password" placeholder="Password">
+						<span class="input-group-addon">密&nbsp&nbsp&nbsp码</span> 
+						<input type="password" class="form-control" id="password" placeholder="Password">
 					</div>
 					<div class="form-group input-group">
+						<span class="input-group-addon">验证码</span> 
 						<div class="row">
 							<div class="col-xs-7">
-								<input type="text" class="form-control no-border" id="captcha"
-									size=8 value="${imageCode }" placeholder="Captcha">
+								<input type="text" class="form-control no-border" id="captcha" value="${imageCode }" placeholder="Captcha">
 							</div>
 							<div class="col-xs-5">
-								<img id="randImage" name="randImage"
-									style="cursor: pointer; height: 34px; width: 100%"
+								<img id="randImage" name="randImage" style="cursor: pointer; height: 34px; width: 100%"
 									title="点击可更换" onclick="javascript:loadImage();" src="image.jsp">
 							</div>
 						</div>
@@ -84,22 +84,22 @@ body {
 			var password = $.trim($("#password").val());
 			var captcha = $.trim($("#captcha").val());
 			var ePattern = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-			var uPattern = /^[a-zA-Z0-9_@]{4,20}$/;
+			var uPattern = /^[a-zA-Z0-9_@.]{4,20}$/;
 			var cPattern = /^[a-zA-Z0-9]{4}$/;
-			if (!ePattern.test(email)) {
-				showError("请输入正确格式的用户名");
-				return false;
-			}
 			if (password == "") {
 				showError("请输入密码");
 				return false;
 			}
-			if (!uPattern.test(password)) {
-				showError("请输入正确格式的密码");
-				return false;
-			}
 			if (!cPattern.test(captcha)) {
 				showError("请输入正确格式的验证码");
+				return false;
+			}
+			if (!ePattern.test(email)) {
+				showError("请输入正确格式的邮箱");
+				return false;
+			}
+			if (!uPattern.test(password)) {
+				showError("请输入正确格式的密码");
 				return false;
 			}
 			var signInBtn = $("#signInBtn");
@@ -123,10 +123,10 @@ body {
 					$("#randImage").trigger("click");
 				},
 				success : function(data) {
-					if (data.result == "") {
+					if (data.result) {
 						window.location.href = "index.jsp";
 					} else {
-						showError(data.result);
+						showError(data.msg);
 					}
 				},
 				error : function(XMLHttpRequest, textStatus) {
