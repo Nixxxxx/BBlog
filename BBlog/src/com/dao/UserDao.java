@@ -61,7 +61,7 @@ public class UserDao {
 	public boolean update(User user){
 		Session session = getHibernateTemplate().getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
-		session.merge(user);
+		session.update(user);
 		tx.commit();
 		session.close();
 		return true;

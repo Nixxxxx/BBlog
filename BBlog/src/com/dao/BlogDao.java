@@ -86,8 +86,7 @@ public class BlogDao {
 	
 	@SuppressWarnings("unchecked")
 	public List<Blog> findAll(){
-		String queryString = "from Blog";
-		return (List<Blog>) this.hibernateTemplate.find(queryString);
+		return (List<Blog>) this.hibernateTemplate.find("from Blog");
 	}
 	
 	public Blog findById(int id){

@@ -4,11 +4,11 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.dao.BlogDao;
+import com.dao.BlogTypeDao;
 
 @Service
-public class BlogService {
+public class BlogTypeService {
 
 	@Resource
-	private BlogDao blogDao;
+	private BlogTypeDao blogTypeDao;
 }

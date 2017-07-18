@@ -9,9 +9,11 @@
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/statics/images/avater.jpg">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/statics/css/index.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/statics/css/blog.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+<%-- 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/statics/bootstrap3/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/bootstrap3/css/bootstrap-theme.min.css">
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/bootstrap3/css/bootstrap-theme.min.css"> --%>
 </head>
 <body>
 <div class="navbar navbar-inverse navbar-fixed-top">
@@ -30,8 +32,8 @@
 	
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		    <ul class="nav navbar-nav">
-		    	<li><a href="blog/showBlogList?blogTypeId=0">博客</a></li>
-		        <li><a href="main/pageJump?key=message">留言 </a></li>
+		    	<li><a href="blog/showBlogList?blogTypeId=0" target="container">博客</a></li>
+		        <li><a href="main/pageJump?key=message" target="container">留言 </a></li>
 		        <li><a href="about.jsp">关于</a></li>
 		     </ul>
 	      
@@ -44,12 +46,12 @@
 				<li><a href="#">当前用户：${user.userName }</a></li>
 				<li role="separator" class="divider"></li>
 			<c:if test="${user.administrator == 1 }">
-				<li><a href="blogType/showBlogTypeList">管理</a></li>
-				<li><a href="blog/writing">写博客</a></li>
+				<li><a href="blogType/showList" target="container">管理</a></li>
+				<li><a href="blog/writing" target="container">写博客</a></li>
 			</c:if>
 				<li><a href="#">私信</a></li>
 	 			<li role="separator" class="divider"></li>
-				<li><a href="user/pageJump?key=message">个人中心</a></li>
+				<li><a href="user/showMessage" target="container">个人中心</a></li>
 	  			<li><a href="signIn.jsp">切换账号</a> </li>
 		 		<li><a href="javascript:signOut()">退出</a></li>
 		 		</ul> 
@@ -72,7 +74,7 @@
 <div class="container" style="padding-top:75px;">
 	<div class="row-fluid">
 		<div class="col-md-9">
-   		 <iframe name="container" style="zoom: 1;" height="650px;" src="/Xungeng/main/showInfo" frameBorder="0" width="100%"></iframe>
+   		 <iframe name="container" style="zoom: 1;" height="650px;" src="about.jsp" frameBorder="0" width="100%"></iframe>
 		</div>
 		<div class="col-md-3">
 	        <form class="form-horizontal" action="" method="post">
@@ -103,7 +105,7 @@
 		 			<c:if test="${blogTypeCountList != null }">
 					<c:forEach var="blogTypeCount" items="${blogTypeCountList }">
 		            <li class="active">
-		                <a href="blog/showBlogList?blogTypeId=${blogTypeCount.blogTypeId }">${blogTypeCount.typeName }<sup>${blogTypeCount.blogCount }</sup></a>
+		                <a href="blog/showBlogList?blogTypeId=${blogTypeCount.blogTypeId }" target="container">${blogTypeCount.typeName }<sup>${blogTypeCount.blogCount }</sup></a>
 		            </li>
 		            </c:forEach>
 		            </c:if>
@@ -135,7 +137,7 @@
 	<span class="toptext">Top</span>
 </a> 
        
-<script src="${pageContext.request.contextPath}/statics/bootstrap3/js/jquery-3.1.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/statics/js/jquery-3.1.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/statics/bootstrap3/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	function signOut(){
@@ -146,7 +148,6 @@
 	
 	$(function(){//回到顶部
 		
-		$("a [href]").css("target","container");
 		var clientHeight = document.documentElement.clientHeight;
 		var timer = null;
 		var isTop = true;

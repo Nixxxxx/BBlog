@@ -31,8 +31,7 @@ body {
 				<h3 class="text-center">Sign in</h3>
 				<hr class="clean">
 				<form id="signInForm" class="form-horizontal">
-					<div class="text-danger wrapper-xs text-center invisible"
-						id="errorMsg">错误信息</div>
+					<div class="text-danger wrapper-xs text-center invisible" id="errorMsg">错误信息</div>
 					<div class="form-group input-group">
 						<span class="input-group-addon">邮&nbsp&nbsp&nbsp箱</span> 
 						<input type="text" class="form-control" id="email" placeholder="Email">

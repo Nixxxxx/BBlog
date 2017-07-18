@@ -3,6 +3,7 @@ package com.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.service.BlogService;
 
@@ -16,8 +17,11 @@ public class BlogController {
 	private BlogService blogService;
 	
 	private String msg;
-	private boolean success;
+	private boolean result;
 	private JSONObject resultJson=new JSONObject();
 	
-	
+	@RequestMapping(value = "/writing")
+	public ModelAndView writing(){
+		return new ModelAndView("blog/blog");
+	}
 }

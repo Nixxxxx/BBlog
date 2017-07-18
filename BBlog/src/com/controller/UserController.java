@@ -31,6 +31,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/signIn")
 	public void signIn(HttpServletRequest request, HttpServletResponse response){
+		result = false;
 		String captcha = request.getParameter("captcha");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
@@ -56,19 +57,19 @@ public class UserController {
 	}
 	
 	
-	public boolean checkUserName(String userName){
+	public boolean checkUserName(String userName, int id){
 		List<User> users = userService.findAll();
 		for (User user : users) {
-			if (user.getUserName().equals(userName))
+			if (user.getUserName().equals(userName) && user.getId() != id)
 				return false;
 		}
 		return true;
 	}
 	
-	public boolean checkEmail(String email){
+	public boolean checkEmail(String email, int id){
 		List<User> users = userService.findAll();
 		for(User user:users){
-			if(user.getEmail().equals(email))
+			if(user.getEmail().equals(email) && user.getId() != id)
 				return false;
 		}
 		return true;
@@ -76,15 +77,16 @@ public class UserController {
 
 	@RequestMapping(value = "/signUp")
 	public void signUp(HttpServletRequest request, HttpServletResponse response) {
+		result = false;
 		String captcha = request.getParameter("captcha");
 		String email = request.getParameter("email");
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
 		String sRand = (String)request.getSession().getAttribute("sRand");
 		if(captcha.equalsIgnoreCase(sRand)){
-			if(!checkEmail(email)){
+			if(!checkEmail(email, 0)){
 				msg = "该邮箱已存在";
-			}else if(!checkUserName(userName)){
+			}else if(!checkUserName(userName, 0)){
 				msg = "该用户名已存在";
 			}else {
 				User user = new User();
@@ -111,21 +113,24 @@ public class UserController {
 
 	@RequestMapping(value = "/update")
 	public void update(HttpServletRequest request, HttpServletResponse response) {
+		result = false;
 		int id = Integer.parseInt(request.getParameter("id"));
 		String email = request.getParameter("email");
 		String userName = request.getParameter("userName");
 		String mood = request.getParameter("mood");
-		if (!checkUserName(userName)) {
+		if (!checkEmail(email, id)) {
 			msg = "该邮箱已存在";
-		} else if(!checkEmail(email)){
+		} else if(!checkUserName(userName, id)){
 			msg = "该用户名已存在";
 		}else {
 			User user = userService.findById(id);
 			user.setEmail(email);
 			user.setUserName(userName);
 			user.setMood(mood);
-			if(userService.update(user))
+			if(userService.update(user)){
 				result = true;
+				request.getSession().setAttribute("user", userService.findById(id));
+			}
 			else msg = "更新失败";
 		}
 		resultJson.put("result", result);
@@ -133,10 +138,9 @@ public class UserController {
 		ResponseUtil.writeJson(response, resultJson);
 	}
 
-	@RequestMapping(value = "/pageJump")
-	public ModelAndView pageJump(HttpServletRequest request) {
-		String key = request.getParameter("key");
-		return new ModelAndView(key);
+	@RequestMapping(value = "/showMessage")
+	public ModelAndView pageJump() {
+		return new ModelAndView("user/message");
 	}
-
+	
 }
