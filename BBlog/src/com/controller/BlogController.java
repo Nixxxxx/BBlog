@@ -1,5 +1,7 @@
 package com.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,5 +25,10 @@ public class BlogController {
 	@RequestMapping(value = "/writing")
 	public ModelAndView writing(){
 		return new ModelAndView("blog/blog");
+	}
+	
+	@RequestMapping("/list")
+	public void list(HttpServletRequest request){
+		
 	}
 }

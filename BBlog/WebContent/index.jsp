@@ -33,7 +33,8 @@
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		    <ul class="nav navbar-nav">
 		    	<li><a href="blog/showBlogList?blogTypeId=0" target="container">博客</a></li>
-		        <li><a href="main/pageJump?key=message" target="container">留言 </a></li>
+		        <li><a href="main/pageJump?key=message" target="container">留言</a></li>
+		        <li><a href="waterMark/upload" target="container">图片水印</a></li>
 		        <li><a href="about.jsp">关于</a></li>
 		     </ul>
 	      

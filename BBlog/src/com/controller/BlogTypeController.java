@@ -9,13 +9,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.service.BlogTypeService;
 
 @Controller
-@RequestMapping(value = "/blogType")
+@RequestMapping("/blogType")
 public class BlogTypeController {
 
 	@Autowired
 	private BlogTypeService blogTypeService;
 
-	@RequestMapping(value = "/showList")
+	@RequestMapping("/showList")
 	public ModelAndView showList(){
 		return new ModelAndView("blog/blogTypeList");
 	}

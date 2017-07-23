@@ -1,7 +1,5 @@
 package com.dao;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -12,7 +10,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Repository;
@@ -20,8 +17,6 @@ import org.springframework.stereotype.Repository;
 import com.entity.Blog;
 import com.entity.BlogType;
 import com.entity.PageBean;
-import com.entity.User;
-import com.sun.crypto.provider.BlowfishKeyGenerator;
 
 @Repository
 public class BlogTypeDao {
