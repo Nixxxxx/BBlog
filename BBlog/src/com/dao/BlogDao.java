@@ -39,14 +39,12 @@ public class BlogDao {
 		this.sessionFactory = sessionFactory;
 	}
 
-	public Blog insert(Blog blog) {
+	public void save(Blog blog) {
 		Session session = this.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		session.save(blog);
 		tx.commit();
 		session.close();
-		Blog resultBlog = findById(blog.getId());
-		return resultBlog;
 	}
 	
 	public Blog update(Blog blog){
@@ -59,15 +57,15 @@ public class BlogDao {
 		return resultBlog;
 	}
 
-	public void delete(Blog blog) {
+	public void delete(int id) {
 		Session session = this.sessionFactory.openSession();
 		session.beginTransaction();
-		session.delete(blog);
+		session.delete(id);
 		session.getTransaction().commit();
 		session.close();
 	}
 	
-	public List<Blog> find(PageBean pageBean, int typeId) {
+	public List<Blog> findByTypeId(PageBean pageBean, int typeId) {
 		StringBuffer sb = new StringBuffer("from Blog");
 		if (typeId != 0) {
 			sb.append(" and typeId=" + typeId);
@@ -92,4 +90,5 @@ public class BlogDao {
 	public Blog findById(int id){
 		return this.hibernateTemplate.get(Blog.class, id);
 	}
+
 }

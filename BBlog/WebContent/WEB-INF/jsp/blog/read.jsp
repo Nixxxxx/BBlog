@@ -2,11 +2,17 @@
 	pageEncoding="utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Nix的个人博客</title>
+<base href="<%=basePath%>">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/statics/css/index.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/statics/css/blog.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/statics/bootstrap3/css/bootstrap.min.css">
@@ -21,7 +27,7 @@ body {
 <body>
 <ol class="breadcrumb">
 	<li>博客</li>
-	<li>${blog.typeName }</li>
+	<li>${blog.blogType.typeName }</li>
 </ol>
 <div class="data_list">
 	<div class="data_list_title">
@@ -31,17 +37,16 @@ body {
 		<div class="blog_info">
 			发布时间：
 			<fmt:formatDate value="${blog.updateDate }" type="date" pattern="yyyy-MM-dd HH:mm:ss" />
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日志类别：${blog.typeName }
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日志类别：${blog.blogType.typeName }
 		</div>
 	</div>
 	<div class="blog_content">${blog.content }</div>
 	<c:if test="${user.administrator == 1 }">
 		<div class="blog_action">
-			<form id="blog_form" action="blog!delete"
-				onsubmit="return blogDelete()">
-				<button class="btn btn-primary" type="button" href="blog/writing'">修改博客</button>
+			<form id="blogForm">
+				<button class="btn btn-primary" type="button" href="blog/write'">修改博客</button>
 				<input class="btn btn-danger" type="submit" value="删除博客"></input> 
-				<input type="hidden" name="blogId" value="${blog.id }" />
+				<input type="hidden" name="id" value="${blog.id }" />
 			</form>
 		</div>
 	</c:if>
@@ -77,8 +82,7 @@ body {
 <script src="${pageContext.request.contextPath}/statics/bootstrap3/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 $(function (){
-	
-})
+
 	function blogDelete(){
 		if(confirm("您确定要删除这个日志吗？")){
 			history.back();
@@ -86,6 +90,7 @@ $(function (){
 		}
 		return false;
 	}
+})
 </script>
 </body>
 </html>

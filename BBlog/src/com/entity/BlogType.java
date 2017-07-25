@@ -16,6 +16,10 @@ public class BlogType {
 	private String typeName;
 	private int count;
 	
+	public BlogType(String typeName) {
+		this.typeName = typeName;
+	}
+	
 	@Id
 	@Column(name = "id",nullable = false,unique = true)
 	@GenericGenerator(name = "generator",strategy = "native")

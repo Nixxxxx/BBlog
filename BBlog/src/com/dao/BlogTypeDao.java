@@ -69,25 +69,6 @@ public class BlogTypeDao {
 		session.close();
 	}
 
-	public List<BlogType> blogTypeList(PageBean pageBean) {
-		StringBuffer sb = new StringBuffer("from BlogType");
-//		if(s_User! = null){
-//			if(StringUtil.isNotEmpty(s_User.getNumber())){
-//				sb.append(" and deptName like '%"+s_User.getName()+"%'");
-//			}
-//		}
-		Session session = this.sessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
-		Query q  =  session.createQuery(sb.toString());
-		q.setFirstResult(pageBean.getStart());
-        q.setMaxResults(pageBean.getPageSize());
-        @SuppressWarnings("unchecked")
-		List<BlogType> blogTypeList = q.list();
-        blogTypeList = this.setCount(blogTypeList);
-        tx.commit();
-        session.close();
-		return blogTypeList;
-	}
 
 	public List<BlogType> setCount(List<BlogType> blogTypeList) {
 		Session session = this.sessionFactory.openSession();
@@ -120,5 +101,20 @@ public class BlogTypeDao {
 	
 	public BlogType findById(int id){
 		return this.hibernateTemplate.get(BlogType.class, id);
+	}
+
+	public List<BlogType> find(PageBean pageBean, BlogType s_blogType) {
+		StringBuffer sb = new StringBuffer("from BlogType");
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		Query q  =  session.createQuery(sb.toString());
+		q.setFirstResult(pageBean.getStart());
+        q.setMaxResults(pageBean.getPageSize());
+        @SuppressWarnings("unchecked")
+		List<BlogType> blogTypeList = q.list();
+        blogTypeList = this.setCount(blogTypeList);
+        tx.commit();
+        session.close();
+		return blogTypeList;
 	}
 }

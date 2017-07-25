@@ -1,20 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Nix's Blog - 注册</title>
-<link rel="shortcut icon"
-	href="${pageContext.request.contextPath}/statics/images/avater.jpg">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/statics/bootstrap3/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/statics/bootstrap3/css/bootstrap-theme.min.css">
-<script
-	src="${pageContext.request.contextPath}/statics/bootstrap3/js/jquery-3.1.1.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/statics/bootstrap3/js/bootstrap.min.js"></script>
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/statics/images/avater.jpg">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/bootstrap3/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/bootstrap3/css/bootstrap-theme.min.css">
 <style>
 body {
 	background: #eee;
@@ -79,10 +77,8 @@ body {
 		</div>
 	</div>
 </body>
-<script
-	src="${pageContext.request.contextPath}/static/plugins/jQuery/jquery-3.1.1.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/static/bootstrap/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/statics/js/jquery-3.1.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/statics/bootstrap3/js/bootstrap.min.js"></script>
 <script>
 	$(function() {
 		var errorMsg = $("#errorMsg");

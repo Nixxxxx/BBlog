@@ -2,11 +2,17 @@
 	pageEncoding="utf-8" import="com.entity.Blog"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Nix的个人博客</title>
+<base href="<%=basePath%>">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/statics/css/index.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/statics/css/blog.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/statics/bootstrap3/css/bootstrap.min.css">
@@ -42,7 +48,7 @@ body {
 			<select id="typeId" name="typeId">
 				<option value="">请选择日志类别...</option>
 				<c:forEach var="blogType" items="${blogTypeList }">
-					<option value="${blogType.blogTypeId }" ${blogType.id == blog.typeId?'selected':'' }>
+					<option value="${blogType.id }" ${blogType.id == blog.typeId?'selected':'' }>
 						${blogType.typeName }</option>
 				</c:forEach>
 			</select>

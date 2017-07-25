@@ -138,8 +138,8 @@ public class UserController {
 		ResponseUtil.writeJson(response, resultJson);
 	}
 
-	@RequestMapping(value = "/showMessage")
-	public ModelAndView pageJump() {
+	@RequestMapping(value = "/message")
+	public ModelAndView showMessage() {
 		return new ModelAndView("user/message");
 	}
 	

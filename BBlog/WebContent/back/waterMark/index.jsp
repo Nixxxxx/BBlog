@@ -10,7 +10,7 @@
 <h4>上传图片</h4>
 	<hr>
 	<form name="form1" action="waterMark/upload" method="post" enctype="multipart/form-data">
-		<input type="file" name="image"><br> 
+		<input type="file" name="file"><br> 
 		<input type="file" name="image"><br> 
 		<input type="file" name="image"><br> 
 		<input type="file" name="image"><br> 
