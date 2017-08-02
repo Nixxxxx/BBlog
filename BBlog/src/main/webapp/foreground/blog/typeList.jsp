@@ -1,46 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>无线巡更管理中心</title>
-<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-<base href="<%=basePath%>">
-
-<!-- jQuery 3.1.1 -->
-<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<link rel="stylesheet"
-	href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
-<!-- Select2 -->
-<link rel="stylesheet"
-	href="//cdn.bootcss.com/select2/4.0.3/css/select2.min.css">
-<script src="//cdn.bootcss.com/select2/4.0.3/js/select2.min.js"></script>
-<!-- bootstrap datepicker -->
-<link rel="stylesheet"
-	href="//cdn.bootcss.com/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css">
-<script
-	src="//cdn.bootcss.com/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
-<script
-	src="//cdn.bootcss.com/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.zh-CN.min.js"></script>
-<!-- Slimscroll -->
-<script
-	src="//cdn.bootcss.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
-<!-- Theme style -->
-<link rel="stylesheet" href="static/dist/css/AdminLTE.css">
-<!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
-<link rel="stylesheet" href="static/dist/css/skins/_all-skins.min.css">
 
 <style>
 body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {

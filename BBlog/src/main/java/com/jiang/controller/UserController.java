@@ -137,9 +137,11 @@ public class UserController {
 		ResponseUtil.writeJson(response, resultJson);
 	}
 
-	@RequestMapping(value = "/message")
+	@RequestMapping("/message")
 	public ModelAndView showMessage() {
-		return new ModelAndView("user/message");
+		ModelAndView mav = new ModelAndView("index");
+		mav.addObject("pagePath", "./foreground/user/message.jsp");
+		return mav;
 	}
 	
 }

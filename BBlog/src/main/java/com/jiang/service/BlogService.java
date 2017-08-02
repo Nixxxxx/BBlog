@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.jiang.dao.BlogDao;
 import com.jiang.entity.Blog;
-import com.jiang.entity.BlogType;
 import com.jiang.entity.PageBean;
 
 @Service

@@ -1,4 +1,4 @@
-package com.jiang.controller;
+package com.jiang.controller.admin;
 
 import java.util.List;
 
@@ -19,8 +19,8 @@ import com.jiang.util.ResponseUtil;
 import com.jiang.util.StringUtil;
 
 @Controller
-@RequestMapping("/blogType")
-public class BlogTypeController {
+@RequestMapping("/admin/blogType")
+public class BlogTypeAdminController {
 
 	@Autowired
 	private BlogTypeService blogTypeService;

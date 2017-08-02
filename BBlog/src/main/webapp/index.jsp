@@ -41,12 +41,12 @@ body {
 	    </div>
 	    
 	
-	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	    <div class="collapse navbar-collapse">
 		    <ul class="nav navbar-nav">
-		    	<li><a href="blog/list?typeId=0" target="container">博客</a></li>
-		        <li><a href="#" target="container">留言</a></li>
-		        <li><a href="waterMark/index" target="container">图片水印</a></li>
-		        <li><a href="about.jsp" target="container">关于</a></li>
+		    	<li><a href="blog/list?typeId=0">博客</a></li>
+		        <li><a href="#">留言</a></li>
+		        <li><a href="waterMark/index">图片水印</a></li>
+		        <li><a href="about.jsp">关于</a></li>
 		     </ul>
 	      
 	      
@@ -57,13 +57,7 @@ body {
 				<ul class="dropdown-menu">
 				<li><a href="#">当前用户：${user.userName }</a></li>
 				<li role="separator" class="divider"></li>
-			<c:if test="${user.administrator == 1 }">
-				<li><a href="blogType/list" target="container">管理</a></li>
-				<li><a href="blog/writing" target="container">写博客</a></li>
-			</c:if>
-				<li><a href="#">私信</a></li>
-	 			<li role="separator" class="divider"></li>
-				<li><a href="user/message" target="container">个人中心</a></li>
+				<li><a href="user/message">个人中心</a></li>
 	  			<li><a href="signIn.jsp">切换账号</a> </li>
 		 		<li><a href="javascript:signOut()">退出</a></li>
 		 		</ul> 
@@ -86,7 +80,9 @@ body {
 <div class="container" style="padding-top:75px;">
 	<div class="row-fluid">
 		<div class="col-md-9">
-   		 <iframe name="container" style="zoom: 1;" height="650px;" src="" frameBorder="0" width="100%"></iframe>
+			<c:if test="${pagePath != null }">
+			<jsp:include page="${pagePath }"></jsp:include>
+			</c:if>
 		</div>
 		<div class="col-md-3">
 	        <form class="form-horizontal" action="" method="post">
@@ -117,7 +113,7 @@ body {
 		 			<c:if test="${blogTypeCountList != null }">
 					<c:forEach var="blogTypeCount" items="${blogTypeCountList }">
 		            <li class="active">
-		                <a href="blog/list?typeId=${blogTypeCount.blogTypeId }" target="container">${blogTypeCount.typeName }<sup>${blogTypeCount.blogCount }</sup></a>
+		                <a href="blog/list?typeId=${blogTypeCount.blogTypeId }">${blogTypeCount.typeName }<sup>${blogTypeCount.blogCount }</sup></a>
 		            </li>
 		            </c:forEach>
 		            </c:if>
@@ -127,21 +123,7 @@ body {
 	</div>
 </div>
 
-
-
-
-<div class="main-footer">
-        <div class="container">
-            <div class="logo">
-            NIX BLOG
-            </div>
-            
-        </div>
-        
-        <h5 class="copyright text-center">
-           &copy; 2017 Tony &nbsp;|&nbsp;  湘ICP备16001500号 &nbsp;|&nbsp;
-        </h5>
-</div>
+<jsp:include page="./foreground/common/footer.jsp"/>
      
        
 <a class="to-top" id="toTop" style="cursor: pointer; display:none;">

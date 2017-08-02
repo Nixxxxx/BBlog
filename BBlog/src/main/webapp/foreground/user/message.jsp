@@ -1,76 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
-%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Nix的个人博客</title>
-<base href="<%=basePath%>">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/css/index.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/css/blog.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/bootstrap3/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/bootstrap3/css/bootstrap-theme.min.css">
-
-<!-- <style>
-body {
-	background-color: rgb(221, 221, 221);
-}
-</style> -->
-</head>
-<body>
-<section class="content-header">
-	<ol class="breadcrumb">
-		<li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
-		<li>用户</li>
-		<li class="active">个人中心</li>
-	</ol>
-</section>
-<div class="sidebar-content">
-	<div class="row">
-		<div class="col-sm-3 thumbnail">
-			<img src="${pageContext.request.contextPath}/statics/images/avater.jpg"> 
-			<div class="text-danger wrapper-xs text-center invisible" id="errorMsg">错误信息</div>
-		</div>
-		<div class="col-sm-7 col-sm-offset-1">
-			<form class="form-horizontal" id="updateForm" method="post">
-				<input type="hidden" name="id" value="${user.id }"> 
-				<div class="form-group input-group">
-					<span class="input-group-addon">头&nbsp&nbsp&nbsp像</span> 
-					<input type="file" id="imagePath" name="imagePath" accept="image" disabled=true>
-				</div>
-				<div class="form-group input-group">
-					<span class="input-group-addon">邮&nbsp&nbsp&nbsp箱</span> 
-					<input type="text" class="form-control" id="email" name="email" 
-					readonly value="${user.email }" maxlength="20" size="20" required>
-				</div>
-				<div class="form-group input-group">
-					<span class="input-group-addon">用户名</span> 
-					<input type="text" class="form-control" id="userName" name="userName"
-					readonly value="${user.userName }" maxlength="20" size="20" required>
-				</div>
-				<div class="form-group input-group">
-					<span class="input-group-addon">个性签名</span>
-					<textarea class="form-control" name="mood" rows="3" readonly required>${user.mood }</textarea>
-				</div>
-
-				<div class="form-group">
-					<input type="button" id="edit" class="btn btn-success btn-block" value="编辑">
-					<input type="submit" id="updateBtn" class="btn btn-success btn-block invisible"  value="保存">
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-
-
-<script src="${pageContext.request.contextPath}/statics/js/jquery-3.1.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/statics/bootstrap3/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 $(function() {
 		var errorMsg = $("#errorMsg");
@@ -131,6 +60,50 @@ $(function() {
 			return false;
 		});
 	})
+	
 </script>
-</body>
-</html>
+
+<section class="content-header">
+	<ol class="breadcrumb">
+		<li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
+		<li>用户</li>
+		<li class="active">个人中心</li>
+	</ol>
+</section>
+<div class="sidebar-content">
+	<div class="row">
+		<div class="col-sm-3 thumbnail">
+			<img src="${pageContext.request.contextPath}/statics/images/avater.jpg"> 
+			<div class="text-danger wrapper-xs text-center invisible" id="errorMsg">错误信息</div>
+		</div>
+		<div class="col-sm-7 col-sm-offset-1">
+			<form class="form-horizontal" id="updateForm" method="post">
+				<input type="hidden" name="id" value="${user.id }"> 
+				<div class="form-group input-group">
+					<span class="input-group-addon">头&nbsp&nbsp&nbsp像</span> 
+					<input type="file" id="imagePath" name="imagePath" accept="image" disabled=true>
+				</div>
+				<div class="form-group input-group">
+					<span class="input-group-addon">邮&nbsp&nbsp&nbsp箱</span> 
+					<input type="text" class="form-control" id="email" name="email" 
+					readonly value="${user.email }" maxlength="20" size="20" required>
+				</div>
+				<div class="form-group input-group">
+					<span class="input-group-addon">用户名</span> 
+					<input type="text" class="form-control" id="userName" name="userName"
+					readonly value="${user.userName }" maxlength="20" size="20" required>
+				</div>
+				<div class="form-group input-group">
+					<span class="input-group-addon">个性签名</span>
+					<textarea class="form-control" name="mood" rows="3" readonly required>${user.mood }</textarea>
+				</div>
+
+				<div class="form-group">
+					<input type="button" id="edit" class="btn btn-success btn-block" value="编辑">
+					<input type="submit" id="updateBtn" class="btn btn-success btn-block invisible"  value="保存">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+

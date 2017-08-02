@@ -15,7 +15,8 @@
     <servlet.version>3.1.0</servlet.version>
     <jstl.version>1.2</jstl.version>
     <json.version>20160810</json.version>
-    <jdbc.version>6.0.6</jdbc.version>
+    <jdbc.version>5.1.20</jdbc.version>
+    <jackson.version>2.8.9</jackson.version>
   </properties>
   
   
@@ -71,6 +72,13 @@
   	</dependency>
   	
   	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-orm</artifactId>
+	    <version>4.3.9.RELEASE</version>
+	</dependency>
+  	
+  	
+  	<dependency>
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-web</artifactId>
 		<version>${spring.version}</version>
@@ -98,6 +106,25 @@
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-jdbc</artifactId>
 		<version>${spring.version}</version>
+	</dependency>
+	
+	<!-- jackson -->
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-databind</artifactId>
+	    <version>${jackson.version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-core</artifactId>
+	    <version>${jackson.version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-annotations</artifactId>
+	    <version>${jackson.version}</version>
 	</dependency>
 	
   
@@ -139,9 +166,44 @@
 	<dependency>
 	    <groupId>org.hibernate</groupId>
 	    <artifactId>hibernate-core</artifactId>
-	    <version>5.2.10.Final</version>
+	    <version>4.3.10.Final</version>
 	</dependency>
 	
+
+	<dependency>
+	    <groupId>org.hibernate</groupId>
+	    <artifactId>hibernate-entitymanager</artifactId>
+	    <version>4.3.10.Final</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.hibernate</groupId>
+	    <artifactId>hibernate-validator</artifactId>
+	    <version>4.3.2.Final</version>
+	</dependency>
+	
+
+	
+	<dependency>
+	    <groupId>org.hibernate.javax.persistence</groupId>
+	    <artifactId>hibernate-jpa-2.1-api</artifactId>
+	    <version>1.0.0.Final</version>
+	</dependency>
+
+	
+	<dependency>
+	    <groupId>org.hibernate.common</groupId>
+	    <artifactId>hibernate-commons-annotations</artifactId>
+	    <version>4.0.5.Final</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>antlr</groupId>
+	    <artifactId>antlr</artifactId>
+	    <version>2.7.7</version>
+	</dependency>
+	
+
 	
 	<!-- apache公共包 -->
 	<dependency>
