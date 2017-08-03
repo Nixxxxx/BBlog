@@ -4,18 +4,16 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.jiang.entity.PageBean;
-import com.jiang.entity.User;
+import com.jiang.entity.Blogger;
 
 @Repository
-public class UserDao {
+public class BloggerDao {
 	@Resource
 	private HibernateTemplate hibernateTemplate;
 	
@@ -27,7 +25,7 @@ public class UserDao {
 	}
 
 	public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
-		this.hibernateTemplate  =  hibernateTemplate;
+		this.hibernateTemplate = hibernateTemplate;
 	}
 
 	public SessionFactory getSessionFactory() {
@@ -35,74 +33,56 @@ public class UserDao {
 	}
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory  =  sessionFactory;
+		this.sessionFactory = sessionFactory;
 	}
-
 	
-	public boolean insert(User user){
+	
+	public boolean insert(Blogger blogger){
 		Session session = getHibernateTemplate().getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
-		session.save(user);
+		session.save(blogger);
 		tx.commit();
 		session.close();
 		return true;
 	}
 	
 	public boolean delete(int id){
-		User user = this.findById(id);
+		Blogger blogger = this.findById(id);
 		Session session = getHibernateTemplate().getSessionFactory().openSession();
 		Transaction tr = session.beginTransaction();
-		session.delete(user); 
+		session.delete(blogger); 
 		tr.commit();
 		session.close();
 		return true;
 	}
 	
-	public boolean update(User user){
+	public boolean update(Blogger blogger){
 		Session session = getHibernateTemplate().getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
-		session.update(user);
+		session.update(blogger);
 		tx.commit();
 		session.close();
 		return true;
 	}
 	
 	public boolean changePassword(int id,String password){
-		User user = this.findById(id);
-		user.setPassword(password);
+		Blogger bogger = this.findById(id);
+		bogger.setPassword(password);
 		Session session = getHibernateTemplate().getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
-		session.merge(user);
+		session.merge(bogger);
 		tx.commit();
 		session.close();
 		return true;
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<User> find(PageBean pageBean, User s_user){
-		StringBuffer sb = new StringBuffer("from User");
-//		if(s_User! = null){
-//			if(StringUtil.isNotEmpty(s_User.getNumber())){
-//				sb.append(" and deptName like '%"+s_User.getName()+"%'");
-//			}
-//		}
-		Session session = getHibernateTemplate().getSessionFactory().openSession();
-		Transaction tx = session.beginTransaction();
-		Query q  =  session.createQuery(sb.toString());
-		q.setFirstResult(pageBean.getStart());
-        q.setMaxResults(pageBean.getPageSize());
-        List<User> userList = q.list();
-        tx.commit();
-        session.close();
-		return userList;
+
+	public Blogger findById(int id){
+		return this.hibernateTemplate.get(Blogger.class, id);
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public List<User> findAll() {
-		return (List<User>) this.hibernateTemplate.find("from User");
-	}
-	
-	public User findById(int id){
-		return this.hibernateTemplate.get(User.class, id);
+	public List<Blogger> findAll() {
+		return (List<Blogger>) this.hibernateTemplate.find("from Blogger");
 	}
 }

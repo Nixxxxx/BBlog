@@ -12,9 +12,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Nix的个人博客</title>
 <base href="<%=basePath%>">
-<link rel="shortcut icon" href="${pageContext.request.contextPath}/statics/images/avater.jpg">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/css/index.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/css/blog.css">
+<!-- logo -->
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/static/images/avater.jpg">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/index.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/blog.css">
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 <%-- 
@@ -131,8 +132,8 @@ body {
 	<span class="toptext">Top</span>
 </a> 
        
-<script src="${pageContext.request.contextPath}/statics/js/jquery-3.1.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/statics/bootstrap3/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/bootstrap3/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	function signOut(){
 		if(confirm("您确定要退出系统吗？")){

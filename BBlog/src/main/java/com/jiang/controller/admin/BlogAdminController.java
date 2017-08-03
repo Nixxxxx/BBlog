@@ -34,15 +34,15 @@ public class BlogAdminController {
 		return true;
 	}
 	
-	@RequestMapping("/save")
-	public void save(HttpServletRequest request,HttpServletResponse response){
+	@RequestMapping("/insert")
+	public void insert(HttpServletRequest request,HttpServletResponse response){
 		int typeId = Integer.parseInt(request.getParameter("typeName"));
 		String title = request.getParameter("title");
 		boolean result;
 		String msg;
 		if(check(title, typeId, 0)){
 			Blog blog = new Blog(typeId, title, request.getParameter("content"), new Date());
-			result = blogService.save(blog);
+			result = blogService.insert(blog);
 			msg = result?"":"保存失败";
 		}else {
 			msg = "类型名已存在";

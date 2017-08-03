@@ -1,76 +1,84 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
-<%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
-%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=Edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<base href="<%=basePath%>">
-<title>Nix's Blog - 登录</title>
-<link rel="shortcut icon" href="${pageContext.request.contextPath}/statics/images/avater.jpg">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/bootstrap3/css/bootstrap.min.css">
-
-<style>
-body {
-	background: #eee;
-}
-</style>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Java开源博客系统</title>
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/static/images/avater.jpg">
+<!-- 用户登陆页css样式 -->
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/signIn.css">
 </head>
 <body>
-	<div class="container  w-xxl w-auto-xs">
-		<div class="row">
-			<div class="col-lg-4 col-lg-offset-4">
-				<hr class="clean">
-				<h3 class="text-center">Sign in</h3>
-				<hr class="clean">
-				<form id="signInForm" class="form-horizontal">
-					<div class="text-danger wrapper-xs text-center invisible" id="errorMsg">错误信息</div>
-					<div class="form-group input-group">
-						<span class="input-group-addon">邮&nbsp&nbsp&nbsp箱</span> 
-						<input type="text" class="form-control" id="email" placeholder="Email">
-					</div>
-					<div class="form-group input-group">
-						<span class="input-group-addon">密&nbsp&nbsp&nbsp码</span> 
-						<input type="password" class="form-control" id="password" placeholder="Password">
-					</div>
-					<div class="form-group input-group">
-						<span class="input-group-addon">验证码</span> 
-						<div class="row">
-							<div class="col-xs-7">
-								<input type="text" class="form-control no-border" id="captcha" value="${imageCode }" placeholder="Captcha">
-							</div>
-							<div class="col-xs-5">
-								<img id="randImage" name="randImage" style="cursor: pointer; height: 34px; width: 100%"
-									title="点击可更换" onclick="javascript:loadImage();" src="image.jsp">
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<input id="remember" type="checkbox">记住我
-						<button type="submit" class="btn btn-success btn-block">登入</button>
-					</div>
-
-					<div class="text-center m-t m-b">
-						<a href="signUp.jsp">Sign up</a>
-					</div>
-				</form>
+<div class="top_div">
+</div>
+<form id="signInForm">
+	<div style="background:#ffffff; margin: -100px auto auto; border: 1px solid rgb(231, 231, 231); border-image: none; width: 400px; height: 200px; text-align: center;">
+		<div style="width: 165px; height: 96px; position: absolute;">
+			<div class="tou">
+			</div>
+			<div class="initial_left_hand" id="left_hand">
+			</div>
+			<div class="initial_right_hand" id="right_hand">
 			</div>
 		</div>
+		<P style="padding: 30px 0px 10px; position: relative;">
+			<span class="u_logo"></span>
+			<input id="email" name="email" class="ipt" type="text" placeholder="Email" value="${user.email }" required> 
+	    </P>
+		<P style="position: relative;">
+			<span class="p_logo"></span>         
+			<input id="password" name="password" class="ipt" type="password" placeholder="Password" value="${user.password }" required>   
+	  	</P>
+		<div style="height: 50px; line-height: 50px; margin-top: 30px; border-top-color: rgb(231, 231, 231); border-top-width: 1px; border-top-style: solid;">
+			<P style="margin: 0px 35px 20px 45px;">
+			<a href="signUp.jsp" style="float: left; color:#008ead;">Sign up</a>
+			<font color="red invisible" id="errorMsg"></font>
+	        <span style="float: right;"> 
+	          <input id="signInBtn" type="submit" style="background: rgb(0, 142, 173); padding: 7px 10px; border-radius: 4px; border: 1px solid rgb(26, 117, 152); border-image: none; color: rgb(255, 255, 255); font-weight: bold;" value="登录"/> 
+	        </span>         
+	        </P>
+	    </div>
 	</div>
-</body>
-<script
-	src="${pageContext.request.contextPath}/statics/js/jquery-3.1.1.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/statics/bootstrap3/js/bootstrap.min.js"></script>
+</form>
+<div style="text-align:center;padding-top: 30px">
+Copyright © 2012-2016 Java知识分享网 版权所有
+</div>
+   
+   
+<script src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript">
 	$(function() {
+		
+		//得到焦点
+		$("#password").focus(function(){
+			$("#left_hand").animate({
+				left: "150",
+				top: " -38"
+			},{step: function(){
+				if(parseInt($("#left_hand").css("left"))>140){
+					$("#left_hand").attr("class","left_hand");
+				}
+			}}, 2000);
+			$("#right_hand").animate({
+				right: "-64",
+				top: "-38px"
+			},{step: function(){
+				if(parseInt($("#right_hand").css("right"))> -70){
+					$("#right_hand").attr("class","right_hand");
+				}
+			}}, 2000);
+		});
+		//失去焦点
+		$("#password").blur(function(){
+			$("#left_hand").attr("class","initial_left_hand");
+			$("#left_hand").attr("style","left:100px;top:-12px;");
+			$("#right_hand").attr("class","initial_right_hand");
+			$("#right_hand").attr("style","right:-112px;top:-12px");
+		});
+		
+		
+		
 		var errorMsg = $("#errorMsg");
 
 		var showError = function(msg) {
@@ -81,18 +89,8 @@ body {
 			errorMsg.addClass("invisible")
 			var email = $.trim($("#email").val());
 			var password = $.trim($("#password").val());
-			var captcha = $.trim($("#captcha").val());
 			var ePattern = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
 			var uPattern = /^[a-zA-Z0-9_@.]{4,20}$/;
-			var cPattern = /^[a-zA-Z0-9]{4}$/;
-			if (password == "") {
-				showError("请输入密码");
-				return false;
-			}
-			if (!cPattern.test(captcha)) {
-				showError("请输入正确格式的验证码");
-				return false;
-			}
 			if (!ePattern.test(email)) {
 				showError("请输入正确格式的邮箱");
 				return false;
@@ -104,12 +102,10 @@ body {
 			var signInBtn = $("#signInBtn");
 			$.ajax({
 				url : "user/signIn",
-				type : "POST",
+				type : "post",
 				data : {
 					email : email,
-					password : password,
-					captcha : captcha,
-					checkbox : $("#checkbox").prop("checked")
+					password : password
 				},
 				dataType : "json",
 				beforeSend : function() {
@@ -118,8 +114,6 @@ body {
 				complete : function() {
 					//重置登录按钮
 					signInBtn.button("reset");
-					//重置验证码
-					$("#randImage").trigger("click");
 				},
 				success : function(data) {
 					if (data.result) {
@@ -140,8 +134,6 @@ body {
 		});
 	})
 
-	function loadImage() {
-		$("#randImage").attr("src", "image.jsp?" + Math.random()); //document.getElementById("randImage")定义一个img对象     src="image.jsp?"指定对象        +Math.random()为了使每次访问image.jsp的地址不一样，这样浏览器不会取本地缓存的数据。
-	}
 </script>
+</body>
 </html>

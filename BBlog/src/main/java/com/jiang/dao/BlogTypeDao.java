@@ -44,7 +44,7 @@ public class BlogTypeDao {
 	}
 	
 
-	public void save(BlogType blogType) {
+	public void insert(BlogType blogType) {
 		Session session = this.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		session.save(blogType);

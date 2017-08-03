@@ -39,7 +39,7 @@ public class BlogDao {
 		this.sessionFactory = sessionFactory;
 	}
 
-	public void save(Blog blog) {
+	public void insert(Blog blog) {
 		Session session = this.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		session.save(blog);

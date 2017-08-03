@@ -2,7 +2,6 @@ package com.jiang.controller;
 
 import java.util.List;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,23 +27,16 @@ public class UserController {
 	private boolean result;
 	private JSONObject resultJson=new JSONObject();
 	
-	@RequestMapping(value = "/signIn")
-	public void signIn(HttpServletRequest request, HttpServletResponse response){
+	@RequestMapping("/signIn")
+	public void signIn(User user, HttpServletRequest request, HttpServletResponse response){
 		result = false;
-		String captcha = request.getParameter("captcha");
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String checkbox = request.getParameter("checkbox");
-		List<User> users = userService.findAll();
 		String sRand = (String)request.getSession().getAttribute("sRand");
+		String captcha = request.getParameter("captcha");
+		List<User> users = userService.findAll();
 		if(captcha.equalsIgnoreCase(sRand)){
-			for(User user:users){
-				if(user.getEmail().equals(email)&&MD5Util.getMD5Code(password).equals(user.getPassword())){
-					request.getSession().setAttribute("user", user);
-					if("true".equals(checkbox)){
-						Cookie cookie = new Cookie(user.getEmail(),user.getPassword());
-						cookie.setMaxAge(1*60*60*24*7);
-					}
+			for(User u:users){
+				if(user.getEmail().equals(u.getEmail()) && MD5Util.getMD5Code(u.getPassword()).equals(u.getPassword())){
+					request.getSession().setAttribute("user", u);
 					result = true;
 					break;
 				}else msg = "邮箱或密码错误";
@@ -74,25 +66,19 @@ public class UserController {
 		return true;
 	}
 
-	@RequestMapping(value = "/signUp")
-	public void signUp(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("/signUp")
+	public void signUp(User user, HttpServletRequest request, HttpServletResponse response) {
 		result = false;
 		String captcha = request.getParameter("captcha");
-		String email = request.getParameter("email");
-		String userName = request.getParameter("userName");
-		String password = request.getParameter("password");
 		String sRand = (String)request.getSession().getAttribute("sRand");
 		if(captcha.equalsIgnoreCase(sRand)){
-			if(!checkEmail(email, 0)){
+			if(!checkEmail(user.getEmail(), 0)){
 				msg = "该邮箱已存在";
-			}else if(!checkUserName(userName, 0)){
+			}else if(!checkUserName(user.getPassword(), 0)){
 				msg = "该用户名已存在";
 			}else {
-				User user = new User();
-				user.setEmail(email);
-				user.setUserName(userName);
-				user.setPassword(MD5Util.getMD5Code(password));
-				if(userService.save(user)){
+				user.setPassword(MD5Util.getMD5Code(request.getParameter("password")));
+				if(userService.insert(user)){
 					result = true;
 					request.getSession().setAttribute("user", user);
 				}else msg = "注册失败";
@@ -110,7 +96,7 @@ public class UserController {
 		return null;
 	}
 
-	@RequestMapping(value = "/update")
+	@RequestMapping("/update")
 	public void update(HttpServletRequest request, HttpServletResponse response) {
 		result = false;
 		int id = Integer.parseInt(request.getParameter("id"));

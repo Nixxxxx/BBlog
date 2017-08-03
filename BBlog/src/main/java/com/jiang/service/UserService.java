@@ -23,8 +23,8 @@ public class UserService {
 		return userDao.findById(id);
 	}
 
-	public boolean save(User user) {
-		return userDao.save(user);
+	public boolean insert(User user) {
+		return userDao.insert(user);
 	}
 
 	public boolean update(User user) {

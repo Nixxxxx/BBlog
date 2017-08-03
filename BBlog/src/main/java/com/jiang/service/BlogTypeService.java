@@ -16,8 +16,8 @@ public class BlogTypeService {
 	@Resource
 	private BlogTypeDao blogTypeDao;
 
-	public boolean save(BlogType blogType) {
-		blogTypeDao.save(blogType);
+	public boolean insert(BlogType blogType) {
+		blogTypeDao.insert(blogType);
 		return true;
 	}
 

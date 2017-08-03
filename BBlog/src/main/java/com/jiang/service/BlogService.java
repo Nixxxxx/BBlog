@@ -28,8 +28,8 @@ public class BlogService {
 		return blogDao.findAll();
 	}
 
-	public boolean save(Blog blog) {
-		blogDao.save(blog);
+	public boolean insert(Blog blog) {
+		blogDao.insert(blog);
 		return true;
 	}
 

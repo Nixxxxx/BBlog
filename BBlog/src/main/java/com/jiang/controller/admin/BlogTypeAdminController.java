@@ -60,7 +60,7 @@ public class BlogTypeAdminController {
 		String msg;
 		if(checkTypeName(typeName, 0)){
 			BlogType blogType = new BlogType(typeName);
-			result = blogTypeService.save(blogType);
+			result = blogTypeService.insert(blogType);
 			msg = result?"":"保存失败";
 		}else {
 			msg = "类型名已存在";

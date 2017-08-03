@@ -10,39 +10,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>无线巡更管理中心</title>
+<title>博客管理</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <base href="<%=basePath%>">
 
 <!-- logo -->
-<link rel="shortcut icon" href="${pageContext.request.contextPath}static/dist/img/favicon.ico">
-<!-- jQuery 3.1.1 -->
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/static/images/avater.jpg">
 <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<link rel="stylesheet"
-	href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
-<!-- Select2 -->
-<link rel="stylesheet"
-	href="//cdn.bootcss.com/select2/4.0.3/css/select2.min.css">
-<script src="//cdn.bootcss.com/select2/4.0.3/js/select2.min.js"></script>
-<!-- bootstrap datepicker -->
-<link rel="stylesheet"
-	href="//cdn.bootcss.com/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css">
-<script
-	src="//cdn.bootcss.com/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
-<script
-	src="//cdn.bootcss.com/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.zh-CN.min.js"></script>
-<!-- Slimscroll -->
-<script
-	src="//cdn.bootcss.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
-<!-- Theme style -->
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css">
+<script src="//cdn.bootcss.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
 <link rel="stylesheet" href="static/dist/css/AdminLTE.css">
-<!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
 <link rel="stylesheet" href="static/dist/css/skins/_all-skins.min.css">
 
 <style>
@@ -80,17 +61,16 @@ body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
-		<header class="main-header"> <!-- Logo --> 
-			<a href="./" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels --> 
-			<span class="logo-mini"><b>Nix</b></span> <!-- logo for regular state and mobile devices -->
+		<header class="main-header">
+			<a href="./" class="logo">
+			<span class="logo-mini"><b>Nix</b></span>
 			<span class="logo-lg"><b>Nix's Blog</b></span>
-		</a> <!-- Header Navbar: style can be found in header.less --> 
-		<nav class="navbar navbar-static-top"> <!-- Sidebar toggle button-->
+		</a>
+		<nav class="navbar navbar-static-top">
 		<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"> <span class="sr-only">Toggle navigation</span></a>
 
 		<div class="navbar-custom-menu">
 			<ul class="nav navbar-nav">
-				<!-- Notifications: style can be found in dropdown.less -->
 				<li class="dropdown notifications-menu"><a href="#"
 					class="dropdown-toggle" data-toggle="dropdown"> <i
 						class="fa fa-bell-o"></i> <span class="label label-warning">0</span>
@@ -106,12 +86,11 @@ body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
 						</li>
 						<li class="footer"><a href="javascript:void(0);">View all</a></li>
 					</ul></li>
-				<!-- User Account: style can be found in dropdown.less -->
-				<li class="dropdown user user-menu"><a href="#"
-					class="dropdown-toggle" data-toggle="dropdown"> <img
-						src="static/dist/img/logo.png" class="user-image" alt="User Image">
+				<li class="dropdown user user-menu">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
+					<img src="static/dist/img/logo.png" class="user-image" alt="User Image">
 						<span class="hidden-xs">${admin.userName }</span>
-				</a>
+				  </a>
 					<ul class="dropdown-menu">
 						<!-- User image -->
 						<li class="user-header"><img src="static/dist/img/logo.png"
@@ -145,14 +124,14 @@ body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
 								<a href="admin/logout" class="btn btn-info btn-flat">退出登录</a>
 							</div>
 						</li>
-					</ul></li>
+					</ul>
+				</li>
 			</ul>
 		</div>
 		</nav> 
 		</header>
-		<!-- Left side column. contains the logo and sidebar -->
-		<aside class="main-sidebar"> <!-- sidebar: style can be found in sidebar.less -->
-		<section class="sidebar"> <!-- sidebar menu: : style can be found in sidebar.less -->
+		<aside class="main-sidebar">
+		<section class="sidebar">
 		<ul class="sidebar-menu">
 			<li class="header">MAIN NAVIGATION</li>
 			<li class="treeview">
@@ -161,11 +140,11 @@ body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
 					<span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
 				</a>
 				<ul class="treeview-menu">
-					<li><a href="main/showInfo" target="container">
+					<li><a href="admin/blog">
 					<i class="fa fa-circle-o"></i> 博客管理 </a></li>
 				</ul>
 				<ul class="treeview-menu">
-					<li><a href="main/showInfo" target="container">
+					<li><a href="admin/blog">
 					<i class="fa fa-circle-o"></i> 博客管理 </a></li>
 				</ul>
 			</li>
@@ -181,20 +160,20 @@ body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
 			<li><a href="javascript:void(0)" data-skin="skin-red">
 				<i class="fa fa-circle-o text-red"></i> <span>Red</span></a></li>
 		</ul>
-		</section> <!-- /.sidebar --> 
+		</section>
 	</aside>
 
-		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
-			<iframe name="container" style="zoom: 1;" src="main/showInfo" frameBorder="0" width="100%" height="800px"></iframe>
+			<c:if test="${pagePath != null }">
+			<jsp:include page="${pagePath }" />
+			</c:if>
 		</div>
-		<!-- /.content-wrapper -->
+		
 		<footer class="main-footer text-center"> 
 			<strong> <a href="#" target="_blank">Nix</a></strong> 
 			All Rights Reserved &copy; 2017 
 		</footer>
 	</div>
-	<!-- ./wrapper -->
 
 	<!-- AdminLTE App -->
 	<script src="static/dist/js/app.min.js"></script>
