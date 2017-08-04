@@ -65,7 +65,6 @@ $(function() {
 
 <section class="content-header">
 	<ol class="breadcrumb">
-		<li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
 		<li>用户</li>
 		<li class="active">个人中心</li>
 	</ol>

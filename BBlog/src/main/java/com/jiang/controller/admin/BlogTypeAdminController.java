@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jiang.entity.BlogType;
@@ -26,9 +27,8 @@ public class BlogTypeAdminController {
 	private BlogTypeService blogTypeService;
 	
 	@RequestMapping("/list")
-	public ModelAndView showList(HttpServletRequest request,BlogType s_blogType){
-		ModelAndView mav = new ModelAndView("blog/blogTypeList");
-		String page = request.getParameter("page");
+	public ModelAndView list(@RequestParam(required = false)String page,
+			HttpServletRequest request,BlogType s_blogType){
 		if (StringUtil.isEmpty(page)) {
 			page = "1";
 		} else {
@@ -37,8 +37,9 @@ public class BlogTypeAdminController {
 		PageBean pageBean = new PageBean(Integer.parseInt(page), 10);
 		List<BlogType> blogTypeList = blogTypeService.find(pageBean, s_blogType);
 		int total = blogTypeService.findAll().size();
-		String pageCode = PageUtil.rootPageTion("blogType/list", total, pageBean.getPage(),
-				pageBean.getPageSize(), null, null);
+		String pageCode = PageUtil.genPagination("blogType/list", total, pageBean.getPage(),
+				pageBean.getPageSize(), null);
+		ModelAndView mav = new ModelAndView("blog/blogTypeList");
 		mav.addObject("pageCode", pageCode);
 		mav.addObject("blogTypeList", blogTypeList);
 		return mav;
@@ -53,9 +54,8 @@ public class BlogTypeAdminController {
 		return true;
 	}
 	
-	@RequestMapping("/save")
-	public void save(HttpServletRequest request,HttpServletResponse response){
-		String typeName = request.getParameter("typeName");
+	@RequestMapping("/insert")
+	public void insert(@RequestParam String typeName, HttpServletRequest request,HttpServletResponse response){
 		boolean result;
 		String msg;
 		if(checkTypeName(typeName, 0)){
@@ -73,8 +73,7 @@ public class BlogTypeAdminController {
 	}
 	
 	@RequestMapping("/del")
-	public void delete(HttpServletRequest request,HttpServletResponse response){
-		int id = Integer.parseInt(request.getParameter("id"));
+	public void delete(@RequestParam Integer id, HttpServletRequest request,HttpServletResponse response){
 		boolean result = blogTypeService.delete(id);
 		String msg = result?"":"删除失败";
 		JSONObject resultJson = new JSONObject();
@@ -84,14 +83,10 @@ public class BlogTypeAdminController {
 	}
 
 	@RequestMapping("/update")
-	public void update(HttpServletRequest request, HttpServletResponse response){
-		int id = Integer.parseInt(request.getParameter("id"));
-		String typeName = request.getParameter("typeName");
+	public void update(BlogType blogType, HttpServletRequest request, HttpServletResponse response){
 		boolean result;
 		String msg;
-		if(checkTypeName(typeName, 0)){
-			BlogType blogType = blogTypeService.findById(id);
-			blogType.setTypeName(typeName);
+		if(checkTypeName(blogType.getTypeName(), 0)){
 			result = blogTypeService.update(blogType);
 			msg = result?"":"更新失败";
 		}else {

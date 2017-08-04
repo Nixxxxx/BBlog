@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jiang.entity.Blog;
@@ -33,31 +34,27 @@ public class BlogController {
 	
 	@RequestMapping("/articles/{id}")
 	public ModelAndView read(@PathVariable("id") Integer id){
-		ModelAndView mav = new ModelAndView("index");
-		mav.addObject("pagePath", "./foreground/blog/article.jsp");
 		Blog blog = blogService.findById(id);
 		blog.setReader(blog.getReader()+1);
 		blogService.update(blog);
+		ModelAndView mav = new ModelAndView("index");
+		mav.addObject("pagePath", "./foreground/blog/article.jsp");
 		mav.addObject("blog", blogService.findById(id));
 		return mav;
 	}
 	
 	@RequestMapping("/list")
-	public ModelAndView showList(HttpServletRequest request){
-		ModelAndView mav = new ModelAndView("index");
-		mav.addObject("pagePath", "./foreground/blog/list.jsp");
-		String page = request.getParameter("page");
-		int typeId = Integer.parseInt(request.getParameter("typeId"));
+	public ModelAndView list(@RequestParam(required = false)String page, 
+			@RequestParam(required = false)String typeId, HttpServletRequest request){
 		if (StringUtil.isEmpty(page)) {
 			page = "1";
-		} else {
-			// s_Blog=(Blog) session.getAttribute("s_Blog");
 		}
 		PageBean pageBean = new PageBean(Integer.parseInt(page), 5);
-		List<Blog> blogList = blogService.findByTypeId(pageBean, typeId);
+		List<Blog> blogList = blogService.findByTypeId(pageBean, Integer.parseInt(typeId));
 		int total = blogService.findAll().size();
-		String pageCode = PageUtil.rootPageTion("blog/list?typeId="+typeId+"&", total, pageBean.getPage(),
-				pageBean.getPageSize(), null, null);
+		String pageCode = PageUtil.genPagination("blog/list", total, pageBean.getPage(),pageBean.getPageSize(), "typeId="+typeId+"&");
+		ModelAndView mav = new ModelAndView("index");
+		mav.addObject("pagePath", "./foreground/blog/list.jsp");
 		mav.addObject("pageCode", pageCode);
 		mav.addObject("blogList", blogList);
 		return mav;

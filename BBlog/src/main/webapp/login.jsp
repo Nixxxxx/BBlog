@@ -53,7 +53,6 @@ body {
 						</div>
 					</div>
 					<div class="form-group">
-						<input id="remember" type="checkbox">记住我
 						<button type="submit" class="btn btn-success btn-block">登入</button>
 					</div>
 

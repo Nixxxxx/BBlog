@@ -13,14 +13,13 @@
 <title>Nix的个人博客</title>
 <base href="<%=basePath%>">
 <!-- logo -->
-<link rel="shortcut icon" href="${pageContext.request.contextPath}/static/images/avater.jpg">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/index.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/blog.css">
+<link rel="shortcut icon" href="static/images/avater.jpg">
+<link rel="stylesheet" href="static/css/index.css">
+<link rel="stylesheet" href="static/css/blog.css">
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-<%-- 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/bootstrap3/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/bootstrap3/css/bootstrap-theme.min.css"> --%>
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
 body {
 	background-color: rgb(221, 221, 221);
@@ -58,7 +57,7 @@ body {
 				<ul class="dropdown-menu">
 				<li><a href="#">当前用户：${user.userName }</a></li>
 				<li role="separator" class="divider"></li>
-				<li><a href="user/message">个人中心</a></li>
+				<li><a href="user/info">个人中心</a></li>
 	  			<li><a href="signIn.jsp">切换账号</a> </li>
 		 		<li><a href="javascript:signOut()">退出</a></li>
 		 		</ul> 
@@ -91,14 +90,14 @@ body {
 	            <button type="submit" style="display:none" class="animation red-btn"><span class="glyphicon glyphicon glyphicon-search"></span></button>
 	        </form> 
 			<div class="card">
-	            <div class="header" style="background:url(${pageContext.request.contextPath}/statics/images/avater.jpg)"></div>
+	            <div class="header" style="background:url(static/images/avater.jpg)"></div>
 	            <div class="avater">
-	                <img alt="avater" src="${pageContext.request.contextPath}/statics/images/avater.jpg">
+	                <img alt="avater" src="statics/images/avater.jpg">
 	            </div>
 	            <div class="content">
 	                <h3>Nix</h3>
 	                <ul class="status">
-	                    <li><span class="normal">99</span><br>文章</li>
+	                    <li><span class="normal">99 ${blogger.id }</span><br>文章</li>
 	                    <li><span class="normal">99</span><br>精选</li>
 	                    <li><span class="normal">99</span><br>分类</li>
 	                </ul>
@@ -132,12 +131,10 @@ body {
 	<span class="toptext">Top</span>
 </a> 
        
-<script src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/static/bootstrap3/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	function signOut(){
 		if(confirm("您确定要退出系统吗？")){
-			window.location.href="user/signOut";
+			window.location.href = "user/signOut";
 		}
 	}
 	
@@ -148,7 +145,7 @@ body {
 		var isTop = true;
 		
 		window.onscroll = function(){
-			var osTop = document.documentElement.scrollTop||document.body.scrollTop;
+			var osTop = document.documentElement.scrollTop || document.body.scrollTop;
 			if(osTop >= clientHeight){
 				$("#toTop").css("display","block");
 			}else{

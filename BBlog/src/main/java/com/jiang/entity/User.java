@@ -17,7 +17,6 @@ public class User {
 	private String password;
 	private String imagePath;
 	private String mood;
-	private String administrator;
 	
 	@Id
 	@Column(name = "id",nullable = false,unique = true)
@@ -46,7 +45,7 @@ public class User {
 		this.email = email;
 	}
 	
-	@Column(name = "password",nullable = false,length = 40)
+	@Column(name = "password",nullable = false,length = 100)
 	public String getPassword() {
 		return password;
 	}
@@ -68,14 +67,6 @@ public class User {
 	}
 	public void setMood(String mood) {
 		this.mood = mood;
-	}
-	
-	@Column(name = "administrator",nullable = false,length = 1)
-	public String getAdministrator() {
-		return administrator;
-	}
-	public void setAdministrator(String administrator) {
-		this.administrator = administrator;
 	}
 	
 }

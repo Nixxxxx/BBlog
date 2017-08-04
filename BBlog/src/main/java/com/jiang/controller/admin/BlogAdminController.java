@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jiang.entity.Blog;
 import com.jiang.service.BlogService;
@@ -35,13 +36,12 @@ public class BlogAdminController {
 	}
 	
 	@RequestMapping("/insert")
-	public void insert(HttpServletRequest request,HttpServletResponse response){
-		int typeId = Integer.parseInt(request.getParameter("typeName"));
-		String title = request.getParameter("title");
+	public void insert(Blog blog, HttpServletRequest request,HttpServletResponse response){
 		boolean result;
 		String msg;
-		if(check(title, typeId, 0)){
-			Blog blog = new Blog(typeId, title, request.getParameter("content"), new Date());
+		if(check(blog.getTitle(), blog.getBlogType().getId(), 0)){
+			blog.setCreateTime(new Date());
+			blog.setUpdateTime(new Date());
 			result = blogService.insert(blog);
 			msg = result?"":"保存失败";
 		}else {
@@ -55,8 +55,7 @@ public class BlogAdminController {
 	}
 	
 	@RequestMapping("/del")
-	public void delete(HttpServletRequest request,HttpServletResponse response){
-		int id = Integer.parseInt(request.getParameter("id"));
+	public void delete(@RequestParam Integer id, HttpServletRequest request,HttpServletResponse response){
 		boolean result = blogService.delete(id);
 		String msg = result?"":"删除失败";
 		JSONObject resultJson = new JSONObject();
@@ -66,17 +65,14 @@ public class BlogAdminController {
 	}
 
 	@RequestMapping("/update")
-	public void update(HttpServletRequest request, HttpServletResponse response){
-		int id = Integer.parseInt(request.getParameter("id"));
-		int typeId = Integer.parseInt(request.getParameter("typeId"));
-		String title = request.getParameter("title");
+	public void update(Blog bg, HttpServletRequest request, HttpServletResponse response){
 		boolean result;
 		String msg;
-		if(check(title, typeId, id)){
-			Blog blog = blogService.findById(id);
-			blog.setBlogType(blogTypeService.findById(typeId));
-			blog.setTitle(title);
-			blog.setContent(request.getParameter("content"));
+		if(check(bg.getTitle(), bg.getBlogType().getId(), bg.getId())){
+			Blog blog = blogService.findById(bg.getId());
+			blog.setBlogType(blogTypeService.findById(bg.getBlogType().getId()));
+			blog.setTitle(bg.getTitle());
+			blog.setContent(bg.getContent());
 			blog.setUpdateTime(new Date());
 			result = blogService.update(blog);
 			msg = result?"":"更新失败";

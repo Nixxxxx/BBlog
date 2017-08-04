@@ -16,15 +16,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <base href="<%=basePath%>">
 
 <!-- logo -->
-<link rel="shortcut icon" href="${pageContext.request.contextPath}/static/images/avater.jpg">
+<link rel="shortcut icon" href="static/images/avater.jpg">
 <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css">
 <script src="//cdn.bootcss.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
-<link rel="stylesheet" href="static/dist/css/AdminLTE.css">
-<link rel="stylesheet" href="static/dist/css/skins/_all-skins.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/admin-lte/2.3.11/css/AdminLTE.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/admin-lte/2.3.11/css/skins/_all-skins.min.css">
 
 <style>
 body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
@@ -175,10 +175,8 @@ body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
 		</footer>
 	</div>
 
-	<!-- AdminLTE App -->
-	<script src="static/dist/js/app.min.js"></script>
-	<!-- AdminLTE for demo purposes -->
-	<script src="static/dist/js/demo.js"></script>
+	<script src="//cdn.bootcss.com/admin-lte/2.3.11/js/app.min.js"></script>
+	<script src="//cdn.bootcss.com/admin-lte/2.3.11/js/demo.js"></script>
 
 	<script>
 $(function () {

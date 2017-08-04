@@ -24,18 +24,18 @@
 		</div>
 		<P style="padding: 30px 0px 10px; position: relative;">
 			<span class="u_logo"></span>
-			<input id="email" name="email" class="ipt" type="text" placeholder="Email" value="${user.email }" required> 
+			<input id="email" class="ipt" type="text" placeholder="Email" required> 
 	    </P>
 		<P style="position: relative;">
 			<span class="p_logo"></span>         
-			<input id="password" name="password" class="ipt" type="password" placeholder="Password" value="${user.password }" required>   
+			<input id="password" class="ipt" type="password" placeholder="Password" required>   
 	  	</P>
 		<div style="height: 50px; line-height: 50px; margin-top: 30px; border-top-color: rgb(231, 231, 231); border-top-width: 1px; border-top-style: solid;">
 			<P style="margin: 0px 35px 20px 45px;">
 			<a href="signUp.jsp" style="float: left; color:#008ead;">Sign up</a>
 			<font color="red invisible" id="errorMsg"></font>
 	        <span style="float: right;"> 
-	          <input id="signInBtn" type="submit" style="background: rgb(0, 142, 173); padding: 7px 10px; border-radius: 4px; border: 1px solid rgb(26, 117, 152); border-image: none; color: rgb(255, 255, 255); font-weight: bold;" value="登录"/> 
+	          <button id="signInBtn" type="submit" style="background: rgb(0, 142, 173); padding: 7px 10px; border-radius: 4px; border: 1px solid rgb(26, 117, 152); border-image: none; color: rgb(255, 255, 255); font-weight: bold;">登陆</button> 
 	        </span>         
 	        </P>
 	    </div>
@@ -45,10 +45,64 @@
 Copyright © 2012-2016 Java知识分享网 版权所有
 </div>
    
-   
 <script src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/bootstrap3/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(function() {
+		var errorMsg = $("#errorMsg");
+
+		var showError = function(msg) {
+			errorMsg.text(msg).removeClass("invisible");
+		};
+
+		$("#signInForm").submit(function() {
+			errorMsg.addClass("invisible")
+			var email = $.trim($("#email").val());
+			var password = $.trim($("#password").val());
+			var ePattern = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+			var uPattern = /^[a-zA-Z0-9_@.]{4,20}$/;
+			if (!ePattern.test(email)) {
+				showError("请输入正确格式的邮箱");
+				return false;
+			}
+			if (!uPattern.test(password)) {
+				showError("请输入正确格式的密码");
+				return false;
+			}
+			var signInBtn = $("#signInBtn");
+			$.ajax({
+				url : "user/signIn",
+				type : "post",
+				data : {
+					email : email,
+					password : password,
+				},
+				dataType : "json",
+				beforeSend : function() {
+					signInBtn.button("loading");
+				},
+				complete : function() {
+					//重置登录按钮
+					signInBtn.button("reset");
+				},
+				success : function(data) {
+					if (data.result) {
+						window.location.href = "index.jsp";
+					} else {
+						showError(data.msg);
+					}
+				},
+				error : function(XMLHttpRequest, textStatus) {
+					if (textStatus == "timeout") {
+						showError("登录超时");
+					} else {
+						showError("登录失败");
+					}
+				}
+			});
+			return false;
+		});
+		
 		
 		//得到焦点
 		$("#password").focus(function(){
@@ -77,61 +131,6 @@ Copyright © 2012-2016 Java知识分享网 版权所有
 			$("#right_hand").attr("style","right:-112px;top:-12px");
 		});
 		
-		
-		
-		var errorMsg = $("#errorMsg");
-
-		var showError = function(msg) {
-			errorMsg.text(msg).removeClass("invisible");
-		};
-
-		$("#signInForm").submit(function() {
-			errorMsg.addClass("invisible")
-			var email = $.trim($("#email").val());
-			var password = $.trim($("#password").val());
-			var ePattern = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-			var uPattern = /^[a-zA-Z0-9_@.]{4,20}$/;
-			if (!ePattern.test(email)) {
-				showError("请输入正确格式的邮箱");
-				return false;
-			}
-			if (!uPattern.test(password)) {
-				showError("请输入正确格式的密码");
-				return false;
-			}
-			var signInBtn = $("#signInBtn");
-			$.ajax({
-				url : "user/signIn",
-				type : "post",
-				data : {
-					email : email,
-					password : password
-				},
-				dataType : "json",
-				beforeSend : function() {
-					signInBtn.button("loading");
-				},
-				complete : function() {
-					//重置登录按钮
-					signInBtn.button("reset");
-				},
-				success : function(data) {
-					if (data.result) {
-						window.location.href = "index.jsp";
-					} else {
-						showError(data.msg);
-					}
-				},
-				error : function(XMLHttpRequest, textStatus) {
-					if (textStatus == "timeout") {
-						showError("登录超时");
-					} else {
-						showError("登录失败");
-					}
-				}
-			});
-			return false;
-		});
 	})
 
 </script>
