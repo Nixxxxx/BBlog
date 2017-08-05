@@ -87,7 +87,7 @@ Copyright © 2012-2016 Java知识分享网 版权所有
 				},
 				success : function(data) {
 					if (data.result) {
-						window.location.href = "index.jsp";
+						window.location.href = "blog/list";
 					} else {
 						showError(data.msg);
 					}

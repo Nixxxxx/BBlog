@@ -49,7 +49,6 @@ public class InitComponent implements ServletContextListener,ApplicationContextA
 		ServletContext application=servletContextEvent.getServletContext();
 		BloggerService bloggerService=(BloggerService) applicationContext.getBean("bloggerService");
 		Blogger blogger = bloggerService.findById(1); // 查询博主信息
-		blogger.setPassword(null);
 		application.setAttribute("blogger", blogger);
 		
 	}

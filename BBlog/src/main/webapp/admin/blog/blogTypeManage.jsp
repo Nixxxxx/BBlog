@@ -4,10 +4,9 @@
 
 	<section class="content-header">
 	<ol class="breadcrumb">
-		<li><a href="main/showInfo"><i
-				class="fa fa-dashboard"></i>首页</a></li>
+		<li><i class="fa fa-dashboard"></i>首页</li>
 		<li>博客管理</li>
-		<li class="active">博客类型列表</li>
+		<li class="active">博客类型管理</li>
 	</ol>
 	</section>
 
@@ -19,8 +18,7 @@
 					<h3 class="box-title">博客类型列表</h3>
 
 					<div class="box-tools">
-						<button type="button" class="btn btn-info btn-sm"
-							data-toggle="modal" data-remote="false"
+						<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-remote="false"
 							data-target="#blogType_add_modal" data-backdrop="static">添加博客类型</button>
 					</div>
 				</div>
@@ -29,7 +27,7 @@
 						<thead>
 							<tr>
 								<th>序号</th>
-								<th>用户名</th>
+								<th>博客类型</th>
 								<th>操作</th>
 							</tr>
 						</thead>
@@ -37,14 +35,12 @@
 							<c:forEach var="blogType" items="${blogTypeList }" varStatus="status">
 								<tr>
 									<td>${status.index+1 }</td>
-									<td class="admin_name">${blogType.userName }</td>
-									<td>${admin.addTime }</td>
-									<td><a data-id="${blogType.id }" class="update"
-										href="javascript:void(0)" data-toggle="modal"
-										data-remote="false" data-target="#blogType_update_modal"
-										data-backdrop="static"> <i class="fa fa-edit"></i> 编辑</a>
-										<a data-id="${blogType.id }" class="del"
-										href="javascript:void(0)"> <i class="fa fa-trash"></i> 删除</a>
+									<td class="blogType_typeName">${blogType.typeName }</td>
+									<td>
+										<a href="admin/blog/list?typeId=${blogType.id }"> <i class="fa fa-th"></i> 查看博客</a>
+										<a data-id="${blogType.id }" class="update" href="javascript:void(0)" data-toggle="modal"
+										data-remote="false" data-target="#blogType_update_modal" data-backdrop="static"> <i class="fa fa-edit"></i> 编辑</a>
+										<a data-id="${blogType.id }" class="del" href="javascript:void(0)"> <i class="fa fa-trash"></i> 删除</a>
 									</td>
 								</tr>
 							</c:forEach>
@@ -67,9 +63,9 @@
 		</div>
 	</div>
 	</section>
-
-	<div class="modal fade" id="blogType_update_modal" tabindex="-1"
-		role="dialog" aria-labelledby="blogType_update_label">
+	
+<!-- 添加Modal -->
+	<div class="modal fade" id="blogType_add_modal" tabindex="-1" role="dialog" aria-labelledby="blogType_add_label">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="box box-info">
@@ -77,15 +73,46 @@
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-						<h3 class="box-title" id="blogType_update_label">编辑人员</h3>
+						<h3 class="box-title" id="blogType_add_label">添加博客类型</h3>
+					</div>
+					<form class="form-horizontal" id="blogType_add_form">
+						<div class="box-body">
+							<div class="form-group">
+								<label for="blogType_add_typeName" class="col-sm-2 control-label">类型名</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="blogType_add_typeName"
+										name="typeName" maxlength="10" placeholder="请输入用户名" required>
+								</div>
+							</div>
+						</div>
+						<div class="box-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+							<button type="submit" class="btn btn-info pull-right" id="blogType_add_button" data-loading-text="添加中...">添加</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- 编辑Modal -->
+	<div class="modal fade" id="blogType_update_modal" tabindex="-1" role="dialog" aria-labelledby="blogType_update_label">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="box box-info">
+					<div class="box-header with-border">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h3 class="box-title" id="blogType_update_label">编辑</h3>
 					</div>
 					<form class="form-horizontal" id="blogType_update_form">
 						<div class="box-body">
-							<input type="hidden" id="blogType_id" name="id">
+							<input type="hidden" id="blogType_update_id" name="id">
 							<div class="form-group">
-								<label for="blogType_typeName" class="col-sm-2 control-label">类型名</label>
+								<label for="blogType_update_typeName" class="col-sm-2 control-label">类型名</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="blogType_typeName"
+									<input type="text" class="form-control" id="blogType_update_typeName"
 										name="typeName" maxlength="10" placeholder="请输入用户名" required>
 								</div>
 							</div>
@@ -100,42 +127,6 @@
 		</div>
 	</div>
 
-	<div class="modal fade" id="blogType_add_modal" tabindex="-1"
-		role="dialog" aria-labelledby="blogType_add_label">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="box box-info">
-					<div class="box-header with-border">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h3 class="box-title" id="blogType_add_label">添加管理员</h3>
-					</div>
-					<form class="form-horizontal" method="post" id="blogType_add_form">
-						<div class="text-danger wrapper-xs text-center invisible"
-							id="error_msg1">错误信息</div>
-						<div class="box-body">
-							<div class="form-group">
-								<label for="add_blogType_typeName" class="col-sm-2 control-label">用户名</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" id="add_blogType_typeName"
-										name="typeName" maxlength="10" placeholder="请输入用户名" required>
-								</div>
-							</div>
-						</div>
-						<div class="box-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-							<button type="submit" class="btn btn-info pull-right"
-								id="blogType_add_button" data-loading-text="添加中...">添加</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	
 
 	<script>
     $(function(){
@@ -147,14 +138,14 @@
                 var id = $(this).data("id");
                 $.ajax({
                     url: "admin/blogType/del",
-                    type: "POST",
+                    type: "post",
                     data: {id: id},
                     dataType: "json",
                     success: function (data) {
                         alert(data.msg);
-                        if (data.success) {
+                        if (data.result) {
                             //菜单栏当前选中
-                        	window.location.href="admin/showSetting";
+                        	window.location.reload();
                             $now_selected = $("ul.treeview-menu>li.active>a");
                             $now_selected.trigger("click");
                         }
@@ -172,19 +163,18 @@
 
         //更新modal
         $(".update").click(function () {
-            $("#blogType_id").val($(this).data("id"));
-            $("#blogType_typeName").val($(this).parent().prevAll(".blogType_typeName").text());
+            $("#blogType_update_id").val($(this).data("id"));
+            $("#blogType_update_typeName").val($(this).parent().prevAll(".blogType_typeName").text());
         });
 
         //更新
         var $blogType_update_form = $("#blogType_update_form");
         $blogType_update_form.submit(function () {
-
             var $update_btn = $("#blogType_update_button");
 
             $.ajax({
                 url: "admin/blogType/update",
-                type: "POST",
+                type: "post",
                 dataType: "json",
                 data: $blogType_update_form.serialize(),
                 beforeSend: function () {
@@ -195,9 +185,9 @@
                 },
                 success: function (data) {
                     alert(data.msg);
-                    if (data.success) {
+                    if (data.result) {
                         //菜单栏当前选中
-                        window.location.href="admin/blogType/showSetting";
+                        window.location.reload();
                         $now_selected = $("ul.treeview-menu>li.active>a");
                         $now_selected.trigger("click");
                         $("#blogType_update_modal").modal("hide");
@@ -217,21 +207,13 @@
         //添加
         var $blogType_add_form = $("#blogType_add_form");
         $blogType_add_form.submit(function () {
-        	var $error_msg = $("#error_msg1");
-
-            var show_error = function (error_msg) {
-                $error_msg.text(error_msg).removeClass("invisible");
-            };
-        	$error_msg.addClass("invisible");
-            var userName = $.trim($("#blogType_add_form input[name=userName]").val());
-            var password = $.trim($("#blogType_add_form input[name=password]").val());
-            var confirmPassword = $.trim($("#blogType_add_form input[name=confirmPassword]").val());
+            var typeName = $.trim($("#blogType_add_form input[name=typeName]").val());
             var $add_btn = $("#blogType_add_button");
             $.ajax({
                 url: "admin/blogType/insert",
                 type: "POST",
+                data: {typeName : typeName},
                 dataType: "json",
-                data: $admin_add_form.serialize(),
                 beforeSend: function () {
                     $add_btn.button("loading");
                 },
@@ -240,9 +222,9 @@
                 },
                 success: function (data) {
                     alert(data.msg);
-                    if (data.success) {
+                    if (data.result) {
                         //菜单栏当前选中
-                        window.location.href="admin/blogType/showSetting";
+                        window.location.reload();
                         $now_selected = $("ul.treeview-menu>li.active>a");
                         $now_selected.trigger("click");
                         $("#blogType_add_modal").modal("hide");
@@ -257,13 +239,6 @@
                 }
             });
             return false;
-        });
-
-
-        //更新modal
-        $(".change_password").click(function () {
-            $("#change_blogType_id").val($(this).data("id"));
-            $("#change_blogType_typeName").text($(this).parent().prevAll(".blogType_typeName").text());
         });
 
     })

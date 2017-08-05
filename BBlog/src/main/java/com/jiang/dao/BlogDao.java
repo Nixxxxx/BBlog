@@ -19,53 +19,36 @@ public class BlogDao {
 
 	@Resource
 	private HibernateTemplate hibernateTemplate;
-	
 	@Resource
 	private SessionFactory sessionFactory;
 	
-	public HibernateTemplate getHibernateTemplate() {
-		return hibernateTemplate;
-	}
-
-	public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
-		this.hibernateTemplate = hibernateTemplate;
-	}
-
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-
 	public void insert(Blog blog) {
 		Session session = this.sessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
+		Transaction tr = session.beginTransaction();
 		session.save(blog);
-		tx.commit();
+		tr.commit();
 		session.close();
 	}
 	
 	public Blog update(Blog blog){
 		Session session = this.sessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
+		Transaction tr = session.beginTransaction();
 		session.merge(blog);
-		tx.commit();
+		tr.commit();
 		session.close();
-		Blog resultBlog = findById(blog.getId());
-		return resultBlog;
+		return findById(blog.getId());
 	}
 
 	public void delete(int id) {
+		Blog blog = this.findById(id);
 		Session session = this.sessionFactory.openSession();
-		session.beginTransaction();
-		session.delete(id);
-		session.getTransaction().commit();
+		Transaction tr = session.beginTransaction();
+		session.delete(blog);
+		tr.commit();
 		session.close();
 	}
 	
-	public List<Blog> findByTypeId(PageBean pageBean, int typeId) {
+	public List<Blog> findListByTypeId(PageBean pageBean, int typeId) {
 		StringBuffer sb = new StringBuffer("from Blog");
 		if (typeId != 0) {
 			sb.append(" where typeId = " + typeId);
@@ -80,6 +63,12 @@ public class BlogDao {
 		tx.commit();
 		session.close();
 		return blogList;
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<Blog> findByTypeId(int typeId) {
+		return (List<Blog>) this.hibernateTemplate.find("from Blog where blogType.id= " + typeId);
 	}
 	
 	@SuppressWarnings("unchecked")

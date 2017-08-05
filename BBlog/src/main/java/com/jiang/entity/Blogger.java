@@ -14,8 +14,8 @@ public class Blogger {
 
 	private int id;
 	private String email;
-	private String password;
 	private String userName;
+	private String imagePath;
 	private String profile;
 	
 	@Id
@@ -37,20 +37,20 @@ public class Blogger {
 		this.email = email;
 	}
 	
-	@Column(name = "password", nullable = false, length = 100)
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
 	@Column(name = "userName", nullable = false, length = 50)
 	public String getUserName() {
 		return userName;
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	
+	@Column(name = "imagePath",nullable = false, length = 100)
+	public String getImagePath() {
+		return imagePath;
+	}
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 
 	@Column(name = "profile", nullable = false)

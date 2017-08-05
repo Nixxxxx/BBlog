@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.jiang.dao.BlogDao;
 import com.jiang.dao.BlogTypeDao;
 import com.jiang.entity.BlogType;
 import com.jiang.entity.PageBean;
@@ -15,6 +16,8 @@ public class BlogTypeService {
 
 	@Resource
 	private BlogTypeDao blogTypeDao;
+	@Resource
+	private BlogDao blogDao;
 
 	public boolean insert(BlogType blogType) {
 		blogTypeDao.insert(blogType);
@@ -39,7 +42,7 @@ public class BlogTypeService {
 		return blogTypeDao.findAll();
 	}
 
-	public List<BlogType> find(PageBean pageBean, BlogType s_blogType) {
-		return blogTypeDao.find(pageBean, s_blogType);
+	public List<BlogType> findList(PageBean pageBean) {
+		return blogTypeDao.findList(pageBean);
 	}
 }

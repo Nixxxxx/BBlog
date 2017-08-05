@@ -51,19 +51,19 @@ $(function (){
 	$("#signInForm").submit(function() {
 		errorMsg.addClass("invisible");
 		var content = CKEDITOR.instances.content.getData();
-		var typeId = $("#typeId").val();
-		if(content==null||content==""){
-			$("error").text("内容不能为空！");
+		var typeId = $.trim("#typeId").val();
+		if(content == null|| content == ""){
+			showError("内容不能为空！");
 			return false;
 		}
-		if(typeId==null||typeId==""){
-			$("error").text("请选择日志类别！");
+		if(typeId == null || typeId == ""){
+			showError("请选择日志类别！");
 			return false;
 		}
 		
 		var signInBtn = $("#signInBtn");
 		$.ajax({
-			url : "user/signIn",
+			url : "admin/blog/insert",
 			type : "POST",
 			data : {
 			},
@@ -74,8 +74,6 @@ $(function (){
 			complete : function() {
 				//重置登录按钮
 				signInBtn.button("reset");
-				//重置验证码
-				$("#randImage").trigger("click");
 			},
 			success : function(data) {
 				if (data.result) {
@@ -96,7 +94,5 @@ $(function (){
 	});
 	
 })
-	function checkForm(){
-		return true;
-	}
+	
 </script>

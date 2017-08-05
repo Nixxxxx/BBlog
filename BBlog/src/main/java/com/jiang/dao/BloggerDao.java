@@ -20,35 +20,18 @@ public class BloggerDao {
 	@Resource
 	private SessionFactory sessionFactory;
 	
-	public HibernateTemplate getHibernateTemplate() {
-		return hibernateTemplate;
-	}
-
-	public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
-		this.hibernateTemplate = hibernateTemplate;
-	}
-
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-	
-	
 	public boolean insert(Blogger blogger){
-		Session session = getHibernateTemplate().getSessionFactory().openSession();
-		Transaction tx = session.beginTransaction();
+		Session session = this.sessionFactory.openSession();
+		Transaction tr = session.beginTransaction();
 		session.save(blogger);
-		tx.commit();
+		tr.commit();
 		session.close();
 		return true;
 	}
 	
 	public boolean delete(int id){
 		Blogger blogger = this.findById(id);
-		Session session = getHibernateTemplate().getSessionFactory().openSession();
+		Session session = this.sessionFactory.openSession();
 		Transaction tr = session.beginTransaction();
 		session.delete(blogger); 
 		tr.commit();
@@ -57,21 +40,10 @@ public class BloggerDao {
 	}
 	
 	public boolean update(Blogger blogger){
-		Session session = getHibernateTemplate().getSessionFactory().openSession();
-		Transaction tx = session.beginTransaction();
+		Session session = this.sessionFactory.openSession();
+		Transaction tr = session.beginTransaction();
 		session.update(blogger);
-		tx.commit();
-		session.close();
-		return true;
-	}
-	
-	public boolean changePassword(int id,String password){
-		Blogger bogger = this.findById(id);
-		bogger.setPassword(password);
-		Session session = getHibernateTemplate().getSessionFactory().openSession();
-		Transaction tx = session.beginTransaction();
-		session.merge(bogger);
-		tx.commit();
+		tr.commit();
 		session.close();
 		return true;
 	}

@@ -9,15 +9,12 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "t_user")
-public class User {
+@Table(name = "t_admin")
+public class Admin {
 	
 	private int id;
-	private String userName;
 	private String email;
 	private String password;
-	private String imagePath;
-	private String mood;
 	
 	@Id
 	@Column(name = "id",nullable = false,unique = true)
@@ -30,15 +27,8 @@ public class User {
 		this.id = id;
 	}
 	
-	@Column(name = "userName",nullable = false,unique = true,length = 20)
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
 	
-	@Column(name = "email",nullable = false,unique = true,length = 20)
+	@Column(name = "email",nullable = false,unique = true,length = 40)
 	public String getEmail() {
 		return email;
 	}
@@ -52,22 +42,6 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	
-	@Column(name = "imagePath",nullable = false,length = 40)
-	public String getImagePath() {
-		return imagePath;
-	}
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
-	}
-	
-	@Column(name = "mood",nullable = false,length = 50)
-	public String getMood() {
-		return mood;
-	}
-	public void setMood(String mood) {
-		this.mood = mood;
 	}
 	
 }

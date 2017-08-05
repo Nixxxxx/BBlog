@@ -14,8 +14,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <base href="<%=basePath%>">
 <title>Nix's Blog - 登录</title>
-<link rel="shortcut icon" href="${pageContext.request.contextPath}/static/images/avater.jpg">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap3/css/bootstrap.min.css">
+<link rel="shortcut icon" href="static/images/avater.jpg">
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 <style>
 body {
@@ -64,8 +64,8 @@ body {
 		</div>
 	</div>
 	
-<script src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/static/bootstrap3/js/bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(function() {
 		var errorMsg = $("#errorMsg");
@@ -100,7 +100,7 @@ body {
 			}
 			var signInBtn = $("#signInBtn");
 			$.ajax({
-				url : "admin/blogger/login",
+				url : "admin/login",
 				type : "post",
 				data : {
 					email : email,
@@ -119,7 +119,7 @@ body {
 				},
 				success : function(data) {
 					if (data.result) {
-						window.location.href = "index.jsp";
+						window.location.href = "admin/index";
 					} else {
 						showError(data.msg);
 					}
@@ -137,7 +137,7 @@ body {
 	})
 
 	function loadImage() {
-		$("#randImage").attr("src", "image.jsp?" + Math.random()); //document.getElementById("randImage")定义一个img对象     src="image.jsp?"指定对象        +Math.random()为了使每次访问image.jsp的地址不一样，这样浏览器不会取本地缓存的数据。
+		$("#randImage").attr("src", "image.jsp?" + Math.random()); //src="image.jsp?"指定对象        +Math.random()为了使每次访问image.jsp的地址不一样，这样浏览器不会取本地缓存的数据。
 	}
 </script>
 </body>

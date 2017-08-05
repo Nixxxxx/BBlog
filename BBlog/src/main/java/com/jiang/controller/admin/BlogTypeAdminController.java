@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.jiang.entity.BlogType;
 import com.jiang.entity.PageBean;
+import com.jiang.service.BlogService;
 import com.jiang.service.BlogTypeService;
 import com.jiang.util.PageUtil;
 import com.jiang.util.ResponseUtil;
@@ -25,6 +26,8 @@ public class BlogTypeAdminController {
 
 	@Autowired
 	private BlogTypeService blogTypeService;
+	@Autowired
+	private BlogService blogservice;
 	
 	@RequestMapping("/list")
 	public ModelAndView list(@RequestParam(required = false)String page,
@@ -35,12 +38,13 @@ public class BlogTypeAdminController {
 			// s_blogType=(BlogType) session.getAttribute("s_blogType");
 		}
 		PageBean pageBean = new PageBean(Integer.parseInt(page), 10);
-		List<BlogType> blogTypeList = blogTypeService.find(pageBean, s_blogType);
-		int total = blogTypeService.findAll().size();
-		String pageCode = PageUtil.genPagination("blogType/list", total, pageBean.getPage(),
+		List<BlogType> blogTypeList = blogTypeService.findList(pageBean);
+		int total = blogTypeList.size();
+		String pageCode = PageUtil.genPagination("admin/blogType/list", total, pageBean.getPage(),
 				pageBean.getPageSize(), null);
-		ModelAndView mav = new ModelAndView("blog/blogTypeList");
+		ModelAndView mav = new ModelAndView("admin/index");
 		mav.addObject("pageCode", pageCode);
+		mav.addObject("pagePath","./blog/blogTypeManage.jsp");
 		mav.addObject("blogTypeList", blogTypeList);
 		return mav;
 	}
@@ -61,7 +65,7 @@ public class BlogTypeAdminController {
 		if(checkTypeName(typeName, 0)){
 			BlogType blogType = new BlogType(typeName);
 			result = blogTypeService.insert(blogType);
-			msg = result?"":"保存失败";
+			msg = result?"保存成功":"保存失败";
 		}else {
 			msg = "类型名已存在";
 			result = false;
@@ -73,9 +77,15 @@ public class BlogTypeAdminController {
 	}
 	
 	@RequestMapping("/del")
-	public void delete(@RequestParam Integer id, HttpServletRequest request,HttpServletResponse response){
-		boolean result = blogTypeService.delete(id);
-		String msg = result?"":"删除失败";
+	public void delete(@RequestParam int id, HttpServletRequest request,HttpServletResponse response){
+		boolean result = false;
+		String msg;
+		if(blogservice.findByTypeId(id) != null){
+			result = blogTypeService.delete(id);
+			msg = result?"删除成功":"删除失败";
+		}else {
+			msg = "此博客类型下存在文章，不可删除";
+		}
 		JSONObject resultJson = new JSONObject();
 		resultJson.put("result",result);
 		resultJson.put("msg", msg);
@@ -88,7 +98,7 @@ public class BlogTypeAdminController {
 		String msg;
 		if(checkTypeName(blogType.getTypeName(), 0)){
 			result = blogTypeService.update(blogType);
-			msg = result?"":"更新失败";
+			msg = result?"更新成功":"更新失败";
 		}else {
 			msg = "类型名已存在";
 			result = false;

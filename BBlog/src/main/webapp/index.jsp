@@ -43,7 +43,7 @@ body {
 	
 	    <div class="collapse navbar-collapse">
 		    <ul class="nav navbar-nav">
-		    	<li><a href="blog/list?typeId=0">博客</a></li>
+		    	<li><a href="blog/list">博客</a></li>
 		        <li><a href="#">留言</a></li>
 		        <li><a href="waterMark/index">图片水印</a></li>
 		        <li><a href="about.jsp">关于</a></li>

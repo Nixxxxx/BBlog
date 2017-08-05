@@ -89,30 +89,22 @@ body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
 				<li class="dropdown user user-menu">
 				  <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
 					<img src="static/dist/img/logo.png" class="user-image" alt="User Image">
-						<span class="hidden-xs">${admin.userName }</span>
+						<span class="hidden-xs">${admin.email }</span>
 				  </a>
 					<ul class="dropdown-menu">
 						<!-- User image -->
 						<li class="user-header"><img src="static/dist/img/logo.png"
 							class="img-circle" alt="User Image">
 							<p>
-							<c:if test="${admin.type==1 }">
-                				${admin.userName }-超级管理员
-                			</c:if>
-							<c:if test="${admin.type==2 }">
-                				${admin.userName }-管理员(管理)
-               				</c:if>
-							<c:if test="${admin.type==3 }">
-                				${admin.userName }-管理员(查看)
-                			</c:if>
+                				${admin.email }-超级管理员
 							</p></li>
 						<!-- Menu Body -->
 						<li class="user-body">
 							<div class="row">
 								<div class="col-xs-5">上次登录时间</div>
-								<div class="col-xs-7">${admin.addTime }</div>
+								<div class="col-xs-7"></div>
 								<div class="col-xs-5">上次登录IP</div>
-								<div class="col-xs-7">${admin.lastLoginIp }</div>
+								<div class="col-xs-7"></div>
 							</div> <!-- /.row -->
 						</li>
 						<!-- Menu Footer-->
@@ -143,9 +135,43 @@ body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
 					<li><a href="admin/blog">
 					<i class="fa fa-circle-o"></i> 博客管理 </a></li>
 				</ul>
+			</li>
+			<li class="treeview">
+				<a href="#"><i class="fa fa-dashboard"></i>
+					<span>博客管理</span> 
+					<span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
+				</a>
 				<ul class="treeview-menu">
-					<li><a href="admin/blog">
+					<li><a href="admin/blog/list">
 					<i class="fa fa-circle-o"></i> 博客管理 </a></li>
+				</ul>
+				<ul class="treeview-menu">
+					<li><a href="admin/blogType/list">
+					<i class="fa fa-circle-o"></i> 博客类型管理 </a></li>
+				</ul>
+				<ul class="treeview-menu">
+					<li><a href="admin/blog/write">
+					<i class="fa fa-circle-o"></i> 写博客 </a></li>
+				</ul>
+			</li>
+			<li class="treeview">
+				<a href="#"><i class="fa fa-dashboard"></i>
+					<span>用户管理</span> 
+					<span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
+				</a>
+				<ul class="treeview-menu">
+					<li><a href="admin/user/list">
+					<i class="fa fa-circle-o"></i> 用户列表 </a></li>
+				</ul>
+			</li>
+			<li class="treeview">
+				<a href="#"><i class="fa fa-dashboard"></i>
+					<span>博主信息</span> 
+					<span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
+				</a>
+				<ul class="treeview-menu">
+					<li><a href="admin/blogger">
+					<i class="fa fa-circle-o"></i> 博主信息 </a></li>
 				</ul>
 			</li>
 			
@@ -165,7 +191,7 @@ body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
 
 		<div class="content-wrapper">
 			<c:if test="${pagePath != null }">
-			<jsp:include page="${pagePath }" />
+				<jsp:include page="${pagePath }" />
 			</c:if>
 		</div>
 		

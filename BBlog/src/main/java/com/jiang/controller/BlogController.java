@@ -25,13 +25,6 @@ public class BlogController {
 	@Autowired
 	private BlogService blogService;
 	
-	@RequestMapping("/write")
-	public ModelAndView write(){
-		ModelAndView mav = new ModelAndView("index");
-		mav.addObject("pagePath", "./foreground/blog/write.jsp");
-		return mav;
-	}
-	
 	@RequestMapping("/articles/{id}")
 	public ModelAndView read(@PathVariable("id") Integer id){
 		Blog blog = blogService.findById(id);
@@ -50,9 +43,10 @@ public class BlogController {
 			page = "1";
 		}
 		PageBean pageBean = new PageBean(Integer.parseInt(page), 5);
-		List<Blog> blogList = blogService.findByTypeId(pageBean, Integer.parseInt(typeId));
+		int nowTypeId = (typeId == null?0:Integer.parseInt(typeId));
+		List<Blog> blogList = blogService.findListByTypeId(pageBean, nowTypeId);
 		int total = blogService.findAll().size();
-		String pageCode = PageUtil.genPagination("blog/list", total, pageBean.getPage(),pageBean.getPageSize(), "typeId="+typeId+"&");
+		String pageCode = PageUtil.genPagination("blog/list", total, pageBean.getPage(),pageBean.getPageSize(), "typeId="+nowTypeId);
 		ModelAndView mav = new ModelAndView("index");
 		mav.addObject("pagePath", "./foreground/blog/list.jsp");
 		mav.addObject("pageCode", pageCode);

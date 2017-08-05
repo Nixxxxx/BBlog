@@ -67,7 +67,7 @@
 	
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
-			<tx:method name="save*" propagation="REQUIRED"/>
+			<tx:method name="insert*" propagation="REQUIRED"/>
 			<tx:method name="delete*" propagation="REQUIRED"/>
 			<tx:method name="update*" propagation="REQUIRED"/>
 			<tx:method name="*" propagation="REQUIRED" read-only="true"/>
@@ -75,7 +75,7 @@
 	</tx:advice>
 	
 	<aop:config>
-		<aop:pointcut expression="execution(* com.service.*.*(..))" id="aopPointcut" />
+		<aop:pointcut expression="execution(* com.jiang.service.*.*(..))" id="aopPointcut" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="aopPointcut" />
 	</aop:config>
 	

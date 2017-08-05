@@ -27,46 +27,44 @@ public class BlogTypeDao {
 	@Resource
 	private SessionFactory sessionFactory;
 	
-	public HibernateTemplate getHibernateTemplate() {
-		return hibernateTemplate;
-	}
-
-	public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
-		this.hibernateTemplate  =  hibernateTemplate;
-	}
-
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory  =  sessionFactory;
-	}
-	
 
 	public void insert(BlogType blogType) {
 		Session session = this.sessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
+		Transaction tr = session.beginTransaction();
 		session.save(blogType);
-		tx.commit();
+		tr.commit();
 		session.close();
 	}
 
 	public void update(BlogType blogType) {
 		Session session = this.sessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
+		Transaction tr = session.beginTransaction();
 		session.merge(blogType);
-		tx.commit();
+		tr.commit();
 		session.close();
 	}
 
 	public void delete(int id) {
 		Session session = this.sessionFactory.openSession();
-		Transaction tx = null;
-		tx = session.beginTransaction();
+		Transaction tr = session.beginTransaction();
 		session.delete(this.findById(id));
-		tx.commit();
+		tr.commit();
 		session.close();
+	}
+
+	
+	public List<BlogType> findList(PageBean pageBean) {
+		StringBuffer sb = new StringBuffer("from BlogType");
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		Query q  =  session.createQuery(sb.toString());
+		q.setFirstResult(pageBean.getStart());
+        q.setMaxResults(pageBean.getPageSize());
+        @SuppressWarnings("unchecked")
+		List<BlogType> blogTypeList = q.list();
+        tx.commit();
+        session.close();
+		return blogTypeList;
 	}
 
 
@@ -82,13 +80,6 @@ public class BlogTypeDao {
 		for(Object count :counts){
 			System.out.println(count.toString());
 		}
-//		for(BlogType blogType:blogTypeList){
-//			for(Object count:counts){
-//				if(blogType.getId() == count[0]){
-//					blogType.setCount(count[1]);
-//				}
-//			}
-//		}
 		tx.commit();
 		session.close();
 		return blogTypeList;
@@ -103,18 +94,4 @@ public class BlogTypeDao {
 		return this.hibernateTemplate.get(BlogType.class, id);
 	}
 
-	public List<BlogType> find(PageBean pageBean, BlogType s_blogType) {
-		StringBuffer sb = new StringBuffer("from BlogType");
-		Session session = this.sessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
-		Query q  =  session.createQuery(sb.toString());
-		q.setFirstResult(pageBean.getStart());
-        q.setMaxResults(pageBean.getPageSize());
-        @SuppressWarnings("unchecked")
-		List<BlogType> blogTypeList = q.list();
-        blogTypeList = this.setCount(blogTypeList);
-        tx.commit();
-        session.close();
-		return blogTypeList;
-	}
 }

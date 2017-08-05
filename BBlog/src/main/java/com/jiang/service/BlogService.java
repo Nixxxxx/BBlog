@@ -20,8 +20,12 @@ public class BlogService {
 		return blogDao.findById(id);
 	}
 
-	public List<Blog> findByTypeId(PageBean pageBean, int typeId) {
-		return blogDao.findByTypeId(pageBean, typeId);
+	public List<Blog> findListByTypeId(PageBean pageBean, int typeId) {
+		return blogDao.findListByTypeId(pageBean, typeId);
+	}
+	
+	public List<Blog> findByTypeId(int typeId) {
+		return blogDao.findByTypeId(typeId);
 	}
 
 	public List<Blog> findAll() {
