@@ -2,14 +2,19 @@
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<script type="text/javascript" charset="gbk" src="${pageContext.request.contextPath}/static/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="gbk" src="${pageContext.request.contextPath}/static/ueditor/ueditor.all.min.js"> </script>
+<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+<script type="text/javascript" charset="gbk" src="${pageContext.request.contextPath}/static/ueditor/lang/zh-cn/zh-cn.js"></script>
 
 <div class="data_list">
 	<div class="data_list_title">
-		<c:if test="${blog.blogId != null }">
-			<input type="hidden" name="id" value="${blog.blogId }">
+		<c:if test="${blog.id != null }">
+			<input type="hidden" name="id" value="${blog.id }">
 			<i class="glyphicon glyphicon-edit"></i>修改博客
 		</c:if>
-		<c:if test="${blog.blogId == null }">
+		<c:if test="${blog.id == null }">
 			<i class="glyphicon glyphicon-pencil"></i>写博客
 		</c:if>
 	</div>
@@ -23,6 +28,7 @@
 		<div>
 			<textarea class="ckeditor" id="content" name="content">${blog.content }</textarea>
 		</div>
+				   <script id="editor" type="text/plain" style="width:100%;height:500px;"></script>
 		<div class="blog_type">
 			<select id="typeId" name="typeId">
 				<option value="">请选择日志类别...</option>

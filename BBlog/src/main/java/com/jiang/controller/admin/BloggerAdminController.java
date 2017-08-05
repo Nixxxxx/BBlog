@@ -35,9 +35,10 @@ public class BloggerAdminController {
 	}
 
 	@RequestMapping("/info")
-	public ModelAndView showMessage() {
+	public ModelAndView info() {
 		ModelAndView mav = new ModelAndView("admin/index");
-		mav.addObject("pagePath", "./admin/blogger/info.jsp");
+		mav.addObject("pagePath", "./admin/bloggerInfo.jsp");
+		mav.addObject("blogger", bloggerService.findById(1));
 		return mav;
 	}
 }

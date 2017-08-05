@@ -27,6 +27,7 @@ public class Blog {
 	private BlogType blogType;
 	private String title;
 	private String content;
+	private String summary;
 	private int reader;
 	private Date updateTime;
 	private Date createTime;
@@ -89,7 +90,15 @@ public class Blog {
 		this.content = content;
 	}
 
-	
+	@Column(name = "summary", nullable = false, length = 255)
+	public String getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+
 	@Column(name = "reader", nullable = false, length = 10)
 	public int getReader() {
 		return reader;

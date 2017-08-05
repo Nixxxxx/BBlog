@@ -139,7 +139,7 @@ body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
 			<li class="treeview">
 				<a href="#"><i class="fa fa-dashboard"></i>
 					<span>博客管理</span> 
-					<span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
+					<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
 				</a>
 				<ul class="treeview-menu">
 					<li><a href="admin/blog/list">
@@ -166,11 +166,15 @@ body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
 			</li>
 			<li class="treeview">
 				<a href="#"><i class="fa fa-dashboard"></i>
-					<span>博主信息</span> 
+					<span>系统管理</span> 
 					<span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
 				</a>
 				<ul class="treeview-menu">
-					<li><a href="admin/blogger">
+					<li><a href="admin/list">
+					<i class="fa fa-circle-o"></i> 管理员列表 </a></li>
+				</ul>
+				<ul class="treeview-menu">
+					<li><a href="admin/blogger/info">
 					<i class="fa fa-circle-o"></i> 博主信息 </a></li>
 				</ul>
 			</li>

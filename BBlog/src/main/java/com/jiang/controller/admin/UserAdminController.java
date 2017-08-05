@@ -35,7 +35,7 @@ public class UserAdminController {
 		int total = userList.size();
 		String pageCode = PageUtil.genPagination("admin/user/list", total, pageBean.getPage(),pageBean.getPageSize(), null);
 		ModelAndView mav = new ModelAndView("admin/index");
-		mav.addObject("pagePath", "./admin/user/list.jsp");
+		mav.addObject("pagePath", "./user/list.jsp");
 		mav.addObject("pageCode", pageCode);
 		mav.addObject("userList", userList);
 		return mav;
