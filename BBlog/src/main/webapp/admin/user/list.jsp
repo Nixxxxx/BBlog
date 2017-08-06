@@ -6,7 +6,7 @@
 	<ol class="breadcrumb">
 		<li><i class="fa fa-dashboard"></i>首页</li>
 		<li>用户管理</li>
-		<li class="active">博客类型管理</li>
+		<li class="active">用户列表</li>
 	</ol>
 	</section>
 
@@ -15,11 +15,11 @@
 		<div class="col-xs-12">
 			<div class="box">
 				<div class="box-header">
-					<h3 class="box-title">用户列表列表</h3>
+					<h3 class="box-title">用户列表</h3>
 
 					<div class="box-tools">
 						<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-remote="false"
-							data-target="#user_add_modal" data-backdrop="static">添加博客类型</button>
+							data-target="#user_add_modal" data-backdrop="static">添加用户</button>
 					</div>
 				</div>
 				<div class="box-body table-responsive no-padding">
@@ -27,7 +27,11 @@
 						<thead>
 							<tr>
 								<th>序号</th>
-								<th>博客类型</th>
+								<th>用户名</th>
+								<th>邮箱</th>
+								<th>密码</th>
+								<th>头像</th>
+								<th>心情</th>
 								<th>操作</th>
 							</tr>
 						</thead>
@@ -35,9 +39,12 @@
 							<c:forEach var="user" items="${userList }" varStatus="status">
 								<tr>
 									<td>${status.index+1 }</td>
-									<td class="user_typeName">${user.typeName }</td>
+									<td class="user_userName">${user.userName }</td>
+									<td class="user_email">${user.email }</td>
+									<td class="user_password">${user.password }</td>
+									<td class="user_imagePath">${user.imagePath }</td>
+									<td class="user_mood">${user.mood }</td>
 									<td>
-										<a href="admin/blog/list?typeId=${user.id }"> <i class="fa fa-th"></i> 查看博客</a>
 										<a data-id="${user.id }" class="update" href="javascript:void(0)" data-toggle="modal"
 										data-remote="false" data-target="#user_update_modal" data-backdrop="static"> <i class="fa fa-edit"></i> 编辑</a>
 										<a data-id="${user.id }" class="del" href="javascript:void(0)"> <i class="fa fa-trash"></i> 删除</a>
@@ -47,7 +54,7 @@
 						</c:if>
 						<c:if test="${userList == null }">
 							<tr>
-								<td colspan="3">无记录！</td>
+								<td colspan="7">无记录！</td>
 							</tr>
 						</c:if>
 					</table>
@@ -73,15 +80,45 @@
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-						<h3 class="box-title" id="user_add_label">添加博客类型</h3>
+						<h3 class="box-title" id="user_add_label">添加用户</h3>
 					</div>
 					<form class="form-horizontal" id="user_add_form">
+						<div class="text-danger wrapper-xs text-center invisible" id="error_msg1">
+	                		错误信息</div>
 						<div class="box-body">
 							<div class="form-group">
-								<label for="user_add_typeName" class="col-sm-2 control-label">类型名</label>
+								<label for="user_add_userName" class="col-sm-2 control-label">用户名</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="user_add_typeName"
-										name="typeName" maxlength="10" placeholder="请输入用户名" required>
+									<input type="text" class="form-control" id="user_add_userName"
+										name="userName" maxlength="10" placeholder="请输入用户名" required>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="user_add_email" class="col-sm-2 control-label">邮箱</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="user_add_email"
+										name="email" maxlength="10" placeholder="请输入邮箱" required>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="user_add_password" class="col-sm-2 control-label">密码</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="user_add_password"
+										name="password" maxlength="10" placeholder="请输入密码" required>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="user_add_imagePath" class="col-sm-2 control-label">头像</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="user_add_imagePath"
+										name="imagePath" maxlength="10" placeholder="请输入头像" required>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="user_add_mood" class="col-sm-2 control-label">心情</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="user_add_mood"
+										name="mood" maxlength="10" placeholder="请输入心情" required>
 								</div>
 							</div>
 						</div>
@@ -107,13 +144,43 @@
 						<h3 class="box-title" id="user_update_label">编辑</h3>
 					</div>
 					<form class="form-horizontal" id="user_update_form">
+						<div class="text-danger wrapper-xs text-center invisible" id="error_msg2">
+	                		错误信息</div>
 						<div class="box-body">
 							<input type="hidden" id="user_update_id" name="id">
 							<div class="form-group">
-								<label for="user_update_typeName" class="col-sm-2 control-label">类型名</label>
+								<label for="user_update_userName" class="col-sm-2 control-label">用户名</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="user_update_typeName"
-										name="typeName" maxlength="10" placeholder="请输入用户名" required>
+									<input type="text" class="form-control" id="user_update_userName"
+										name="userName" maxlength="10" placeholder="请输入用户名" required>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="user_update_email" class="col-sm-2 control-label">邮箱</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="user_update_email"
+										name="email" maxlength="10" placeholder="请输入邮箱" required>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="user_update_password" class="col-sm-2 control-label">密码</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="user_update_password"
+										name="password" maxlength="10" placeholder="请输入密码" required>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="user_update_imagePath" class="col-sm-2 control-label">头像</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="user_update_imagePath"
+										name="imagePath" maxlength="10" placeholder="请输入头像" required>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="user_update_mood" class="col-sm-2 control-label">心情</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="user_update_mood"
+										name="mood" maxlength="10" placeholder="请输入心情" required>
 								</div>
 							</div>
 						</div>
@@ -161,7 +228,11 @@
         //更新modal
         $(".update").click(function () {
             $("#user_update_id").val($(this).data("id"));
-            $("#user_update_typeName").val($(this).parent().prevAll(".user_typeName").text());
+            $("#user_update_userName").val($(this).parent().prevAll(".user_userName").text());
+            $("#user_update_email").val($(this).parent().prevAll(".user_email").text());
+            $("#user_update_password").val($(this).parent().prevAll(".user_password").text());
+            $("#user_update_imagePath").val($(this).parent().prevAll(".user_imagePath").text());
+            $("#user_update_mood").val($(this).parent().prevAll(".user_mood").text());
         });
 
         //更新
@@ -200,7 +271,7 @@
         //添加
         var $user_add_form = $("#user_add_form");
         $user_add_form.submit(function () {
-            var typeName = $.trim($("#user_add_form input[name=typeName]").val());
+            var typeName = $.trim($("#user_add_userName").val());
             var $add_btn = $("#user_add_button");
             $.ajax({
                 url: "admin/user/insert",

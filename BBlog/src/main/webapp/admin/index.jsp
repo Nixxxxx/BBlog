@@ -19,10 +19,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="shortcut icon" href="static/images/avater.jpg">
 <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css">
-<script src="//cdn.bootcss.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
 <link rel="stylesheet" href="//cdn.bootcss.com/admin-lte/2.3.11/css/AdminLTE.css">
 <link rel="stylesheet" href="//cdn.bootcss.com/admin-lte/2.3.11/css/skins/_all-skins.min.css">
 
@@ -88,13 +88,12 @@ body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
 					</ul></li>
 				<li class="dropdown user user-menu">
 				  <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
-					<img src="static/dist/img/logo.png" class="user-image" alt="User Image">
+					<img src="#" class="user-image" alt="User Image">
 						<span class="hidden-xs">${admin.email }</span>
 				  </a>
 					<ul class="dropdown-menu">
 						<!-- User image -->
-						<li class="user-header"><img src="static/dist/img/logo.png"
-							class="img-circle" alt="User Image">
+						<li class="user-header"><img src="#" class="img-circle" alt="User Image">
 							<p>
                 				${admin.email }-超级管理员
 							</p></li>
@@ -132,8 +131,8 @@ body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
 					<span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
 				</a>
 				<ul class="treeview-menu">
-					<li><a href="admin/blog">
-					<i class="fa fa-circle-o"></i> 博客管理 </a></li>
+					<li><a href="#">
+					<i class="fa fa-circle-o"></i> 总览</a></li>
 				</ul>
 			</li>
 			<li class="treeview">
@@ -202,8 +201,8 @@ body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
 	<script src="//cdn.bootcss.com/admin-lte/2.3.11/js/app.min.js"></script>
 	<script src="//cdn.bootcss.com/admin-lte/2.3.11/js/demo.js"></script>
 
-	<script>
-$(function () {
+	<!-- <script>
+ $(function () {
     /**
      * 根据url高亮菜单
      * @param pathname location.pathname
@@ -240,6 +239,6 @@ $(function () {
 
 
 })
-</script>
+</script> -->
 </body>
 </html>

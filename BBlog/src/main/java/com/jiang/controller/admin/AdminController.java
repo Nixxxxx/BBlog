@@ -56,21 +56,19 @@ public class AdminController {
 	}
 	
 	
-	@RequestMapping(value = "/signUp")
-	public void signUp(Admin adm,  @RequestParam String captcha,@SessionAttribute String sRand,
-			HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("/insert")
+	public void insert(Admin adm, HttpServletRequest request, HttpServletResponse response) {
 		boolean result = false;
 		String msg = "";
-		if(captcha.equalsIgnoreCase(sRand)){
-			if(!checkEmail(adm.getEmail(), 0)){
-				msg = "该邮箱已存在";
-			}else {
-				adm.setPassword(MD5Util.getMD5Code(adm.getPassword()));
-				if(adminService.insert(adm)){
-					result = true;
-				}else msg = "注册失败";
-			}
-		}else msg = "验证码错误";
+		if(!checkEmail(adm.getEmail(), 0)){
+			msg = "该邮箱已存在";
+		}else {
+			adm.setPassword(MD5Util.getMD5Code(adm.getPassword()));
+			if(adminService.insert(adm)){
+				result = true;
+				msg = "注册成功";
+			}else msg = "注册失败";
+		}
 		JSONObject resultJson = new JSONObject();
 		resultJson.put("result", result);
 		resultJson.put("msg", msg);
@@ -84,14 +82,29 @@ public class AdminController {
 		if (!checkEmail(adm.getEmail(), adm.getId())) {
 			msg = "该邮箱已存在";
 		}else {
-			Admin admin = adminService.findById(adm.getId());
-			admin.setEmail(adm.getEmail());
-			if(adminService.update(admin)){
+			adm.setPassword(MD5Util.getMD5Code(adm.getPassword()));
+			if(adminService.update(adm)){
 				result = true;
-				request.getSession().setAttribute("user", adminService.findById(admin.getId()));
+				msg ="更新成功";
 			}
 			else msg = "更新失败";
 		}
+		JSONObject resultJson = new JSONObject();
+		resultJson.put("result", result);
+		resultJson.put("msg", msg);
+		ResponseUtil.writeJson(response, resultJson);
+	}
+	
+	
+	@RequestMapping("/del")
+	public void delete(int id, HttpServletRequest request, HttpServletResponse response) {
+		boolean result = false;
+		String msg = "";
+		if(adminService.delete(id)){
+			result = true;
+			msg = "删除成功";
+		}
+		else msg = "更新失败";
 		JSONObject resultJson = new JSONObject();
 		resultJson.put("result", result);
 		resultJson.put("msg", msg);
@@ -106,12 +119,17 @@ public class AdminController {
 		}
 		PageBean pageBean = new PageBean(Integer.parseInt(page), 10);
 		List<Admin> adminList = adminService.findList(pageBean);
+		for(Admin admin:adminList){
+			admin.setPassword(MD5Util.getMD5Code(admin.getPassword()));
+		}
 		int total = adminList.size();
-		String pageCode = PageUtil.genPagination("admin/admin/list", total, pageBean.getPage(),pageBean.getPageSize(), null);
+		String pageCode = PageUtil.genPagination("admin/list", total, pageBean.getPage(),pageBean.getPageSize(), null);
 		ModelAndView mav = new ModelAndView("admin/index");
 		mav.addObject("pagePath", "./admin/list.jsp");
-		mav.addObject("pageCode", pageCode);
-		mav.addObject("userList", adminList);
+		if(!adminList.isEmpty()){
+			mav.addObject("pageCode", pageCode);
+			mav.addObject("adminList", adminList);
+		}
 		return mav;
 	}
 	

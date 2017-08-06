@@ -127,8 +127,10 @@ public class BlogAdminController {
 		String pageCode = PageUtil.genPagination("admin/blog/list", total, pageBean.getPage(),pageBean.getPageSize(), "typeId="+nowTypeId+"&");
 		ModelAndView mav = new ModelAndView("admin/index");
 		mav.addObject("pagePath", "./blog/blogManage.jsp");
-		mav.addObject("pageCode", pageCode);
-		mav.addObject("blogList", blogList);
+		if(!blogList.isEmpty()){
+			mav.addObject("pageCode", pageCode);
+			mav.addObject("blogList", blogList);
+		}
 		return mav;
 	}
 

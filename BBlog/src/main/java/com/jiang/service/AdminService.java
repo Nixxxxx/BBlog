@@ -35,4 +35,8 @@ public class AdminService {
 	public List<Admin> findList(PageBean pageBean) {
 		return adminDao.findList(pageBean);
 	}
+
+	public boolean delete(int id) {
+		return adminDao.delete(id);
+	}
 }

@@ -43,9 +43,11 @@ public class BlogTypeAdminController {
 		String pageCode = PageUtil.genPagination("admin/blogType/list", total, pageBean.getPage(),
 				pageBean.getPageSize(), null);
 		ModelAndView mav = new ModelAndView("admin/index");
-		mav.addObject("pageCode", pageCode);
 		mav.addObject("pagePath","./blog/blogTypeManage.jsp");
-		mav.addObject("blogTypeList", blogTypeList);
+		if(!blogTypeList.isEmpty()){
+			mav.addObject("pageCode", pageCode);
+			mav.addObject("blogTypeList", blogTypeList);
+		}
 		return mav;
 	}
 	
@@ -80,7 +82,7 @@ public class BlogTypeAdminController {
 	public void delete(@RequestParam int id, HttpServletRequest request,HttpServletResponse response){
 		boolean result = false;
 		String msg;
-		if(!blogservice.findByTypeId(id).isEmpty()){
+		if(blogservice.findByTypeId(id).isEmpty()){
 			result = blogTypeService.delete(id);
 			msg = result?"删除成功":"删除失败";
 		}else {

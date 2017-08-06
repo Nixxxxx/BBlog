@@ -81,7 +81,7 @@
 								<label for="blogType_add_typeName" class="col-sm-2 control-label">类型名</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="blogType_add_typeName"
-										name="typeName" maxlength="10" placeholder="请输入用户名" required>
+										name="typeName" maxlength="10" placeholder="请输入类型名" required>
 								</div>
 							</div>
 						</div>
@@ -113,7 +113,7 @@
 								<label for="blogType_update_typeName" class="col-sm-2 control-label">类型名</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="blogType_update_typeName"
-										name="typeName" maxlength="10" placeholder="请输入用户名" required>
+										name="typeName" maxlength="10" placeholder="请输入类型名" required>
 								</div>
 							</div>
 						</div>

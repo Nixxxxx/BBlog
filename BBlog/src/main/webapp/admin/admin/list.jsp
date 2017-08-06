@@ -5,8 +5,8 @@
 	<section class="content-header">
 	<ol class="breadcrumb">
 		<li><i class="fa fa-dashboard"></i>首页</li>
-		<li>用户管理</li>
-		<li class="active">博客类型管理</li>
+		<li>系统管理</li>
+		<li class="active">管理员管理</li>
 	</ol>
 	</section>
 
@@ -15,11 +15,11 @@
 		<div class="col-xs-12">
 			<div class="box">
 				<div class="box-header">
-					<h3 class="box-title">用户列表列表</h3>
+					<h3 class="box-title">管理员列表</h3>
 
 					<div class="box-tools">
 						<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-remote="false"
-							data-target="#admin_add_modal" data-backdrop="static">添加博客类型</button>
+							data-target="#admin_add_modal" data-backdrop="static">添加管理员</button>
 					</div>
 				</div>
 				<div class="box-body table-responsive no-padding">
@@ -27,7 +27,8 @@
 						<thead>
 							<tr>
 								<th>序号</th>
-								<th>博客类型</th>
+								<th>邮箱</th>
+								<th>密码</th>
 								<th>操作</th>
 							</tr>
 						</thead>
@@ -36,6 +37,7 @@
 								<tr>
 									<td>${status.index+1 }</td>
 									<td class="admin_email">${admin.email }</td>
+									<td class="admin_password">${admin.password }</td>
 									<td>
 										<a data-id="${admin.id }" class="update" href="javascript:void(0)" data-toggle="modal"
 										data-remote="false" data-target="#admin_update_modal" data-backdrop="static"> <i class="fa fa-edit"></i> 编辑</a>
@@ -46,7 +48,7 @@
 						</c:if>
 						<c:if test="${adminList == null }">
 							<tr>
-								<td colspan="3">无记录！</td>
+								<td colspan="4">无记录！</td>
 							</tr>
 						</c:if>
 					</table>
@@ -75,19 +77,20 @@
 						<h3 class="box-title" id="admin_add_label">添加管理员</h3>
 					</div>
 					<form class="form-horizontal" id="admin_add_form">
+			          <div class="text-danger wrapper-xs text-center invisible" id="error_msg1">错误信息</div>
 						<div class="box-body">
 							<div class="form-group">
 								<label for="admin_add_email" class="col-sm-2 control-label">邮箱</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="admin_add_email"
-										name="email" maxlength="10" placeholder="请输入用户名" required>
+										name="email" maxlength="30" placeholder="Email" required>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="admin_add_email" class="col-sm-2 control-label">密码</label>
+								<label for="admin_add_password" class="col-sm-2 control-label">密码</label>
 								<div class="col-sm-10">
-									<input type="password" class="form-control" id="admin_add_email"
-										name="password" maxlength="10" placeholder="请输入用户名" required>
+									<input type="text" class="form-control" id="admin_add_password"
+										name="password" maxlength="20" placeholder="Password" required>
 								</div>
 							</div>
 						</div>
@@ -113,13 +116,21 @@
 						<h3 class="box-title" id="admin_update_label">编辑</h3>
 					</div>
 					<form class="form-horizontal" id="admin_update_form">
+			          <div class="text-danger wrapper-xs text-center invisible" id="error_msg2">错误信息</div>
 						<div class="box-body">
 							<input type="hidden" id="admin_update_id" name="id">
 							<div class="form-group">
-								<label for="admin_update_email" class="col-sm-2 control-label">类型名</label>
+								<label for="admin_update_email" class="col-sm-2 control-label">邮箱</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="admin_update_email"
-										name="email" maxlength="10" placeholder="请输入用户名" required>
+										name="email" maxlength="30" placeholder="Email" required>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="admin_update_password" class="col-sm-2 control-label">密码</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="admin_update_password"
+										name="password" maxlength="20" placeholder="Password" required>
 								</div>
 							</div>
 						</div>
@@ -168,18 +179,42 @@
         $(".update").click(function () {
             $("#admin_update_id").val($(this).data("id"));
             $("#admin_update_email").val($(this).parent().prevAll(".admin_email").text());
+            $("#admin_update_password").val($(this).parent().prevAll(".admin_password").text());
         });
 
         //更新
         var $admin_update_form = $("#admin_update_form");
         $admin_update_form.submit(function () {
-            var $update_btn = $("#admin_update_button");
+        	var $error_msg = $("#error_msg2");
+            var show_error = function (error_msg) {
+                $error_msg.text(error_msg).removeClass("invisible");
+            };
+        	$error_msg.addClass("invisible");
 
+            var id = $.trim($("#admin_update_id").val());
+            var email = $.trim($("#admin_update_email").val());
+			var password = $.trim($("#admin_update_password").val());
+			var ePattern = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+			var uPattern = /^[a-zA-Z0-9_@.]{4,20}$/;
+			if (!ePattern.test(email)) {
+				show_error("请输入正确格式的邮箱");
+				return false;
+			}
+			if (!uPattern.test(password)) {
+				show_error("请输入正确格式的密码");
+				return false;
+			}
+			
+            var $update_btn = $("#admin_update_button");
             $.ajax({
                 url: "admin/update",
                 type: "post",
                 dataType: "json",
-                data: $admin_update_form.serialize(),
+                data: {
+                	id :id,
+                	email : email,
+                	password : password,
+                	},
                 beforeSend: function () {
                     $update_btn.button("loading");
                 },
@@ -206,16 +241,22 @@
         //添加
         var $admin_add_form = $("#admin_add_form");
         $admin_add_form.submit(function () {
-            var email = $.trim($("#admin_add_form input[name=email]").val());
-			var password = $.trim($("##admin_add_form input[name=password]").val());
+        	var $error_msg = $("#error_msg1");
+            var show_error = function (error_msg) {
+                $error_msg.text(error_msg).removeClass("invisible");
+            };
+        	$error_msg.addClass("invisible");
+        	
+            var email = $.trim($("#admin_add_email").val());
+			var password = $.trim($("#admin_add_password").val());
 			var ePattern = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
 			var uPattern = /^[a-zA-Z0-9_@.]{4,20}$/;
 			if (!ePattern.test(email)) {
-				showError("请输入正确格式的邮箱");
+				show_error("请输入正确格式的邮箱");
 				return false;
 			}
 			if (!uPattern.test(password)) {
-				showError("请输入正确格式的密码");
+				show_error("请输入正确格式的密码");
 				return false;
 			}
             var $add_btn = $("#admin_add_button");
