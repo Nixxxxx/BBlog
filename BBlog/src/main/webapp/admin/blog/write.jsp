@@ -83,7 +83,7 @@ $(function (){
 			},
 			success : function(data) {
 				if (data.result) {
-					window.location.href = "index.jsp";
+					window.location.reload();
 				} else {
 					showError(data.msg);
 				}

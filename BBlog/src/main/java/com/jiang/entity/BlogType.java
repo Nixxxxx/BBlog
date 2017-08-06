@@ -52,16 +52,16 @@ public class BlogType {
 	public void setTypeName(String typeName) {
 		this.typeName = typeName;
 	}
-	
+
 	@Transient
 	public int getCount() {
 		return count;
 	}
+
 	public void setCount(int count) {
 		this.count = count;
 	}
 
-	
 	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
 	@JoinColumn(name = "id")
 	@Transient

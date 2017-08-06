@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>博客管理</title>
+<title>博客后台</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <base href="<%=basePath%>">
@@ -63,8 +63,8 @@ body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
 	<div class="wrapper">
 		<header class="main-header">
 			<a href="./" class="logo">
-			<span class="logo-mini"><b>Nix</b></span>
-			<span class="logo-lg"><b>Nix's Blog</b></span>
+			<span class="logo-mini"><b>Blog</b></span>
+			<span class="logo-lg"><b>My Blog</b></span>
 		</a>
 		<nav class="navbar navbar-static-top">
 		<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"> <span class="sr-only">Toggle navigation</span></a>
@@ -144,12 +144,8 @@ body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
 				<ul class="treeview-menu">
 					<li><a href="admin/blog/list">
 					<i class="fa fa-circle-o"></i> 博客管理 </a></li>
-				</ul>
-				<ul class="treeview-menu">
 					<li><a href="admin/blogType/list">
 					<i class="fa fa-circle-o"></i> 博客类型管理 </a></li>
-				</ul>
-				<ul class="treeview-menu">
 					<li><a href="admin/blog/write">
 					<i class="fa fa-circle-o"></i> 写博客 </a></li>
 				</ul>
@@ -172,8 +168,6 @@ body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
 				<ul class="treeview-menu">
 					<li><a href="admin/list">
 					<i class="fa fa-circle-o"></i> 管理员列表 </a></li>
-				</ul>
-				<ul class="treeview-menu">
 					<li><a href="admin/blogger/info">
 					<i class="fa fa-circle-o"></i> 博主信息 </a></li>
 				</ul>

@@ -53,8 +53,8 @@ $(function() {
 
 <section class="content-header">
 	<ol class="breadcrumb">
-		<li>用户</li>
-		<li class="active">个人中心</li>
+		<li>系统管理</li>
+		<li class="active">博主信息</li>
 	</ol>
 </section>
 <div class="sidebar-content">
@@ -64,11 +64,11 @@ $(function() {
 			<div class="text-danger wrapper-xs text-center invisible" id="errorMsg">错误信息</div>
 		</div>
 		<div class="col-sm-7 col-sm-offset-1">
-			<form class="form-horizontal" id="updateForm" method="post">
+			<form class="form-horizontal" id="updateForm" enctype="multipart/form-data">
 				<input type="hidden" name="id" value="${blogger.id }"> 
 				<div class="form-group input-group">
 					<span class="input-group-addon">头&nbsp&nbsp&nbsp像</span> 
-					<input type="file" id="imagePath" name="imagePath" accept="image" disabled=true>
+					<input type="file" id="imagePath" name="imageFile" accept="image" disabled=true>
 				</div>
 				<div class="form-group input-group">
 					<span class="input-group-addon">邮&nbsp&nbsp&nbsp箱</span> 

@@ -39,7 +39,7 @@ public class BlogTypeAdminController {
 		}
 		PageBean pageBean = new PageBean(Integer.parseInt(page), 10);
 		List<BlogType> blogTypeList = blogTypeService.findList(pageBean);
-		int total = blogTypeList.size();
+		int total = blogTypeService.findAll().size();
 		String pageCode = PageUtil.genPagination("admin/blogType/list", total, pageBean.getPage(),
 				pageBean.getPageSize(), null);
 		ModelAndView mav = new ModelAndView("admin/index");
@@ -80,7 +80,7 @@ public class BlogTypeAdminController {
 	public void delete(@RequestParam int id, HttpServletRequest request,HttpServletResponse response){
 		boolean result = false;
 		String msg;
-		if(blogservice.findByTypeId(id) != null){
+		if(!blogservice.findByTypeId(id).isEmpty()){
 			result = blogTypeService.delete(id);
 			msg = result?"删除成功":"删除失败";
 		}else {

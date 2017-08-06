@@ -11,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
+import com.jiang.entity.BlogType;
 import com.jiang.entity.Blogger;
 
 /**
@@ -28,28 +29,14 @@ public class InitComponent implements ServletContextListener,ApplicationContextA
 	}
 
 	public void contextInitialized(ServletContextEvent servletContextEvent) {
-		/*ServletContext application=servletContextEvent.getServletContext();
-		BloggerService bloggerService=(BloggerService) applicationContext.getBean("bloggerService");
-		Blogger blogger=bloggerService.find(); // 查询博主信息
-		blogger.setPassword(null);
+		ServletContext application = servletContextEvent.getServletContext();
+		BloggerService bloggerService = (BloggerService) applicationContext.getBean("bloggerService");
+		Blogger blogger=bloggerService.findById(1); // 查询博主信息
 		application.setAttribute("blogger", blogger);
 		
-		BlogTypeService blogTypeService=(BlogTypeService) applicationContext.getBean("blogTypeService");
-		List<BlogType> blogTypeCountList=blogTypeService.countList(); // 查询博客类别以及博客的数量
+		BlogTypeService blogTypeService = (BlogTypeService) applicationContext.getBean("blogTypeService");
+		List<BlogType> blogTypeCountList = blogTypeService.countList(); // 查询博客类别以及博客的数量
 		application.setAttribute("blogTypeCountList", blogTypeCountList);
-		
-		BlogService blogService=(BlogService) applicationContext.getBean("blogService");
-		List<Blog> blogCountList=blogService.countList(); // 根据日期分组查询博客
-		application.setAttribute("blogCountList", blogCountList);
-		
-		LinkService linkService=(LinkService) applicationContext.getBean("linkService");
-		List<Link> linkList=linkService.list(null); // 查询所有的友情链接信息
-		application.setAttribute("linkList", linkList);*/
-		
-		ServletContext application=servletContextEvent.getServletContext();
-		BloggerService bloggerService=(BloggerService) applicationContext.getBean("bloggerService");
-		Blogger blogger = bloggerService.findById(1); // 查询博主信息
-		application.setAttribute("blogger", blogger);
 		
 	}
 

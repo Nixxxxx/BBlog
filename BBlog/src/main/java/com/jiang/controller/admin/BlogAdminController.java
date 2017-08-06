@@ -118,7 +118,12 @@ public class BlogAdminController {
 		PageBean pageBean = new PageBean(Integer.parseInt(page), 5);
 		int nowTypeId = (typeId == null?0:Integer.parseInt(typeId));
 		List<Blog> blogList = blogService.findListByTypeId(pageBean, nowTypeId);
-		int total = blogList.size();
+		int total;
+		if(nowTypeId == 0){
+			total = blogService.findAll().size();
+		}else{
+			total = blogService.findByTypeId(nowTypeId).size();
+		}
 		String pageCode = PageUtil.genPagination("admin/blog/list", total, pageBean.getPage(),pageBean.getPageSize(), "typeId="+nowTypeId+"&");
 		ModelAndView mav = new ModelAndView("admin/index");
 		mav.addObject("pagePath", "./blog/blogManage.jsp");

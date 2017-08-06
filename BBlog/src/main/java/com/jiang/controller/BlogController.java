@@ -45,7 +45,12 @@ public class BlogController {
 		PageBean pageBean = new PageBean(Integer.parseInt(page), 5);
 		int nowTypeId = (typeId == null?0:Integer.parseInt(typeId));
 		List<Blog> blogList = blogService.findListByTypeId(pageBean, nowTypeId);
-		int total = blogService.findAll().size();
+		int total;
+		if(nowTypeId == 0){
+			total = blogService.findAll().size();
+		}else{
+			total = blogService.findByTypeId(nowTypeId).size();
+		}
 		String pageCode = PageUtil.genPagination("blog/list", total, pageBean.getPage(),pageBean.getPageSize(), "typeId="+nowTypeId);
 		ModelAndView mav = new ModelAndView("index");
 		mav.addObject("pagePath", "./foreground/blog/list.jsp");

@@ -154,10 +154,7 @@
                     success: function (data) {
                         alert(data.msg);
                         if (data.success) {
-                            //菜单栏当前选中
                         	window.location.reload();
-                            $now_selected = $("ul.treeview-menu>li.active>a");
-                            $now_selected.trigger("click");
                         }
                     },
                     error: function (XMLHttpRequest, textStatus) {
@@ -197,11 +194,7 @@
                 success: function (data) {
                     alert(data.msg);
                     if (data.success) {
-                        //菜单栏当前选中
                         window.location.reload();
-                        $now_selected = $("ul.treeview-menu>li.active>a");
-                        $now_selected.trigger("click");
-                        $("#blog_update_modal").modal("hide");
                     }
                 },
                 error: function (XMLHttpRequest, textStatus) {
@@ -242,11 +235,7 @@
                 success: function (data) {
                     alert(data.msg);
                     if (data.success) {
-                        //菜单栏当前选中
                         window.location.reload();
-                        $now_selected = $("ul.treeview-menu>li.active>a");
-                        $now_selected.trigger("click");
-                        $("#blog_add_modal").modal("hide");
                     }
                 },
                 error: function (XMLHttpRequest, textStatus) {

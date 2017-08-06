@@ -37,6 +37,10 @@ public class BlogTypeService {
 		blogTypeDao.update(blogType);
 		return true;
 	}
+	
+	public List<BlogType> countList(){
+		return blogTypeDao.countList();
+	}
 
 	public List<BlogType> findAll() {
 		return blogTypeDao.findAll();
@@ -45,4 +49,6 @@ public class BlogTypeService {
 	public List<BlogType> findList(PageBean pageBean) {
 		return blogTypeDao.findList(pageBean);
 	}
+	
+	
 }

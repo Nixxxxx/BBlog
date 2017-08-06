@@ -4,17 +4,13 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.jiang.entity.Blog;
 import com.jiang.entity.BlogType;
 import com.jiang.entity.PageBean;
 
@@ -68,17 +64,20 @@ public class BlogTypeDao {
 	}
 
 
-	public List<BlogType> setCount(List<BlogType> blogTypeList) {
+	public List<BlogType> countList() {
 		Session session = this.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		Criteria criteria = session.createCriteria(Blog.class)
-				.setProjection(Projections.projectionList().add(Projections.property("typeId"))
-						.add(Projections.count("typeId")).add(Projections.groupProperty("typeId")))
-				.addOrder(Order.asc("typeId"));
 		@SuppressWarnings("unchecked")
-		List<Object[]> counts = criteria.list();
-		for(Object count :counts){
-			System.out.println(count.toString());
+		List<Object[]> counts = session.createSQLQuery("select typeId,count(typeId) from t_blog group by typeId").list();
+		List<BlogType> blogTypeList = this.findAll();
+		int i = 0;
+		for(BlogType blogType:blogTypeList){
+			if(i < counts.size()){
+				int typeId = Integer.parseInt(counts.get(i)[0].toString());
+				if(blogType.getId() == typeId){
+					blogType.setCount(Integer.parseInt(counts.get(i++)[1].toString()));
+				}
+			}
 		}
 		tx.commit();
 		session.close();

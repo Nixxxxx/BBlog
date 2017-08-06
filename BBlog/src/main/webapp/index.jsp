@@ -20,13 +20,8 @@
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<style>
-body {
-	background-color: rgb(221, 221, 221);
-}
-</style>
 </head>
-<body>
+<body style="background: #eee;">
 <div class="navbar navbar-inverse navbar-fixed-top">
 	<div class="navbar-inner">
 	  <div class="container-fluid container">
@@ -45,14 +40,17 @@ body {
 		    <ul class="nav navbar-nav">
 		    	<li><a href="blog/list">博客</a></li>
 		        <li><a href="#">留言</a></li>
-		        <li><a href="waterMark/index">图片水印</a></li>
-		        <li><a href="about.jsp">关于</a></li>
-		     </ul>
+				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">工具<span class="caret"> </span></a>
+					<ul class="dropdown-menu">
+		        	<li><a href="waterMark/index">图片水印</a></li>
+		  			<li><a href="signIn.jsp">切换账号</a> </li>
+			 		</ul> 
+			 	</li> 
+		    </ul>
 	      
 	      
 		<c:if test="${user != null }">
-		<div>
-		 <ul class="nav navbar-nav navbar-right">
+		<ul class="nav navbar-nav navbar-right">
 			<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${user.userName }<span class="caret"> </span></a>
 				<ul class="dropdown-menu">
 				<li><a href="#">当前用户：${user.userName }</a></li>
@@ -62,8 +60,7 @@ body {
 		 		<li><a href="javascript:signOut()">退出</a></li>
 		 		</ul> 
 		 	</li> 
-		 </ul> 
-		</div>
+		</ul> 
 		</c:if>
 		<c:if test="${user == null }">
 		<ul class="nav navbar-nav navbar-right">
@@ -97,7 +94,7 @@ body {
 	            <div class="content">
 	                <h3>Nix</h3>
 	                <ul class="status">
-	                    <li><span class="normal">99 ${blogger.id }</span><br>文章</li>
+	                    <li><span class="normal">99</span><br>文章</li>
 	                    <li><span class="normal">99</span><br>精选</li>
 	                    <li><span class="normal">99</span><br>分类</li>
 	                </ul>
@@ -113,7 +110,7 @@ body {
 		 			<c:if test="${blogTypeCountList != null }">
 					<c:forEach var="blogTypeCount" items="${blogTypeCountList }">
 		            <li class="active">
-		                <a href="blog/list?typeId=${blogTypeCount.blogTypeId }">${blogTypeCount.typeName }<sup>${blogTypeCount.blogCount }</sup></a>
+		                <a href="blog/list?typeId=${blogTypeCount.id }">${blogTypeCount.typeName }<sup>${blogTypeCount.count }</sup></a>
 		            </li>
 		            </c:forEach>
 		            </c:if>

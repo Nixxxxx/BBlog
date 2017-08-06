@@ -150,10 +150,7 @@
                     success: function (data) {
                         alert(data.msg);
                         if (data.result) {
-                            //菜单栏当前选中
                         	window.location.reload();
-                            $now_selected = $("ul.treeview-menu>li.active>a");
-                            $now_selected.trigger("click");
                         }
                     },
                     error: function (XMLHttpRequest, textStatus) {
@@ -192,11 +189,7 @@
                 success: function (data) {
                     alert(data.msg);
                     if (data.result) {
-                        //菜单栏当前选中
                         window.location.reload();
-                        $now_selected = $("ul.treeview-menu>li.active>a");
-                        $now_selected.trigger("click");
-                        $("#admin_update_modal").modal("hide");
                     }
                 },
                 error: function (XMLHttpRequest, textStatus) {
@@ -214,11 +207,25 @@
         var $admin_add_form = $("#admin_add_form");
         $admin_add_form.submit(function () {
             var email = $.trim($("#admin_add_form input[name=email]").val());
+			var password = $.trim($("##admin_add_form input[name=password]").val());
+			var ePattern = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+			var uPattern = /^[a-zA-Z0-9_@.]{4,20}$/;
+			if (!ePattern.test(email)) {
+				showError("请输入正确格式的邮箱");
+				return false;
+			}
+			if (!uPattern.test(password)) {
+				showError("请输入正确格式的密码");
+				return false;
+			}
             var $add_btn = $("#admin_add_button");
             $.ajax({
                 url: "admin/insert",
                 type: "POST",
-                data: {email : email},
+                data: {
+                	email : email,
+                	password : password,
+                	},
                 dataType: "json",
                 beforeSend: function () {
                     $add_btn.button("loading");
@@ -229,11 +236,7 @@
                 success: function (data) {
                     alert(data.msg);
                     if (data.result) {
-                        //菜单栏当前选中
                         window.location.reload();
-                        $now_selected = $("ul.treeview-menu>li.active>a");
-                        $now_selected.trigger("click");
-                        $("#admin_add_modal").modal("hide");
                     }
                 },
                 error: function (XMLHttpRequest, textStatus) {

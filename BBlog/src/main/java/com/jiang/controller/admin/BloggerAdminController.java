@@ -1,5 +1,8 @@
 package com.jiang.controller.admin;
 
+import java.io.File;
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -7,6 +10,8 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jiang.entity.Blogger;
@@ -21,11 +26,19 @@ public class BloggerAdminController {
 	private BloggerService bloggerService;
 	
 	@RequestMapping(value = "/update")
-	public void update(Blogger bgr, HttpServletRequest request, HttpServletResponse response) {
+	public void update(@RequestParam("imageFile") MultipartFile imageFile, Blogger bgr, 
+			HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException {
+		if(!imageFile.isEmpty()){
+			String filePath = request.getServletContext().getRealPath("/");
+			String imagePath = filePath+"static/Avatar/blogger"+imageFile.getOriginalFilename().split("\\.")[1];
+			imageFile.transferTo(new File(imagePath));
+			bgr.setImagePath(imagePath);
+		}
 		boolean result = false;
-		String msg = "";
+		String msg;
 		if(bloggerService.update(bgr)){
 			result = true;
+			msg = "更新成功";
 		}
 		else msg = "更新失败";
 		JSONObject resultJson = new JSONObject();
