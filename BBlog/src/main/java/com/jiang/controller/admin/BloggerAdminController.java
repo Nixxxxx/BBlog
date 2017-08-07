@@ -29,14 +29,12 @@ public class BloggerAdminController {
 	@RequestMapping(value = "/update")
 	public void update(@RequestParam("imageFile") MultipartFile imageFile, Blogger bgr, 
 			HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException {
-		if (request instanceof MultipartHttpServletRequest) {
-			if(!imageFile.isEmpty()){
-				String filePath = request.getServletContext().getRealPath("/");
-				String imagePath = filePath+"static/Avatar/blogger"+imageFile.getOriginalFilename().split("\\.")[1];
-				imageFile.transferTo(new File(imagePath));
-				bgr.setImagePath(imagePath);
-			}
-	    }
+		if(!imageFile.isEmpty()){
+			String filePath = request.getServletContext().getRealPath("/");
+			String imagePath = filePath+"static/avater/blogger."+imageFile.getOriginalFilename().split("\\.")[1];
+			imageFile.transferTo(new File(imagePath));
+			bgr.setImagePath(imagePath);
+		}
 		boolean result = false;
 		String msg;
 		if(bloggerService.update(bgr)){
