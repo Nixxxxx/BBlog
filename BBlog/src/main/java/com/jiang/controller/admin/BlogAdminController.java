@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -40,22 +39,27 @@ public class BlogAdminController {
 		return true;
 	}
 	
-	@RequestMapping("/write")
-	public ModelAndView write(){
+	@RequestMapping("/edit")
+	public ModelAndView edit(@RequestParam(required = false) Integer id){
 		ModelAndView mav = new ModelAndView("admin/index");
+		if(id != null){
+			Blog blog = blogService.findById(id);
+			mav.addObject("blog", blog);
+		}
 		mav.addObject("pagePath", "./blog/write.jsp");
+		mav.addObject("blogTypeList", blogTypeService.findAll());
 		return mav;
 	}
 	
 	@RequestMapping("/insert")
-	public void insert(Blog blog, HttpServletRequest request,HttpServletResponse response){
+	public void insert(Blog bg, int typeId, HttpServletRequest request,HttpServletResponse response){
 		boolean result;
 		String msg;
-		if(check(blog.getTitle(), blog.getBlogType().getId(), 0)){
-			blog.setCreateTime(new Date());
-			blog.setUpdateTime(new Date());
+		if(check(bg.getTitle(), typeId, 0)){
+			Blog blog = new Blog(blogTypeService.findById(typeId), bg.getTitle(), bg.getContent(), new Date());
+			blog.setSummary(bg.getSummary());
 			result = blogService.insert(blog);
-			msg = result?"":"保存失败";
+			msg = result?"保存成功":"保存失败";
 		}else {
 			msg = "类型名已存在";
 			result = false;
@@ -69,7 +73,7 @@ public class BlogAdminController {
 	@RequestMapping("/del")
 	public void delete(@RequestParam Integer id, HttpServletRequest request,HttpServletResponse response){
 		boolean result = blogService.delete(id);
-		String msg = result?"":"删除失败";
+		String msg = result?"删除成功":"删除失败";
 		JSONObject resultJson = new JSONObject();
 		resultJson.put("result",result);
 		resultJson.put("msg", msg);
@@ -77,17 +81,18 @@ public class BlogAdminController {
 	}
 
 	@RequestMapping("/update")
-	public void update(Blog bg, HttpServletRequest request, HttpServletResponse response){
+	public void update(Blog bg, int typeId, HttpServletRequest request, HttpServletResponse response){
 		boolean result;
 		String msg;
-		if(check(bg.getTitle(), bg.getBlogType().getId(), bg.getId())){
+		if(check(bg.getTitle(), typeId, bg.getId())){
 			Blog blog = blogService.findById(bg.getId());
-			blog.setBlogType(blogTypeService.findById(bg.getBlogType().getId()));
+			blog.setBlogType(blogTypeService.findById(typeId));
 			blog.setTitle(bg.getTitle());
 			blog.setContent(bg.getContent());
+			blog.setSummary(bg.getSummary());
 			blog.setUpdateTime(new Date());
 			result = blogService.update(blog);
-			msg = result?"":"更新失败";
+			msg = result?"更新成功":"更新失败";
 		}else {
 			msg = "文章已存在";
 			result = false;
@@ -98,16 +103,6 @@ public class BlogAdminController {
 		ResponseUtil.writeJson(response, resultJson);
 	}
 	
-	@RequestMapping("/articles/{id}")
-	public ModelAndView read(@PathVariable("id") Integer id){
-		Blog blog = blogService.findById(id);
-		blog.setReader(blog.getReader()+1);
-		blogService.update(blog);
-		ModelAndView mav = new ModelAndView("admin/index");
-		mav.addObject("pagePath", "./foreground/blog/article.jsp");
-		mav.addObject("blog", blogService.findById(id));
-		return mav;
-	}
 	
 	@RequestMapping("/list")
 	public ModelAndView list(@RequestParam(required = false)String page, 
@@ -115,7 +110,7 @@ public class BlogAdminController {
 		if (StringUtil.isEmpty(page)) {
 			page = "1";
 		}
-		PageBean pageBean = new PageBean(Integer.parseInt(page), 5);
+		PageBean pageBean = new PageBean(Integer.parseInt(page), 10);
 		int nowTypeId = (typeId == null?0:Integer.parseInt(typeId));
 		List<Blog> blogList = blogService.findListByTypeId(pageBean, nowTypeId);
 		int total;

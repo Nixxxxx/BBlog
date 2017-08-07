@@ -90,35 +90,35 @@
 								<label for="user_add_userName" class="col-sm-2 control-label">用户名</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="user_add_userName"
-										name="userName" maxlength="10" placeholder="请输入用户名" required>
+										name="userName" maxlength="20" placeholder="请输入用户名" required>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="user_add_email" class="col-sm-2 control-label">邮箱</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="user_add_email"
-										name="email" maxlength="10" placeholder="请输入邮箱" required>
+										name="email" maxlength="30" placeholder="请输入邮箱" required>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="user_add_password" class="col-sm-2 control-label">密码</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="user_add_password"
-										name="password" maxlength="10" placeholder="请输入密码" required>
+										name="password" maxlength="20" placeholder="请输入密码" required>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="user_add_imagePath" class="col-sm-2 control-label">头像</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="user_add_imagePath"
-										name="imagePath" maxlength="10" placeholder="请输入头像" required>
+										name="imagePath" maxlength="50" placeholder="请输入头像" required>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="user_add_mood" class="col-sm-2 control-label">心情</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="user_add_mood"
-										name="mood" maxlength="10" placeholder="请输入心情" required>
+										name="mood" maxlength="50" placeholder="请输入心情" required>
 								</div>
 							</div>
 						</div>
@@ -152,35 +152,35 @@
 								<label for="user_update_userName" class="col-sm-2 control-label">用户名</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="user_update_userName"
-										name="userName" maxlength="10" placeholder="请输入用户名" required>
+										name="userName" maxlength="20" placeholder="请输入用户名" required>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="user_update_email" class="col-sm-2 control-label">邮箱</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="user_update_email"
-										name="email" maxlength="10" placeholder="请输入邮箱" required>
+										name="email" maxlength="30" placeholder="请输入邮箱" required>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="user_update_password" class="col-sm-2 control-label">密码</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="user_update_password"
-										name="password" maxlength="10" placeholder="请输入密码" required>
+										name="password" maxlength="20" placeholder="请输入密码" required>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="user_update_imagePath" class="col-sm-2 control-label">头像</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="user_update_imagePath"
-										name="imagePath" maxlength="10" placeholder="请输入头像" required>
+										name="imagePath" maxlength="50" placeholder="请输入头像" required>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="user_update_mood" class="col-sm-2 control-label">心情</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="user_update_mood"
-										name="mood" maxlength="10" placeholder="请输入心情" required>
+										name="mood" maxlength="50" placeholder="请输入心情" required>
 								</div>
 							</div>
 						</div>
@@ -238,8 +238,34 @@
         //更新
         var $user_update_form = $("#user_update_form");
         $user_update_form.submit(function () {
-            var $update_btn = $("#user_update_button");
+        	var $error_msg = $("#error_msg2");
+            var show_error = function (error_msg) {
+                $error_msg.text(error_msg).removeClass("invisible");
+            };
+        	$error_msg.addClass("invisible");
 
+            var id = $.trim($("#user_update_id").val());
+            var email = $.trim($("#user_update_email").val());
+            var userName = $.trim($("#user_update_userName").val());
+			var password = $.trim($("#user_update_password").val());
+			var ePattern = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+			var uPattern = /^[a-zA-Z0-9_@.]{4,20}$/;
+			if (!ePattern.test(email)) {
+				show_error("请输入正确格式的邮箱");
+				return false;
+			}
+			if(!uPattern.test(userName)){
+				show_error("请输入正确格式的用户名");
+				return false;
+			}
+			if (!uPattern.test(password)) {
+				show_error("请输入正确格式的密码");
+				return false;
+			}
+			$("#user_update_email").val(email);
+			$("#user_update_userName").val(userName);
+			$("#user_update_password").val(password);
+            var $update_btn = $("#user_update_button");
             $.ajax({
                 url: "admin/user/update",
                 type: "post",
@@ -271,12 +297,38 @@
         //添加
         var $user_add_form = $("#user_add_form");
         $user_add_form.submit(function () {
-            var typeName = $.trim($("#user_add_userName").val());
+        	var $error_msg = $("#error_msg1");
+            var show_error = function (error_msg) {
+                $error_msg.text(error_msg).removeClass("invisible");
+            };
+        	$error_msg.addClass("invisible");
+
+            var id = $.trim($("#user_add_id").val());
+            var email = $.trim($("#user_add_email").val());
+            var userName = $.trim($("#user_add_userName").val());
+			var password = $.trim($("#user_add_password").val());
+			var ePattern = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+			var uPattern = /^[a-zA-Z0-9_@.]{4,20}$/;
+			if (!ePattern.test(email)) {
+				show_error("请输入正确格式的邮箱");
+				return false;
+			}
+			if(!uPattern.test(userName)){
+				show_error("请输入正确格式的用户名");
+				return false;
+			}
+			if (!uPattern.test(password)) {
+				show_error("请输入正确格式的密码");
+				return false;
+			}
+			$("#user_update_email").val(email);
+			$("#user_update_userName").val(userName);
+			$("#user_update_password").val(password);
             var $add_btn = $("#user_add_button");
             $.ajax({
                 url: "admin/user/insert",
-                type: "POST",
-                data: {typeName : typeName},
+                type: "post",
+                data: $user_add_form.serialize(),
                 dataType: "json",
                 beforeSend: function () {
                     $add_btn.button("loading");

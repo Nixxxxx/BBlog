@@ -83,14 +83,14 @@
 								<label for="admin_add_email" class="col-sm-2 control-label">邮箱</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="admin_add_email"
-										name="email" maxlength="30" placeholder="Email" required>
+										maxlength="30" placeholder="Email" required>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="admin_add_password" class="col-sm-2 control-label">密码</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="admin_add_password"
-										name="password" maxlength="20" placeholder="Password" required>
+										maxlength="20" placeholder="Password" required>
 								</div>
 							</div>
 						</div>
@@ -123,14 +123,14 @@
 								<label for="admin_update_email" class="col-sm-2 control-label">邮箱</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="admin_update_email"
-										name="email" maxlength="30" placeholder="Email" required>
+										maxlength="30" placeholder="Email" required>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="admin_update_password" class="col-sm-2 control-label">密码</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="admin_update_password"
-										name="password" maxlength="20" placeholder="Password" required>
+										maxlength="20" placeholder="Password" required>
 								</div>
 							</div>
 						</div>

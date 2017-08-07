@@ -82,7 +82,7 @@ $(function() {
 				</div>
 				<div class="form-group input-group">
 					<span class="input-group-addon">个性签名</span>
-					<textarea class="form-control" name="mood" rows="3" readonly required>${blogger.profile }</textarea>
+					<textarea class="form-control" name="profile" rows="3" readonly required>${blogger.profile }</textarea>
 				</div>
 
 				<div class="form-group">

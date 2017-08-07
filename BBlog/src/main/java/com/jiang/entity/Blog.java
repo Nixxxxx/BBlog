@@ -11,17 +11,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.jiang.service.BlogTypeService;
 
 @Entity
 @Table(name = "t_blog")
 public class Blog {
-	
-	@Autowired
-	private BlogTypeService blogTypeService;
-
 	
 	private int id;
 	private BlogType blogType;
@@ -38,8 +31,8 @@ public class Blog {
 	}
 
 
-	public Blog(int typeId, String title, String content, Date date) {
-		this.blogType = blogTypeService.findById(typeId);
+	public Blog(BlogType blogType, String title, String content, Date date) {
+		this.blogType = blogType;
 		this.title = title;
 		this.content = content;
 		this.reader = 0;

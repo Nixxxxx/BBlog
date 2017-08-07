@@ -44,6 +44,6 @@ public class BlogService {
 
 	public boolean update(Blog blog) {
 		blogDao.update(blog);
-		return false;
+		return true;
 	}
 }

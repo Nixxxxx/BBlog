@@ -17,6 +17,9 @@
 			<div class="box">
 				<div class="box-header">
 					<h3 class="box-title">博客列表</h3>
+					<div class="box-tools">
+						<a class="btn btn-info btn-sm" href="admin/blog/edit" >写博客</a>
+					</div>
 				</div>
 				<div class="box-body table-responsive no-padding">
 					<table class="table table-hover table-bordered text-center">
@@ -40,10 +43,7 @@
 									<td class="blog_title">${blog.reader }</td>
 									<td><fmt:formatDate pattern="yyyy-MM-dd hh-mm-ss" value="${blog.updateTime }"/></td>
 									<td><fmt:formatDate pattern="yyyy-MM-dd hh-mm-ss" value="${blog.createTime }"/></td>
-									<td><a data-id="${blog.id }" class="update"
-										href="javascript:void(0)" data-toggle="modal"
-										data-remote="false" data-target="#blog_update_modal"
-										data-backdrop="static"> <i class="fa fa-edit"></i> 编辑</a>
+									<td><a href="admin/blog/edit?id=${blog.id }"> <i class="fa fa-edit"></i> 编辑</a>
 										<a data-id="${blog.id }" class="del"
 										href="javascript:void(0)"> <i class="fa fa-trash"></i> 删除</a>
 									</td>
@@ -153,7 +153,7 @@
                     dataType: "json",
                     success: function (data) {
                         alert(data.msg);
-                        if (data.success) {
+                        if (data.result) {
                         	window.location.reload();
                         }
                     },

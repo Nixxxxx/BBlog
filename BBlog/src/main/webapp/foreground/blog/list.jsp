@@ -25,7 +25,7 @@
 			</div>
 			<!--摘要-->
 			<div class="articleFeed">
-				<p></p>
+				<p>${blog.summary }</p>
 			</div>
 		</div>
 		<div class="articleFooter clearfix">

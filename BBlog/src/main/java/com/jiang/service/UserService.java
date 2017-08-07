@@ -36,4 +36,8 @@ public class UserService {
 		return userDao.findList(pageBean);
 	}
 
+	public boolean delete(int id) {
+		return userDao.delete(id);
+	}
+
 }

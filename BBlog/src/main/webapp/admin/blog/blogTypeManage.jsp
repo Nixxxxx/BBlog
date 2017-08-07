@@ -16,7 +16,6 @@
 			<div class="box">
 				<div class="box-header">
 					<h3 class="box-title">博客类型列表</h3>
-
 					<div class="box-tools">
 						<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-remote="false"
 							data-target="#blogType_add_modal" data-backdrop="static">添加博客类型</button>
