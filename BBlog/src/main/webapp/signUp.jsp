@@ -10,9 +10,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Nix's Blog - 注册</title>
-<link rel="shortcut icon" href="${pageContext.request.contextPath}/static/images/avater.jpg">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap3/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap3/css/bootstrap-theme.min.css">
+<link rel="shortcut icon" href="static/images/avater.jpg">
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 <style>
 body {
 	background: #eee;
@@ -77,8 +77,9 @@ body {
 		</div>
 	</div>
 </body>
-<script src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/static/bootstrap3/js/bootstrap.min.js"></script>
+
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
 	$(function() {
 		var errorMsg = $("#errorMsg");

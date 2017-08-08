@@ -1,67 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<script type="text/javascript">
-$(function() {
-		var errorMsg = $("#errorMsg");
-
-		var showError = function(msg) {
-			errorMsg.text(msg).removeClass("invisible");
-		};
-		
-		$("#edit").click(function (){
-			$("#edit").addClass("invisible");
-			$("#updateBtn").removeClass("invisible");
-			$("[readonly]").attr("readonly", false);
-			$("#imagePath").attr("disabled", false);
-		})
-
-		$("#updateForm").submit(function() {
-			errorMsg.addClass("invisible")
-			var email = $.trim($("#email").val());
-			var userName = $.trim($("#userName").val());
-			var ePattern = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-			var uPattern = /^[a-zA-Z0-9_@.]{4,20}$/;
-			if (!ePattern.test(email)) {
-				showError("请输入正确格式的邮箱");
-				return false;
-			}
-			if (!uPattern.test(userName)) {
-				showError("请输入正确格式的用户名");
-				return false;
-			}
-			var updateBtn = $("#updateBtn");
-			$.ajax({
-				url : "user/update",
-				type : "POST",
-				data : $("#updateForm").serialize(),
-				dataType : "json",
-				beforeSend : function() {
-					updateBtn.button("loading");
-				},
-				complete : function() {
-					//重置登录按钮
-					updateBtn.button("reset");
-				},
-				success : function(data) {
-					if (data.result) {
-						window.location.reload();
-					} else {
-						showError(data.msg);
-					}
-				},
-				error : function(XMLHttpRequest, textStatus) {
-					if (textStatus === "timeout") {
-						showError("登录超时");
-					} else {
-						showError("登录失败");
-					}
-				}
-			});
-			return false;
-		});
-	})
-	
-</script>
 
 <section class="content-header">
 	<ol class="breadcrumb">
@@ -72,15 +10,15 @@ $(function() {
 <div class="sidebar-content">
 	<div class="row">
 		<div class="col-sm-3 thumbnail">
-			<img src="${pageContext.request.contextPath}/statics/images/avater.jpg"> 
-			<div class="text-danger wrapper-xs text-center invisible" id="errorMsg">错误信息</div>
+			<img src="${user.imagePath }"> 
+			<div class="text-danger wrapper-xs text-center invisible" id="error_msg">错误信息</div>
 		</div>
 		<div class="col-sm-7 col-sm-offset-1">
-			<form class="form-horizontal" id="updateForm" method="post">
-				<input type="hidden" name="id" value="${user.id }"> 
+			<form class="form-horizontal" id="updateForm" enctype="multipart/form-data">
+				<input type="hidden" id="id" name="id" value="${user.id }"> 
 				<div class="form-group input-group">
 					<span class="input-group-addon">头&nbsp&nbsp&nbsp像</span> 
-					<input type="file" id="imagePath" name="imagePath" accept="image" disabled=true>
+					<input type="file" id="imageFile" name="imageFile" accept="image" disabled>
 				</div>
 				<div class="form-group input-group">
 					<span class="input-group-addon">邮&nbsp&nbsp&nbsp箱</span> 
@@ -94,7 +32,7 @@ $(function() {
 				</div>
 				<div class="form-group input-group">
 					<span class="input-group-addon">个性签名</span>
-					<textarea class="form-control" name="mood" rows="3" readonly required>${user.mood }</textarea>
+					<textarea id="mood" class="form-control" name="mood" rows="3" readonly required>${user.mood }</textarea>
 				</div>
 
 				<div class="form-group">
@@ -106,3 +44,69 @@ $(function() {
 	</div>
 </div>
 
+
+<script type="text/javascript">
+$(function() {
+	var $error_msg = $("#error_msg");
+
+    var show_error = function (error_msg) {
+        $error_msg.text(error_msg).removeClass("invisible");
+    };
+	
+	$("#edit").click(function (){
+		if($("#id").val() != ""){
+			$("#edit").addClass("invisible");
+			$("#updateBtn").removeClass("invisible");
+			$("[readonly]").attr("readonly", false);
+			$("#imageFile").attr("disabled", false);
+		}
+	})
+
+	$("#updateForm").submit(function() {
+		$error_msg.addClass("invisible")
+		var email = $.trim($("#email").val());
+		var ePattern = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+		if (!ePattern.test(email)) {
+			show_error("请输入正确格式的邮箱");
+			return false;
+		}
+		var form = new FormData();
+		form.append("id", $("#id").val());
+		form.append("imageFile", $("#imageFile"));
+		form.append("email", email);
+		form.append("userName", $.trim($("#userName").val()));
+		form.append("mood", $("#mood").text());
+		alert($("#id").val());
+		var updateBtn = $("#updateBtn");
+		$.ajax({
+			url : "user/update",
+			type : "post",
+			data : form,
+		    cache: false,
+		    processData: false,
+		    contentType: false,
+			beforeSend : function() {
+				updateBtn.button("loading");
+			},
+			complete : function() {
+				updateBtn.button("reset");
+			},
+			success : function(data) {
+				alert(data.msg);
+				if (data.result) {
+					window.location.reload();
+				}
+			},
+			error : function(XMLHttpRequest, textStatus) {
+				if (textStatus === "timeout") {
+					show_error("超时");
+				} else {
+					show_error("失败");
+				}
+			}
+		});
+		return false;
+	});
+})
+	
+</script>

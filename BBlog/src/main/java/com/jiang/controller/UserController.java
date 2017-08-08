@@ -1,5 +1,6 @@
 package com.jiang.controller;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jiang.entity.User;
@@ -96,25 +98,40 @@ public class UserController {
 	}
 
 	@RequestMapping("/update")
-	public void update(User u, HttpServletRequest request, HttpServletResponse response) {
+	public void update(@RequestParam("imageFile") MultipartFile imageFile, User u,
+			HttpServletRequest request, HttpServletResponse response) {
 		String msg = "";
 		boolean result = false;
-		JSONObject resultJson=new JSONObject();
 		if (!checkEmail(u.getEmail(), u.getId())) {
 			msg = "该邮箱已存在";
-		} else if(!checkUserName(u.getPassword(), u.getId())){
+		} else if(!checkUserName(u.getUserName(), u.getId())){
 			msg = "该用户名已存在";
-		}else {
+		} else {
+			if(!imageFile.isEmpty()){
+				String filePath = request.getServletContext().getRealPath("/");
+				String imagePath = "static/uploadImage/userAvater/"+u.getId()+"."+imageFile.getOriginalFilename().split("\\.")[1];
+				u.setImagePath(imagePath);
+				try {
+					imageFile.transferTo(new File(filePath +imagePath));
+				} catch (Exception e) {
+					e.printStackTrace();
+					msg = "更新异常";
+				}
+			}else {
+				u.setImagePath(userService.findById(u.getId()).getImagePath());
+			}
 			User user = userService.findById(u.getId());
 			user.setEmail(u.getEmail());
 			user.setUserName(u.getUserName());
+			user.setImagePath(u.getImagePath());
 			user.setMood(u.getMood());
 			if(userService.update(user)){
 				result = true;
+				msg = "更新成功";
 				request.getSession().setAttribute("user", userService.findById(u.getId()));
-			}
-			else msg = "更新失败";
+			}else msg = "更新失败";
 		}
+		JSONObject resultJson=new JSONObject();
 		resultJson.put("result", result);
 		resultJson.put("msg", msg);
 		ResponseUtil.writeJson(response, resultJson);

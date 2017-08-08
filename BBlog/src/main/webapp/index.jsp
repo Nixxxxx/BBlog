@@ -10,6 +10,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- Tell the browser to be responsive to screen width -->
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <title>Nix的个人博客</title>
 <base href="<%=basePath%>">
 <!-- logo -->
@@ -89,7 +91,7 @@
 			<div class="card">
 	            <div class="header" style="background:url(static/images/avater.jpg)"></div>
 	            <div class="avater">
-	                <img alt="avater" src="statics/images/avater.jpg">
+	                <img alt="avater" src="${blogger.imagePath }">
 	            </div>
 	            <div class="content">
 	                <h3>Nix</h3>
@@ -129,14 +131,17 @@
 </a> 
        
 <script type="text/javascript">
-	function signOut(){
-		if(confirm("您确定要退出系统吗？")){
-			window.location.href = "user/signOut";
-		}
-	}
-	
-	$(function(){//回到顶部
+	$(function(){
 		
+		function signOut(){
+			if(confirm("您确定要退出系统吗？")){
+				window.location.href = "user/signOut";
+			}
+		}
+		
+		
+		
+		//回到顶部
 		var clientHeight = document.documentElement.clientHeight;
 		var timer = null;
 		var isTop = true;

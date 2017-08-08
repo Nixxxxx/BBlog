@@ -45,8 +45,9 @@
 Copyright © 2012-2016 Java知识分享网 版权所有
 </div>
    
-<script src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/static/bootstrap3/js/bootstrap.min.js"></script>
+   
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(function() {
 		var errorMsg = $("#errorMsg");

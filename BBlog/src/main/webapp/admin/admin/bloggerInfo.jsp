@@ -10,11 +10,11 @@
 <div class="sidebar-content">
 	<div class="row">
 		<div class="col-sm-3 thumbnail">
-			<img src="${pageContext.request.contextPath}/static/images/avater.jpg"> 
-			<div class="text-danger wrapper-xs text-center invisible" id="errorMsg">错误信息</div>
+			<img src="${blogger.imagePath }"> 
+			<div class="text-danger wrapper-xs text-center invisible" id="error_msg">错误信息</div>
 		</div>
 		<div class="col-sm-7 col-sm-offset-1">
-			<form action="admin/blogger/update" method="post" class="form-horizontal" id="updateForm" enctype="multipart/form-data">
+			<form action="admin/blogger/update" class="form-horizontal" id="updateForm" enctype="multipart/form-data">
 				<input type="hidden" name="id" value="${blogger.id }"> 
 				<div class="form-group input-group">
 					<span class="input-group-addon">头&nbsp&nbsp&nbsp像</span> 
@@ -31,67 +31,43 @@
 					readonly value="${blogger.userName }" maxlength="20" size="20" required>
 				</div>
 				<div class="form-group input-group">
-					<span class="input-group-addon">个性签名</span>
-					<textarea class="form-control" name="profile" rows="3" readonly required>${blogger.profile }</textarea>
+					<span class="input-group-addon">关于博主</span>
+					<textarea id="profile" name="profile">${blogger.profile }</textarea>
 				</div>
 
 				<div class="form-group">
 					<input type="button" id="edit" class="btn btn-success btn-block" value="编辑">
-					<input type="submit" id="updateBtn" class="btn btn-success btn-block invisible"  value="保存">
+					<input type="submit" id="updateBtn" class="btn btn-success btn-block invisible" value="保存">
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
 
-
+<script src="//cdn.ckeditor.com/4.7.1/standard/ckeditor.js"></script>
 <script type="text/javascript">
 $(function() {
-		var errorMsg = $("#errorMsg");
+	CKEDITOR.replace( 'profile', {
+		height: 300,
+		width: 650,
+	} );
+	
 
-		var showError = function(msg) {
-			errorMsg.text(msg).removeClass("invisible");
-		};
-		
-		$("#edit").click(function (){
-			$("#edit").addClass("invisible");
-			$("#updateBtn").removeClass("invisible");
-			$("[readonly]").attr("readonly", false);
-			$("#imageFile").attr("disabled", false);
-		})
+	var $error_msg = $("#error_msg");
 
-		/* $("#updateForm").submit(function() {
-			errorMsg.addClass("invisible")
-			var updateBtn = $("#updateBtn");
-			$.ajax({
-				url : "admin/blogger/update",
-				type : "post",
-				data : $("#updateForm").serialize(),
-				dataType : "json",
-				beforeSend : function() {
-					updateBtn.button("loading");
-				},
-				complete : function() {
-					//重置登录按钮
-					updateBtn.button("reset");
-				},
-				success : function(data) {
-					if (data.result) {
-						window.location.reload();
-					} else {
-						showError(data.msg);
-					}
-				},
-				error : function(XMLHttpRequest, textStatus) {
-					if (textStatus === "timeout") {
-						showError("登录超时");
-					} else {
-						showError("登录失败");
-					}
-				}
-			});
-			return false;
-		}); */
+    var show_error = function (error_msg) {
+        $error_msg.text(error_msg).removeClass("invisible");
+    };
+
+	
+	$("#edit").click(function (){
+		$("#edit").addClass("invisible");
+		$("#updateBtn").removeClass("invisible");
+		$("[readonly]").attr("readonly", false);
+		$("#imageFile").attr("disabled", false);
 	})
+
+	
+})
 	
 </script>

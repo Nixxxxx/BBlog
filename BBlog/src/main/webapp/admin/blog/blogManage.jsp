@@ -41,8 +41,8 @@
 									<td class="blog_title">${blog.title }</td>
 									<td class="blog_title">${blog.blogType.typeName }</td>
 									<td class="blog_title">${blog.reader }</td>
-									<td><fmt:formatDate pattern="yyyy-MM-dd hh-mm-ss" value="${blog.updateTime }"/></td>
-									<td><fmt:formatDate pattern="yyyy-MM-dd hh-mm-ss" value="${blog.createTime }"/></td>
+									<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${blog.updateTime }"/></td>
+									<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${blog.createTime }"/></td>
 									<td><a href="admin/blog/edit?id=${blog.id }"> <i class="fa fa-edit"></i> 编辑</a>
 										<a data-id="${blog.id }" class="del"
 										href="javascript:void(0)"> <i class="fa fa-trash"></i> 删除</a>

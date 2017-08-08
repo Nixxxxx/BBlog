@@ -1,7 +1,6 @@
 package com.jiang.controller.admin;
 
 import java.io.File;
-import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jiang.entity.Blogger;
@@ -26,17 +24,25 @@ public class BloggerAdminController {
 	@Autowired
 	private BloggerService bloggerService;
 	
-	@RequestMapping(value = "/update")
+	@RequestMapping("/update")
 	public void update(@RequestParam("imageFile") MultipartFile imageFile, Blogger bgr, 
-			HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException {
-		if(!imageFile.isEmpty()){
-			String filePath = request.getServletContext().getRealPath("/");
-			String imagePath = filePath+"static/avater/blogger."+imageFile.getOriginalFilename().split("\\.")[1];
-			imageFile.transferTo(new File(imagePath));
-			bgr.setImagePath(imagePath);
-		}
+			HttpServletRequest request, HttpServletResponse response){
 		boolean result = false;
 		String msg;
+		if(!imageFile.isEmpty()){
+			String filePath = request.getServletContext().getRealPath("/");
+			String imagePath = "static/uploadImage/blogger/bloggerAvater."
+					+imageFile.getOriginalFilename().split("\\.")[1];
+			bgr.setImagePath(imagePath);
+			try {
+				imageFile.transferTo(new File(filePath +imagePath));
+			} catch (Exception e) {
+				e.printStackTrace();
+				msg = "更新异常";
+			}
+		}else {
+			bgr.setImagePath(bloggerService.findById(1).getImagePath());
+		}
 		if(bloggerService.update(bgr)){
 			result = true;
 			msg = "更新成功";

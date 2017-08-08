@@ -2,7 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/statics/css/style.css">
+<link rel="stylesheet" href="static/css/style.css">
 <ol class="breadcrumb">
 	<li>博客</li>
 	<li>${blogList[0].blogType.typeName}</li>
@@ -20,7 +20,7 @@
 			<!--缩略图-->
 			<div class="articleThumb">
 				<a href="blog/articles/${blog.id }">
-				<img src="./article2-1.png" srcset="http://vince.qiniudn.com/wp-content/uploads/2016/03/article2-1.png?imageView2/2/w/800/h/400 2x"
+				<img src="static/images/avater.jpg" 
 					alt=${blog.title } class="wp-post-image" width="400" height="200"></a>
 			</div>
 			<!--摘要-->
@@ -51,9 +51,3 @@
 	</div>
 </div>
 
-
-<script type="text/javascript">
-$(function (){
-	
-})
-</script>
