@@ -140,7 +140,6 @@
 		}
 		
 		
-		
 		//回到顶部
 		var clientHeight = document.documentElement.clientHeight;
 		var timer = null;

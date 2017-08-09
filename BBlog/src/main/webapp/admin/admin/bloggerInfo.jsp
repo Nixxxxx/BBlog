@@ -14,14 +14,14 @@
 			<div class="text-danger wrapper-xs text-center invisible" id="error_msg">错误信息</div>
 		</div>
 		<div class="col-sm-7 col-sm-offset-1">
-			<form action="admin/blogger/update" class="form-horizontal" id="updateForm" enctype="multipart/form-data">
+			<form action="admin/blogger/update" method="post" class="form-horizontal" id="updateForm" enctype="multipart/form-data">
 				<input type="hidden" name="id" value="${blogger.id }"> 
 				<div class="form-group input-group">
-					<span class="input-group-addon">头&nbsp&nbsp&nbsp像</span> 
+					<span class="input-group-addon">头&nbsp;&nbsp;&nbsp;像</span> 
 					<input type="file" id="imageFile" name="imageFile" accept="image" disabled>
 				</div>
 				<div class="form-group input-group">
-					<span class="input-group-addon">邮&nbsp&nbsp&nbsp箱</span> 
+					<span class="input-group-addon">邮&nbsp;&nbsp;&nbsp;箱</span> 
 					<input type="text" class="form-control" id="email" name="email" 
 					readonly value="${blogger.email }" maxlength="20" size="20" required>
 				</div>

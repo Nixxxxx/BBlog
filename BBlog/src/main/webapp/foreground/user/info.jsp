@@ -14,14 +14,14 @@
 			<div class="text-danger wrapper-xs text-center invisible" id="error_msg">错误信息</div>
 		</div>
 		<div class="col-sm-7 col-sm-offset-1">
-			<form class="form-horizontal" id="updateForm" enctype="multipart/form-data">
+			<form class="form-horizontal" id="updateForm" action="user/update" method="post" enctype="multipart/form-data">
 				<input type="hidden" id="id" name="id" value="${user.id }"> 
 				<div class="form-group input-group">
-					<span class="input-group-addon">头&nbsp&nbsp&nbsp像</span> 
+					<span class="input-group-addon">头&nbsp;&nbsp;&nbsp;像</span> 
 					<input type="file" id="imageFile" name="imageFile" accept="image" disabled>
 				</div>
 				<div class="form-group input-group">
-					<span class="input-group-addon">邮&nbsp&nbsp&nbsp箱</span> 
+					<span class="input-group-addon">邮&nbsp;&nbsp;&nbsp;箱</span> 
 					<input type="text" class="form-control" id="email" name="email" 
 					readonly value="${user.email }" maxlength="20" size="20" required>
 				</div>
@@ -70,42 +70,7 @@ $(function() {
 			show_error("请输入正确格式的邮箱");
 			return false;
 		}
-		var form = new FormData();
-		form.append("id", $("#id").val());
-		form.append("imageFile", $("#imageFile"));
-		form.append("email", email);
-		form.append("userName", $.trim($("#userName").val()));
-		form.append("mood", $("#mood").text());
-		alert($("#id").val());
-		var updateBtn = $("#updateBtn");
-		$.ajax({
-			url : "user/update",
-			type : "post",
-			data : form,
-		    cache: false,
-		    processData: false,
-		    contentType: false,
-			beforeSend : function() {
-				updateBtn.button("loading");
-			},
-			complete : function() {
-				updateBtn.button("reset");
-			},
-			success : function(data) {
-				alert(data.msg);
-				if (data.result) {
-					window.location.reload();
-				}
-			},
-			error : function(XMLHttpRequest, textStatus) {
-				if (textStatus === "timeout") {
-					show_error("超时");
-				} else {
-					show_error("失败");
-				}
-			}
-		});
-		return false;
+		return true;
 	});
 })
 	

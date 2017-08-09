@@ -1,6 +1,7 @@
 package com.jiang.controller.admin;
 
 import java.io.File;
+import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +27,7 @@ public class BloggerAdminController {
 	
 	@RequestMapping("/update")
 	public void update(@RequestParam("imageFile") MultipartFile imageFile, Blogger bgr, 
-			HttpServletRequest request, HttpServletResponse response){
+			HttpServletRequest request, HttpServletResponse response) throws IOException{
 		boolean result = false;
 		String msg;
 		if(!imageFile.isEmpty()){
@@ -46,12 +47,15 @@ public class BloggerAdminController {
 		if(bloggerService.update(bgr)){
 			result = true;
 			msg = "更新成功";
+		}else msg = "更新失败";
+		if(result == true){
+			response.sendRedirect("info");
+		}else {
+			JSONObject resultJson=new JSONObject();
+			resultJson.put("result", result);
+			resultJson.put("msg", msg);
+			ResponseUtil.writeJson(response, resultJson);
 		}
-		else msg = "更新失败";
-		JSONObject resultJson = new JSONObject();
-		resultJson.put("result", result);
-		resultJson.put("msg", msg);
-		ResponseUtil.writeJson(response, resultJson);
 	}
 
 	@RequestMapping("/info")

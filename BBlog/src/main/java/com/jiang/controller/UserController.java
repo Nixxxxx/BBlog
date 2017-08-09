@@ -1,6 +1,7 @@
 package com.jiang.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -99,7 +100,7 @@ public class UserController {
 
 	@RequestMapping("/update")
 	public void update(@RequestParam("imageFile") MultipartFile imageFile, User u,
-			HttpServletRequest request, HttpServletResponse response) {
+			HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String msg = "";
 		boolean result = false;
 		if (!checkEmail(u.getEmail(), u.getId())) {
@@ -131,10 +132,14 @@ public class UserController {
 				request.getSession().setAttribute("user", userService.findById(u.getId()));
 			}else msg = "更新失败";
 		}
-		JSONObject resultJson=new JSONObject();
-		resultJson.put("result", result);
-		resultJson.put("msg", msg);
-		ResponseUtil.writeJson(response, resultJson);
+		if(result == true){
+			response.sendRedirect("info");
+		}else {
+			JSONObject resultJson=new JSONObject();
+			resultJson.put("result", result);
+			resultJson.put("msg", msg);
+			ResponseUtil.writeJson(response, resultJson);
+		}
 	}
 
 	@RequestMapping("/info")
