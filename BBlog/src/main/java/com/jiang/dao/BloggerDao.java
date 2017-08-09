@@ -2,11 +2,10 @@ package com.jiang.dao;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -14,10 +13,10 @@ import com.jiang.entity.Blogger;
 
 @Repository
 public class BloggerDao {
-	@Resource
+	@Autowired
 	private HibernateTemplate hibernateTemplate;
 	
-	@Resource
+	@Autowired
 	private SessionFactory sessionFactory;
 	
 	public boolean insert(Blogger blogger){

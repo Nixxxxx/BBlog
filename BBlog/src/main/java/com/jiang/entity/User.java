@@ -18,6 +18,8 @@ public class User {
 	private String password;
 	private String imagePath;
 	private String mood;
+	private String signInIP;
+	private String signUpIP;
 	
 	@Id
 	@Column(name = "id",nullable = false,unique = true)
@@ -69,5 +71,23 @@ public class User {
 	public void setMood(String mood) {
 		this.mood = mood;
 	}
+	
+	@Column(name = "signInIP",nullable = false,length = 20)
+	public String getSignInIP() {
+		return signInIP;
+	}
+	public void setSignInIP(String signInIP) {
+		this.signInIP = signInIP;
+	}
+	
+	@Column(name = "signUpIP",nullable = false,length = 20)
+	public String getSignUpIP() {
+		return signUpIP;
+	}
+	public void setSignUpIP(String signUpIP) {
+		this.signUpIP = signUpIP;
+	}
+	
+	
 	
 }

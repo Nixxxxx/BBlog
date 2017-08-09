@@ -24,57 +24,8 @@
 <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body style="background: #eee;">
-<div class="navbar navbar-inverse navbar-fixed-top">
-	<div class="navbar-inner">
-	  <div class="container-fluid container">
-	    <div class="navbar-header">
-	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-	        <span class="sr-only">Toggle navigation</span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	      </button>
-	      <a class="navbar-brand" href="#">Nix&nbsp;</a>
-	    </div>
-	    
-	
-	    <div class="collapse navbar-collapse">
-		    <ul class="nav navbar-nav">
-		    	<li><a href="blog/list">博客</a></li>
-		        <li><a href="#">留言</a></li>
-				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">工具<span class="caret"> </span></a>
-					<ul class="dropdown-menu">
-		        	<li><a href="waterMark/index">图片水印</a></li>
-		  			<li><a href="signIn.jsp">切换账号</a> </li>
-			 		</ul> 
-			 	</li> 
-		    </ul>
-	      
-	      
-		<c:if test="${user != null }">
-		<ul class="nav navbar-nav navbar-right">
-			<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${user.userName }<span class="caret"> </span></a>
-				<ul class="dropdown-menu">
-				<li><a href="#">当前用户：${user.userName }</a></li>
-				<li role="separator" class="divider"></li>
-				<li><a href="user/info">个人中心</a></li>
-	  			<li><a href="signIn.jsp">切换账号</a> </li>
-		 		<li><a href="javascript:signOut()">退出</a></li>
-		 		</ul> 
-		 	</li> 
-		</ul> 
-		</c:if>
-		<c:if test="${user == null }">
-		<ul class="nav navbar-nav navbar-right">
-			<li ><a href="signIn.jsp">登录</a>
-		 	</li>
-		 </ul>
-		</c:if>
-	  </div>
-	 </div>
-	</div>
-</div>
 
+<jsp:include page="./foreground/common/top.jsp"/>
 
 <div class="container" style="padding-top:75px;">
 	<div class="row-fluid">
@@ -138,7 +89,6 @@
 				window.location.href = "user/signOut";
 			}
 		}
-		
 		
 		//回到顶部
 		var clientHeight = document.documentElement.clientHeight;

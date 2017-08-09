@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.jiang.entity.User;
 import com.jiang.service.UserService;
 import com.jiang.util.MD5Util;
+import com.jiang.util.RequestUtil;
 import com.jiang.util.ResponseUtil;
 
 @Controller
@@ -36,6 +37,8 @@ public class UserController {
 		JSONObject resultJson=new JSONObject();
 		for(User user:users){
 			if(u.getEmail().equals(user.getEmail()) && MD5Util.getMD5Code(u.getPassword()).equals(user.getPassword())){
+				user.setSignInIP(RequestUtil.getRemoteIP(request));
+				userService.update(user);
 				request.getSession().setAttribute("user", user);
 				result = true;
 				break;
@@ -81,6 +84,8 @@ public class UserController {
 				msg = "该用户名已存在";
 			}else {
 				user.setPassword(MD5Util.getMD5Code(request.getParameter("password")));
+				user.setSignUpIP(RequestUtil.getRemoteIP(request));
+				user.setSignInIP(user.getSignUpIP());
 				if(userService.insert(user)){
 					result = true;
 				}else msg = "注册失败";

@@ -2,29 +2,23 @@ package com.jiang.controller.admin;
 
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.support.RequestContextUtils;
 
-import com.java1234.entity.Blog;
-import com.java1234.entity.BlogType;
-import com.java1234.entity.Blogger;
-import com.java1234.entity.Link;
-import com.java1234.service.BlogService;
-import com.java1234.service.BlogTypeService;
-import com.java1234.service.BloggerService;
-import com.java1234.service.LinkService;
-import com.java1234.util.ResponseUtil;
-
-import net.sf.json.JSONObject;
+import com.jiang.entity.BlogType;
+import com.jiang.entity.Blogger;
+import com.jiang.service.BlogTypeService;
+import com.jiang.service.BloggerService;
+import com.jiang.util.ResponseUtil;
 
 /**
- * ����ԱϵͳController��
+ * 管理员系统Controller层
  * @author Administrator
  *
  */
@@ -32,43 +26,32 @@ import net.sf.json.JSONObject;
 @RequestMapping("/admin/system")
 public class SystemAdminController {
 
-	@Resource
+	@Autowired
 	private BloggerService bloggerService;
 	
-	@Resource
+	@Autowired
 	private BlogTypeService blogTypeService;
 	
-	@Resource
-	private BlogService blogService;
-	
-	@Resource
-	private LinkService linkService;
 	
 	/**
-	 * ˢ��ϵͳ����
+	 * 刷新系统缓存
 	 * @param request
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/refreshSystem")
 	public String refreshSystem(HttpServletResponse response,HttpServletRequest request)throws Exception{
-		ServletContext application=RequestContextUtils.getWebApplicationContext(request).getServletContext();
-		Blogger blogger=bloggerService.find(); // ��ѯ������Ϣ
-		blogger.setPassword(null);
+		ServletContext application = request.getServletContext();
+		Blogger blogger = bloggerService.findById(1); // 查询博主信息
 		application.setAttribute("blogger", blogger);
 		
-		List<BlogType> blogTypeCountList=blogTypeService.countList(); // ��ѯ��������Լ����͵�����
+		List<BlogType> blogTypeCountList = blogTypeService.countList(); // 查询博客类别以及博客的数量
 		application.setAttribute("blogTypeCountList", blogTypeCountList);
 		
-		List<Blog> blogCountList=blogService.countList(); // �������ڷ����ѯ����
-		application.setAttribute("blogCountList", blogCountList);
-		
-		List<Link> linkList=linkService.list(null); // ��ȡ������������
-		application.setAttribute("linkList", linkList);
-		
-		JSONObject result=new JSONObject();
+		JSONObject result = new JSONObject();
 		result.put("success", true);
-		ResponseUtil.write(response, result);
+		
+		ResponseUtil.writeJson(response, result);
 		return null;
 	}
 }
