@@ -99,7 +99,8 @@ public class UserController {
 				user.setSignInIP(user.getSignUpIP());
 				user.setStatus(0);
 				if(userService.insert(user)){
-					codeService.insert(new Code(user.getId(),UUID.randomUUID().toString().replace("-", "")));
+					codeService.insert(new Code(user.getId(), UUID.randomUUID().toString().replace("-", "")
+							+UUID.randomUUID().toString().replace("-", "")));
 					Code code = codeService.findById(user.getId());
 					StringBuffer content = new StringBuffer("<h3>点击下面链接激活账号，48小时生效，否则重新注册账号，链接只能使用一次，请尽快激活！</h3></br>");
 					content.append("<a href='http://localhost:8080/BBlog/user/active?email=");

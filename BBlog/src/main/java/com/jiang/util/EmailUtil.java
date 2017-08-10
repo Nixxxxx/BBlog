@@ -24,8 +24,8 @@ public class EmailUtil {
 	public static final String HOST = "smtp.exmail.qq.com";   //邮件服务器地址
     public static final String PROTOCOL = "smtp";             //邮件协议
     public static final int PORT = 465;                       //邮箱端口号         
-    public static final String FROM = "jh@stu.csust.edu.cn";  //发件人的email地址 
-    public static final String PWD = "Fantastic091";          //发件人密码  
+    public static final String FROM = "";  //发件人的email地址 
+    public static final String PWD = "";          //发件人密码  
       
     /** 
      * 获取Session 
@@ -74,14 +74,5 @@ public class EmailUtil {
             mex.printStackTrace();  
         }  
     }
-    
-    
-    public static void main(String[] args) {
-		try {
-			sendEmail("528728330@qq.com", "<h1>This is actual <a href='baidu.com'>message</a></h1>");
-		} catch (GeneralSecurityException e) {
-			e.printStackTrace();
-		}
-	}
     
 }
