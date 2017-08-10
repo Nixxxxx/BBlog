@@ -20,6 +20,7 @@ public class User {
 	private String mood;
 	private String signInIP;
 	private String signUpIP;
+	private int status;
 	
 	@Id
 	@Column(name = "id",nullable = false,unique = true)
@@ -32,7 +33,7 @@ public class User {
 		this.id = id;
 	}
 	
-	@Column(name = "userName",nullable = false,unique = true,length = 20)
+	@Column(name = "userName", nullable = false, unique = true, length = 20)
 	public String getUserName() {
 		return userName;
 	}
@@ -40,7 +41,7 @@ public class User {
 		this.userName = userName;
 	}
 	
-	@Column(name = "email",nullable = false,unique = true,length = 20)
+	@Column(name = "email", nullable = false, unique = true, length = 20)
 	public String getEmail() {
 		return email;
 	}
@@ -48,7 +49,7 @@ public class User {
 		this.email = email;
 	}
 	
-	@Column(name = "password",nullable = false,length = 100)
+	@Column(name = "password", nullable = false, length = 100)
 	public String getPassword() {
 		return password;
 	}
@@ -56,7 +57,7 @@ public class User {
 		this.password = password;
 	}
 	
-	@Column(name = "imagePath",nullable = false,length = 40)
+	@Column(name = "imagePath", length = 40)
 	public String getImagePath() {
 		return imagePath;
 	}
@@ -64,7 +65,7 @@ public class User {
 		this.imagePath = imagePath;
 	}
 	
-	@Column(name = "mood",nullable = false,length = 50)
+	@Column(name = "mood", length = 50)
 	public String getMood() {
 		return mood;
 	}
@@ -72,7 +73,7 @@ public class User {
 		this.mood = mood;
 	}
 	
-	@Column(name = "signInIP",nullable = false,length = 20)
+	@Column(name = "signInIP", nullable = false, length = 20)
 	public String getSignInIP() {
 		return signInIP;
 	}
@@ -80,7 +81,7 @@ public class User {
 		this.signInIP = signInIP;
 	}
 	
-	@Column(name = "signUpIP",nullable = false,length = 20)
+	@Column(name = "signUpIP", nullable = false, length = 20)
 	public String getSignUpIP() {
 		return signUpIP;
 	}
@@ -88,6 +89,12 @@ public class User {
 		this.signUpIP = signUpIP;
 	}
 	
-	
+	@Column(name = "status", nullable = false, length = 1)
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
 	
 }

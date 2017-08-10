@@ -2,7 +2,9 @@ package com.jiang.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,8 +18,11 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jiang.entity.Code;
 import com.jiang.entity.User;
+import com.jiang.service.CodeService;
 import com.jiang.service.UserService;
+import com.jiang.util.EmailUtil;
 import com.jiang.util.MD5Util;
 import com.jiang.util.RequestUtil;
 import com.jiang.util.ResponseUtil;
@@ -28,6 +33,8 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private CodeService codeService;
 	
 	@RequestMapping("/signIn")
 	public void signIn(User u, HttpServletRequest request, HttpServletResponse response){
@@ -37,13 +44,17 @@ public class UserController {
 		JSONObject resultJson=new JSONObject();
 		for(User user:users){
 			if(u.getEmail().equals(user.getEmail()) && MD5Util.getMD5Code(u.getPassword()).equals(user.getPassword())){
-				user.setSignInIP(RequestUtil.getRemoteIP(request));
-				userService.update(user);
-				request.getSession().setAttribute("user", user);
-				result = true;
+				if(user.getStatus() == 1){
+					user.setSignInIP(RequestUtil.getRemoteIP(request));
+					userService.update(user);
+					request.getSession().setAttribute("user", user);
+					result = true;
+				}else{
+					msg = "账号未激活";
+				}
 				break;
 			}else {
-				request.getSession().setAttribute("user", u);
+				request.setAttribute("user", u);
 				msg = "邮箱或密码错误";
 			}
 		}
@@ -80,20 +91,57 @@ public class UserController {
 		if(captcha.equalsIgnoreCase(sRand)){
 			if(!checkEmail(user.getEmail(), 0)){
 				msg = "该邮箱已存在";
-			}else if(!checkUserName(user.getPassword(), 0)){
+			}else if(!checkUserName(user.getUserName(), 0)){
 				msg = "该用户名已存在";
 			}else {
 				user.setPassword(MD5Util.getMD5Code(request.getParameter("password")));
 				user.setSignUpIP(RequestUtil.getRemoteIP(request));
 				user.setSignInIP(user.getSignUpIP());
+				user.setStatus(0);
 				if(userService.insert(user)){
+					codeService.insert(new Code(user.getId(),UUID.randomUUID().toString().replace("-", "")));
+					Code code = codeService.findById(user.getId());
+					StringBuffer content = new StringBuffer("<h3>点击下面链接激活账号，48小时生效，否则重新注册账号，链接只能使用一次，请尽快激活！</h3></br>");
+					content.append("<a href='http://localhost:8080/BBlog/user/active?email=");
+					content.append(user.getEmail()+"&code="+code.getCode());
+					content.append("'>http://localhost:8080/BBlog/user/active?email=");
+					content.append(user.getEmail()+"&code="+code.getCode()+"</a>");
+					try {
+						EmailUtil.sendEmail(user.getEmail(), content.toString());
+					} catch (GeneralSecurityException e) {
+						e.printStackTrace();
+					}
 					result = true;
+					msg = "注册成功，去邮箱激活";
 				}else msg = "注册失败";
 			}
 		}else msg = "验证码错误";
 		resultJson.put("result", result);
 		resultJson.put("msg", msg);
 		ResponseUtil.writeJson(response, resultJson);
+	}
+	
+	@RequestMapping("/active")
+	public void active(HttpServletRequest request, HttpServletResponse response){
+		String code = request.getParameter("code");
+		List<Code> codes = codeService.findAll();
+		String msg = "";
+		for(Code c:codes){
+			if(code.equals(c.getCode())){
+				User user = userService.findById(c.getId());
+				if(user.getEmail().equals(request.getParameter("email"))){
+					user.setStatus(1);
+					if(userService.update(user)){
+						msg = "激活成功";
+						codeService.delete(c.getId());
+					}
+					else msg = "异常";
+				}else msg = "邮箱不正确";
+			}else msg = "激活码不正确";
+		}
+		JSONObject json = new JSONObject();
+		json.put("信息：", msg);
+		ResponseUtil.writeJson(response, json);
 	}
 
 

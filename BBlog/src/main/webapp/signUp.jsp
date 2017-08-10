@@ -30,19 +30,19 @@ body {
 					<div class="text-danger wrapper-xs text-center invisible"
 						id="errorMsg">错误信息</div>
 					<div class="form-group input-group">
-						<span class="input-group-addon">用&nbsp&nbsp&nbsp户</span> 
+						<span class="input-group-addon">用&nbsp;&nbsp;&nbsp;户</span> 
 						<input type="text" id="userName" class="form-control" maxlength="20" placeholder="Username" required>
 					</div>
 					<div class="form-group input-group">
-						<span class="input-group-addon">邮&nbsp&nbsp&nbsp箱</span> 
-						<input type="text" id="email" class="form-control" maxlength="20"placeholder="Email" required>
+						<span class="input-group-addon">邮&nbsp;&nbsp;&nbsp;箱</span> 
+						<input type="text" id="email" class="form-control" maxlength="20" placeholder="Email" required>
 					</div>
 					<div class="form-group input-group">
-						<span class="input-group-addon">密&nbsp&nbsp&nbsp码</span> 
+						<span class="input-group-addon">密&nbsp;&nbsp;&nbsp;码</span> 
 						<input type="password" id="password" class="form-control" maxlength="20" placeholder="Password" required>
 					</div>
 					<div class="form-group input-group">
-						<span class="input-group-addon">确&nbsp&nbsp&nbsp认</span> 
+						<span class="input-group-addon">确&nbsp;&nbsp;&nbsp;认</span> 
 						<input type="password" id="confirmPassword" class="form-control" maxlength="20" placeholder="Password" required>
 					</div>
 					<div class="form-group input-group">
@@ -60,12 +60,10 @@ body {
 					</div>
 					<div class="form-group">
 						<div class="col-lg-6">
-							<input type="button" class="btn btn-success btn-block"
-								onclick="register()" value="注册" />
+							<input type="submit" id="signUpBtn" class="btn btn-success btn-block" value="注册" />
 						</div>
 						<div class="col-lg-6">
-							<input type="button" class="btn btn-success btn-block"
-								onclick="resetting()" value="重置" />
+							<input type="button" class="btn btn-success btn-block" value="重置" />
 						</div>
 					</div>
 
@@ -89,7 +87,7 @@ body {
 		};
 
 		$("#signUpForm").submit(function() {
-			$errorMsg.addClass("invisible")
+			errorMsg.addClass("invisible")
 			var email = $.trim($("#email").val());
 			var userName = $.trim($("#userName").val());
 			var password = $.trim($("#password").val());
@@ -121,13 +119,12 @@ body {
 			var signUpBtn = $("#signUpBtn");
 			$.ajax({
 				url : "user/signUp",
-				type : "POST",
+				type : "post",
 				data : {
 					userName : userName,
 					password : password,
 					email : email,
 					captcha : captcha,
-					checkbox : $("#checkbox").prop("checked")
 				},
 				dataType : "json",
 				beforeSend : function() {
@@ -141,6 +138,7 @@ body {
 				},
 				success : function(data) {
 					if (data.result) {
+						alert(data.msg);
 						window.location.href = "signIn.jsp";
 					} else {
 						showError(data.msg);

@@ -6,6 +6,7 @@
 <ol class="breadcrumb">
 	<li>博客</li>
 	<li>${blog.blogType.typeName }</li>
+	<li class="active">${blog.title }</li>
 </ol>
 <div class="data_list">
 	<div class="data_list_title">

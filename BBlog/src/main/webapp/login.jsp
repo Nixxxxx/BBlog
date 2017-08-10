@@ -9,7 +9,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <base href="<%=basePath%>">
@@ -33,11 +32,11 @@ body {
 				<form id="signInForm" class="form-horizontal">
 					<div class="text-danger wrapper-xs text-center invisible" id="errorMsg">错误信息</div>
 					<div class="form-group input-group">
-						<span class="input-group-addon">邮&nbsp&nbsp&nbsp箱</span> 
+						<span class="input-group-addon">邮&nbsp;&nbsp;&nbsp;箱</span> 
 						<input type="text" class="form-control" id="email" placeholder="Email">
 					</div>
 					<div class="form-group input-group">
-						<span class="input-group-addon">密&nbsp&nbsp&nbsp码</span> 
+						<span class="input-group-addon">密&nbsp;&nbsp;&nbsp;码</span> 
 						<input type="password" class="form-control" id="password" placeholder="Password">
 					</div>
 					<div class="form-group input-group">
