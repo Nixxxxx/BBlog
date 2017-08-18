@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
 
@@ -19,6 +20,7 @@ import com.google.zxing.MultiFormatReader;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.Result;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+import com.google.zxing.client.j2se.MatrixToImageConfig;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
@@ -34,13 +36,13 @@ public class QRCodeUtil {
 
 	/**
 	 * 生成二维码
-	 * @param format 图片格式（png）
+	 * @param format 图片格式
 	 * @param content 二维码内容
 	 * @param path 文件路径
 	 * @param width 宽度
 	 * @param height 高度
 	 */
-	public static void createQRCode(String format, String content, String path, int width, int height){
+	public static String createQRCode(String format, String content, String path, int width, int height){
 		
 		//定义二维码参数
 		HashMap hints = new HashMap();
@@ -50,16 +52,59 @@ public class QRCodeUtil {
 		hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M);
 		//设置边距
 		hints.put(EncodeHintType.MARGIN, 2);
-	
-		BitMatrix bitmatrix;
+		//防止插入logo黑白
+        MatrixToImageConfig config = new MatrixToImageConfig(0xFF000001, 0xFFFFFFFF);
 		try {
-			bitmatrix = new MultiFormatWriter().encode(content, BarcodeFormat.QR_CODE, width, height, hints);
+			BitMatrix bitmatrix = new MultiFormatWriter().encode(content, BarcodeFormat.QR_CODE, width, height, hints);
 			Path file = new File(path).toPath();	//文件路径  "E:/img.png"
-			MatrixToImageWriter.writeToPath(bitmatrix, format, file); //format 图片格式（png、jpg等）	
+			MatrixToImageWriter.writeToPath(bitmatrix, format, file, config); //format 图片格式（png、jpg等）	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		return path;
+	}
+	
+	
+	/**
+	 * 二维码添加中心图片
+	 * @param path
+	 * @param format
+	 * @param file
+	 */
+	public static void pic(String path, String format) {
+			//读取二维码图片
+			BufferedImage twodimensioncode;
+			try {
+				twodimensioncode = ImageIO.read(new File(path));
+				//获取画笔
+				Graphics2D g = twodimensioncode.createGraphics(); 
+				//读取logo图片 
+				BufferedImage logo = ImageIO.read(new File("E:/12.jpg")); 
+				//加入的log图片 //设置二维码大小，太大，会覆盖二维码，此处20% 
+				int logoWidth = logo.getWidth() > twodimensioncode.getWidth()*2 /10 ? (twodimensioncode.getWidth()*2 /10) : logo.getWidth(); 
+				int logoHeight = logo.getHeight() > twodimensioncode.getHeight()*2 /10 ? (twodimensioncode.getHeight()*2 /10) : logo.getHeight(); 
+				//设置logo图片放置位置 //中心
+				int x = (twodimensioncode.getWidth() - logoWidth) / 2;
+				int y = (twodimensioncode.getHeight() - logoHeight) / 2;
+				//开始合并绘制图片
+				g.drawImage(logo, x, y, logoWidth, logoHeight, null);
+				g.drawRoundRect(x, y, logoWidth, logoHeight, 15 ,15);
+				//logo边框大小 
+				g.setStroke(new BasicStroke(2));
+				//logo边框颜色
+				g.setColor(Color.WHITE);
+				g.drawRect(x, y, logoWidth, logoHeight);
+				g.dispose(); 
+				logo.flush(); twodimensioncode.flush();
+				ImageIO.write(twodimensioncode, format, new File("E:/img2.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			} 
+	}
+	
+	public static void main(String[] args) {
+		String path = createQRCode("png", "ssassa", "E:/img.png", 400, 400);
+		pic(path, "png");
 	}
 	
 	/**
@@ -87,33 +132,6 @@ public class QRCodeUtil {
 		}
 	}
 	
-	
-//	public static void pic(String path, String format, Path file) {
-//			//读取二维码图片
-//			BufferedImage twodimensioncode = ImageIO.read(new File(file.toString())); 
-//			//获取画笔
-//			Graphics2D g = twodimensioncode.createGraphics(); 
-//			//读取logo图片 
-//			BufferedImage logo = ImageIO.read(new File("E:/12.png")); 
-//			//加入的log图片 //设置二维码大小，太大，会覆盖二维码，此处20% 
-//			int logoWidth = logo.getWidth() > twodimensioncode.getWidth()*2 /10 ? (twodimensioncode.getWidth()*2 /10) : logo.getWidth(); 
-//			int logoHeight = logo.getHeight() > twodimensioncode.getHeight()*2 /10 ? (twodimensioncode.getHeight()*2 /10) : logo.getHeight(); 
-//			//设置logo图片放置位置 //中心
-//			int x = (twodimensioncode.getWidth() - logoWidth) / 2;
-//			int y = (twodimensioncode.getHeight() - logoHeight) / 2;
-//			//开始合并绘制图片
-//			g.drawImage(logo, x, y, logoWidth, logoHeight, null);
-//			g.drawRoundRect(x, y, logoWidth, logoHeight, 15 ,15);
-//			//logo边框大小 
-//			g.setStroke(new BasicStroke(2));
-//			//logo边框颜色
-//			g.setColor(Color.WHITE);
-//			g.drawRect(x, y, logoWidth, logoHeight);
-//			g.dispose(); 
-//			logo.flush(); twodimensioncode.flush();
-//			ImageIO.write(twodimensioncode, format, new File("E:/img2.png"));
-//	}
-//	
 	
 	/**
 	 * 条形码
