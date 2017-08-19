@@ -5,11 +5,30 @@
     <welcome-file>turnToIndex.jsp</welcome-file>
   </welcome-file-list>
   
+  
+  <!-- shiro过滤器定义 -->
+	<filter>  
+	    <filter-name>shiroFilter</filter-name>  
+	    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>  
+	    <init-param>  
+		    <!-- 该值缺省为false,表示生命周期由SpringApplicationContext管理,设置为true则表示由ServletContainer管理 -->  
+		    <param-name>targetFilterLifecycle</param-name>  
+		    <param-value>true</param-value>  
+	    </init-param>  
+	</filter>
+	
+	<filter-mapping>  
+	        <filter-name>shiroFilter</filter-name>  
+	        <url-pattern>/*</url-pattern>  
+	</filter-mapping>
+  
+  <!-- Spring配置文件 -->
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath:applicationContext.xml</param-value>
   </context-param>
   
+  <!-- Spring监听器 -->
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
@@ -18,7 +37,7 @@
       <listener-class>com.jiang.service.impl.InitComponent</listener-class>  
   </listener> 
   
-  
+  <!-- 添加对springmvc的支持 -->
   <servlet>
     <servlet-name>springmvc</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -34,22 +53,24 @@
     <url-pattern>/</url-pattern>
   </servlet-mapping>
   
-	<filter>
-		<filter-name>Spring character encoding filter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-		<init-param>
-			<param-name>encoding</param-name>
-			<param-value>UTF-8</param-value>
-		</init-param>
-		<init-param>
-			<param-name>forceEncoding</param-name>
-			<param-value>true</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>Spring character encoding filter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+  <!-- 编码过滤器 -->
+  <filter>
+	<filter-name>Spring character encoding filter</filter-name>
+	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+	<init-param>
+	  <param-name>encoding</param-name>
+	  <param-value>UTF-8</param-value>
+	</init-param>
+	<init-param>
+	  <param-name>forceEncoding</param-name>
+	  <param-value>true</param-value>
+	</init-param>
+  </filter>
+
+  <filter-mapping>
+	<filter-name>Spring character encoding filter</filter-name>
+	<url-pattern>/*</url-pattern>
+  </filter-mapping>
   
   <error-page>
     <error-code>404</error-code>
