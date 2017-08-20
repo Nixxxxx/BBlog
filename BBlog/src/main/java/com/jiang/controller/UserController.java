@@ -22,8 +22,8 @@ import com.jiang.entity.Code;
 import com.jiang.entity.User;
 import com.jiang.service.CodeService;
 import com.jiang.service.UserService;
+import com.jiang.util.CryptographyUtil;
 import com.jiang.util.EmailUtil;
-import com.jiang.util.MD5Util;
 import com.jiang.util.RequestUtil;
 import com.jiang.util.ResponseUtil;
 
@@ -43,7 +43,7 @@ public class UserController {
 		boolean result = false;
 		JSONObject resultJson=new JSONObject();
 		for(User user:users){
-			if(u.getEmail().equals(user.getEmail()) && MD5Util.getMD5Code(u.getPassword()).equals(user.getPassword())){
+			if(u.getEmail().equals(user.getEmail()) && CryptographyUtil.md5(u.getPassword(), "jiang").equals(user.getPassword())){
 				if(user.getStatus() == 1){
 					user.setSignInIP(RequestUtil.getRemoteIP(request));
 					userService.update(user);
@@ -94,7 +94,7 @@ public class UserController {
 			}else if(!checkUserName(user.getUserName(), 0)){
 				msg = "该用户名已存在";
 			}else {
-				user.setPassword(MD5Util.getMD5Code(request.getParameter("password")));
+				user.setPassword(CryptographyUtil.md5(request.getParameter("password"), "jiang"));
 				user.setSignUpIP(RequestUtil.getRemoteIP(request));
 				user.setSignInIP(user.getSignUpIP());
 				user.setStatus(0);
@@ -145,8 +145,7 @@ public class UserController {
 		ResponseUtil.writeJson(response, json);
 	}
 
-
-
+	@RequestMapping("/signOut")
 	public String signOut(HttpServletRequest request, HttpServletResponse response) {
 		request.getSession().removeAttribute("user");
 		return null;

@@ -99,7 +99,7 @@ body {
 			}
 			var signInBtn = $("#signInBtn");
 			$.ajax({
-				url : "admin/login",
+				url : "login",
 				type : "post",
 				data : {
 					email : email,

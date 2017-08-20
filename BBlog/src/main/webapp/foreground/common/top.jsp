@@ -23,8 +23,7 @@
 		        <li><a href="blogger/info">关于</a></li>
 				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">工具<span class="caret"> </span></a>
 					<ul class="dropdown-menu">
-		        	<li><a href="waterMark/index">图片水印</a></li>
-		  			<li><a href="signIn.jsp">切换账号</a> </li>
+		        	  <li><a href="#">图片水印</a></li>
 			 		</ul> 
 			 	</li> 
 		    </ul>

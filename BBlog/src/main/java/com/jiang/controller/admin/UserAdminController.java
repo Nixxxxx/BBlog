@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.jiang.entity.PageBean;
 import com.jiang.entity.User;
 import com.jiang.service.UserService;
-import com.jiang.util.MD5Util;
+import com.jiang.util.CryptographyUtil;
 import com.jiang.util.PageUtil;
 import com.jiang.util.ResponseUtil;
 import com.jiang.util.StringUtil;
@@ -55,7 +55,7 @@ public class UserAdminController {
 		}else if(!checkUserName(u.getUserName(), 0)){
 			msg = "该用户名已存在";
 		}else {
-			u.setPassword(MD5Util.getMD5Code(u.getPassword()));
+			u.setPassword(CryptographyUtil.md5(u.getPassword(), "jiang"));
 			if(userService.insert(u)){
 				result = true;
 				msg = "注册成功";
@@ -76,7 +76,7 @@ public class UserAdminController {
 		}else if (!checkUserName(u.getUserName(), u.getId())) {
 			msg = "该用户名已存在";
 		}else {
-			u.setPassword(MD5Util.getMD5Code(u.getPassword()));
+			u.setPassword(CryptographyUtil.md5(u.getPassword(), "jiang"));
 			if(userService.update(u)){
 				result = true;
 				msg ="更新成功";
