@@ -19,4 +19,6 @@ public interface AdminService {
 	public List<Admin> findList(PageBean pageBean);
 
 	public boolean delete(int id);
+
+	public Admin findByEmail(String email);
 }

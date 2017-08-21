@@ -5,6 +5,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,23 +41,55 @@ public class BloggerController {
 	}
 	
 	@RequestMapping("/login")
-	public void signIn(Admin adm, @RequestParam String captcha,@SessionAttribute String sRand,
+	public void login(Admin adm, @RequestParam String captcha,@SessionAttribute String sRand,
 			HttpServletRequest request, HttpServletResponse response){
-		List<Admin> admins = adminService.findAll();
+//		List<Admin> admins = adminService.findAll();
 		String msg = "";
 		boolean result = false;
 		if(captcha.equalsIgnoreCase(sRand)){
-			for(Admin admin:admins){
-				if(adm.getEmail().equals(admin.getEmail()) && CryptographyUtil.md5(adm.getPassword(), "jiang").equals(admin.getPassword())){
-					request.getSession().setAttribute("admin", admin);
-					result = true;
-					break;
-				}else msg = "邮箱或密码错误";
+//			for(Admin admin:admins){
+//				if(adm.getEmail().equals(admin.getEmail()) && CryptographyUtil.md5(adm.getPassword(), "jiang").equals(admin.getPassword())){
+//					request.getSession().setAttribute("admin", admin);
+//					result = true;
+//					break;
+//				}else msg = "邮箱或密码错误";
+//			}
+			
+			Subject subject = SecurityUtils.getSubject();
+			UsernamePasswordToken token=new UsernamePasswordToken("admin" , adm.getPassword());
+			try{
+				subject.login(token);
+				Session session = subject.getSession();
+				System.out.println("sessionId:"+session.getId());
+				System.out.println("sessionHost:"+session.getHost());
+				System.out.println("sessionTimeout:"+session.getTimeout());
+				session.setAttribute("info", "session的数据");
+			}catch(Exception e){
+				e.printStackTrace();
+				request.setAttribute("admin", adm);
 			}
 		}else msg = "验证码错误";
 		JSONObject resultJson = new JSONObject();
 		resultJson.put("result", result);
 		resultJson.put("msg", msg);
 		ResponseUtil.writeJson(response, resultJson);
+	}
+	
+	public String logins(Admin admin, HttpServletRequest request){
+		Subject subject = SecurityUtils.getSubject();
+		UsernamePasswordToken token=new UsernamePasswordToken(admin.getEmail() , CryptographyUtil.md5(admin.getPassword(), "jiang"));
+		try{
+			subject.login(token);
+			Session session = subject.getSession();
+			System.out.println("sessionId:"+session.getId());
+			System.out.println("sessionHost:"+session.getHost());
+			System.out.println("sessionTimeout:"+session.getTimeout());
+			session.setAttribute("info", "session的数据");
+			return "redirect:/success.jsp";
+		}catch(Exception e){
+			e.printStackTrace();
+			request.setAttribute("admin", admin);
+		}
+		return null;
 	}
 }

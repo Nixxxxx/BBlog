@@ -39,4 +39,8 @@ public class AdminServiceImpl implements AdminService{
 	public boolean delete(int id) {
 		return adminDao.delete(id);
 	}
+	
+	public Admin findByEmail(String email){
+		return adminDao.findByEmail(email);
+	}
 }

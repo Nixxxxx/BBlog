@@ -81,4 +81,8 @@ public class AdminDaoImpl implements AdminDao{
 	public List<Admin> findAll() {
 		return (List<Admin>) this.hibernateTemplate.find("from Admin");
 	}
+	
+	public Admin findByEmail(String email) {
+		return (Admin) this.hibernateTemplate.find("from Admin where email=", email);
+	}
 }

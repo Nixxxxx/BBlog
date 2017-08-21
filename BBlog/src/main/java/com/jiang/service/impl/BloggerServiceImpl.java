@@ -30,4 +30,5 @@ public class BloggerServiceImpl implements BloggerService{
 	public boolean update(Blogger user) {
 		return bloggerDao.update(user);
 	}
+	
 }

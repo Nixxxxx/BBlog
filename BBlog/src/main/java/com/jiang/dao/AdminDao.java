@@ -20,5 +20,7 @@ public interface AdminDao {
 	public Admin findById(int id);
 
 	public List<Admin> findAll();
+
+	public Admin findByEmail(String email);
 	
 }

@@ -14,4 +14,5 @@ public interface BloggerService {
 	public boolean insert(Blogger user);
 
 	public boolean update(Blogger user);
+
 }

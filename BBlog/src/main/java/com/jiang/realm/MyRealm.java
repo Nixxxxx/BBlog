@@ -10,7 +10,8 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.jiang.service.BloggerService;
+import com.jiang.entity.Admin;
+import com.jiang.service.AdminService;
 
 /**
  * 自定义Realm
@@ -20,7 +21,7 @@ import com.jiang.service.BloggerService;
 public class MyRealm extends AuthorizingRealm{
 
 	@Autowired
-	private BloggerService bloggerService;
+	private AdminService adminService;
 	
 	/**
 	 * 为当限前登录的用户授予角色和权
@@ -35,15 +36,15 @@ public class MyRealm extends AuthorizingRealm{
 	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-//		String userName = (String)token.getPrincipal();
-//		Admin admin = bloggerService.getByUserName(userName);
-//		if(blogger!=null){
-//			SecurityUtils.getSubject().getSession().setAttribute("currentUser", blogger); // 当前用户信息存到session中
-//			AuthenticationInfo authcInfo=new SimpleAuthenticationInfo(blogger.getUserName(),blogger.getPassword(),"xx");
-//			return authcInfo;
-//		}else{
+		String email = (String)token.getPrincipal();
+		Admin admin = adminService.findByEmail(email);
+		if(admin!=null){
+			SecurityUtils.getSubject().getSession().setAttribute("admin", admin); // 当前用户信息存到session中
+			AuthenticationInfo authcInfo=new SimpleAuthenticationInfo(admin.getEmail(),admin.getPassword(),"xx");
+			return authcInfo;
+		}else{
 			return null;				
-//		}
+		}
 	}
 
 }

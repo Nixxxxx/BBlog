@@ -44,21 +44,13 @@
 	</div>
 </div>
 
-<script src="//cdn.ckeditor.com/4.7.1/standard/ckeditor.js"></script>
+<script src="static/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
 $(function() {
 	CKEDITOR.replace( 'profile', {
 		height: 300,
 		width: 650,
 	} );
-	
-
-	var $error_msg = $("#error_msg");
-
-    var show_error = function (error_msg) {
-        $error_msg.text(error_msg).removeClass("invisible");
-    };
-
 	
 	$("#edit").click(function (){
 		$("#edit").addClass("invisible");

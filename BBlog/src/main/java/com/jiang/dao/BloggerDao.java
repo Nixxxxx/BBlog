@@ -16,4 +16,5 @@ public interface BloggerDao {
 	public Blogger findById(int id);
 
 	public List<Blogger> findAll();
+
 }
