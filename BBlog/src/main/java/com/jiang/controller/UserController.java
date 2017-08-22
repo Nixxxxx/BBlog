@@ -162,11 +162,15 @@ public class UserController {
 			msg = "该用户名已存在";
 		} else {
 			if(!imageFile.isEmpty()){
-				String filePath = request.getServletContext().getRealPath("/");
-				String imagePath = "static/uploadImage/userAvater/"+u.getId()+"."+imageFile.getOriginalFilename().split("\\.")[1];
-				u.setImagePath(imagePath);
+				String fileName = u.getId()+"."+imageFile.getOriginalFilename().split("\\.")[1];
+				String imagePath = "C:/image/avater/";
+				u.setImagePath(request.getServletContext().getRealPath("/")+"image/avater/"+fileName);
 				try {
-					imageFile.transferTo(new File(filePath +imagePath));
+					File file = new File(imagePath+fileName);
+					if (!file.exists()) { // 如果路径不存在，创建  
+						file.mkdirs();  
+					} 
+					imageFile.transferTo(file);
 				} catch (Exception e) {
 					e.printStackTrace();
 					msg = "更新异常";

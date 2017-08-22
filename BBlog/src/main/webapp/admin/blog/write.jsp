@@ -53,9 +53,9 @@
 <script src="static/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
 $(function (){
-	CKEDITOR.replace( 'profile', {
+	CKEDITOR.replace( 'content', {
 		height: 300,
-		width: 650,
+		width: 1000,
 	} ); 
 	
 	var $error_msg = $("#error_msg");

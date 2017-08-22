@@ -31,12 +31,15 @@ public class BloggerAdminController {
 		boolean result = false;
 		String msg;
 		if(!imageFile.isEmpty()){
-			String filePath = request.getServletContext().getRealPath("/");
-			String imagePath = "static/uploadImage/blogger/bloggerAvater."
-					+imageFile.getOriginalFilename().split("\\.")[1];
-			bgr.setImagePath(imagePath);
+			String fileName = "blogger" + imageFile.getOriginalFilename().split("\\.")[1];
+			String imagePath = "C:/image/avater/";
+			bgr.setImagePath(request.getServletContext().getRealPath("/")+"image/avater/"+fileName);
 			try {
-				imageFile.transferTo(new File(filePath +imagePath));
+				File file = new File(imagePath+fileName);
+				if (!file.exists()) { // 如果路径不存在，创建 
+					file.mkdirs();  
+				} 
+			imageFile.transferTo(file);
 			} catch (Exception e) {
 				e.printStackTrace();
 				msg = "更新异常";
