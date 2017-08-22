@@ -19,5 +19,7 @@ public interface UserService {
 	public List<User> findList(PageBean pageBean);
 
 	public boolean delete(int id);
+	
+	public User findByEmail(String email);
 
 }

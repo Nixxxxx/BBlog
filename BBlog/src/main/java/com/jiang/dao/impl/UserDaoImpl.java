@@ -80,4 +80,9 @@ public class UserDaoImpl implements UserDao{
 	public User findById(int id){
 		return this.hibernateTemplate.get(User.class, id);
 	}
+
+	@SuppressWarnings("unchecked")
+	public User findByEmail(String email) {
+		return ((List<User>) this.hibernateTemplate.find("from User where email='" + email + "'")).get(0);
+	}
 }

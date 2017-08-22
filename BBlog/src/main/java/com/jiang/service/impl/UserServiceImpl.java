@@ -40,4 +40,8 @@ public class UserServiceImpl implements UserService{
 		return userDao.delete(id);
 	}
 
+	public User findByEmail(String email) {
+		return userDao.findByEmail(email);
+	}
+
 }

@@ -82,7 +82,8 @@ public class AdminDaoImpl implements AdminDao{
 		return (List<Admin>) this.hibernateTemplate.find("from Admin");
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Admin findByEmail(String email) {
-		return (Admin) this.hibernateTemplate.find("from Admin where email=", email);
+		return ((List<Admin>) this.hibernateTemplate.find("from Admin where email='" + email + "'")).get(0);
 	}
 }

@@ -164,7 +164,7 @@ public class UserController {
 			if(!imageFile.isEmpty()){
 				String fileName = u.getId()+"."+imageFile.getOriginalFilename().split("\\.")[1];
 				String imagePath = "C:/image/avater/";
-				u.setImagePath(request.getServletContext().getRealPath("/")+"image/avater/"+fileName);
+				u.setImagePath("/BBlog/image/avater/"+fileName);
 				try {
 					File file = new File(imagePath+fileName);
 					if (!file.exists()) { // 如果路径不存在，创建  

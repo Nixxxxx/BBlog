@@ -31,9 +31,9 @@ public class BloggerAdminController {
 		boolean result = false;
 		String msg;
 		if(!imageFile.isEmpty()){
-			String fileName = "blogger" + imageFile.getOriginalFilename().split("\\.")[1];
+			String fileName = "blogger" + "." + imageFile.getOriginalFilename().split("\\.")[1];
 			String imagePath = "C:/image/avater/";
-			bgr.setImagePath(request.getServletContext().getRealPath("/")+"image/avater/"+fileName);
+			bgr.setImagePath("/BBlog/image/avater/"+fileName);
 			try {
 				File file = new File(imagePath+fileName);
 				if (!file.exists()) { // 如果路径不存在，创建 

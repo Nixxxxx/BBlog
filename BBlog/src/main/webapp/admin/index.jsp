@@ -87,8 +87,7 @@ body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
 					</ul></li>
 				<li class="dropdown user user-menu">
 				  <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
-					<img src="#" class="user-image" alt="User Image">
-						<span class="hidden-xs">${admin.email }</span>
+					<span class="hidden-xs">${admin.email }</span>
 				  </a>
 					<ul class="dropdown-menu">
 						<!-- User image -->
