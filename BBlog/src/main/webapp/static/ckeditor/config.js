@@ -6,7 +6,7 @@
 CKEDITOR.editorConfig = function( config ) {
 
 	config.image_previewText=' '; //预览区域显示内容
-    config.filebrowserImageUploadUrl= "/BBlog/admin/upload"; //待会要上传的action或servlet
+    config.filebrowserImageUploadUrl= "/BBlog/upload"; //待会要上传的action或servlet
 
 	// Define changes to default configuration here.
 	// For complete reference see:

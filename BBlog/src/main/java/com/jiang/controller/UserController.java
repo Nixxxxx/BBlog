@@ -105,7 +105,7 @@ public class UserController {
 					StringBuffer content = new StringBuffer("<h3>点击下面链接激活账号，48小时生效，否则重新注册账号，链接只能使用一次，请尽快激活！</h3></br>");
 					content.append("<a href='http://localhost:8080/BBlog/user/active?email=");
 					content.append(user.getEmail()+"&code="+code.getCode());
-					content.append("'>http://localhost:8080/BBlog/user/active?email=");
+					content.append("'>http://www.jiangh.me/BBlog/user/active?email=");
 					content.append(user.getEmail()+"&code="+code.getCode()+"</a>");
 					try {
 						EmailUtil.sendEmail(user.getEmail(), content.toString());

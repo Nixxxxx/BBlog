@@ -20,6 +20,8 @@
 <link rel="stylesheet" href="static/css/blog.css">
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body style="background: #eee;">
 
@@ -43,7 +45,7 @@
 	                <img alt="avater" src="${blogger.imagePath }">
 	            </div>
 	            <div class="content">
-	                <h3>Nix</h3>
+	                <h3>${blogger.userName }</h3>
 	                <ul class="status">
 	                    <li><span class="normal">99</span><br>文章</li>
 	                    <li><span class="normal">99</span><br>精选</li>
@@ -79,8 +81,7 @@
 	<span class="toptext">Top</span>
 </a> 
 
-<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
-<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <script type="text/javascript">
 	$(function(){
 		

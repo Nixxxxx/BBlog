@@ -19,7 +19,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="shortcut icon" href="static/images/avater.jpg">
 <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="//cdn.bootcss.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
 <link rel="stylesheet" href="//cdn.bootcss.com/admin-lte/2.3.11/css/AdminLTE.css">
@@ -107,7 +106,7 @@ body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
 						<!-- Menu Footer-->
 						<li class="user-footer">
 							<div class="pull-left">
-								<a href="javascript:void(0)" class="btn btn-success btn-flat">修改信息</a>
+								<a type="button" id="refreshSystem" class="btn btn-success btn-flat">更新服务器缓存</a>
 							</div>
 							<div class="pull-right">
 								<a href="admin/logout" class="btn btn-info btn-flat">退出登录</a>
@@ -196,9 +195,38 @@ body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
 		</footer>
 	</div>
 
-	<script src="//cdn.bootcss.com/admin-lte/2.3.11/js/app.min.js"></script>
-	<script src="//cdn.bootcss.com/admin-lte/2.3.11/js/demo.js"></script>
-
+<script src="//cdn.bootcss.com/admin-lte/2.3.11/js/app.min.js"></script>
+<script src="//cdn.bootcss.com/admin-lte/2.3.11/js/demo.js"></script>
+<script src="//cdn.bootcss.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
+<script>
+$(function(){
+	var refreshSystem = $("#refreshSystem");
+	refreshSystem.click(function(){
+		$.ajax({
+	        url: "admin/refreshSystem",
+	        type: "post",
+	        dataType: "json",
+	        beforeSend: function () {
+	        	refreshSystem.button("loading");
+	        },
+	        complete: function () {
+	        	refreshSystem.button("reset");
+	        },
+	        success: function (data) {
+	            alert(data.msg);
+	        },
+	        error: function (XMLHttpRequest, textStatus) {
+	            if (textStatus === "timeout") {
+	                alert("超时！");
+	            } else {
+	                alert("失败！");
+	            }
+	        }
+	    });
+	})
+	    
+})
+</script>
 	<!-- <script>
  $(function () {
     /**
