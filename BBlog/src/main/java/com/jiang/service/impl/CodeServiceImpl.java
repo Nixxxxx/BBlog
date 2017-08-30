@@ -16,7 +16,7 @@ public class CodeServiceImpl implements CodeService{
 	private CodeDao codeDao;
 	
 
-	public Code findById(int id) {
+	public Code findById(Integer id) {
 		return codeDao.findById(id);
 	}
 	
@@ -29,7 +29,7 @@ public class CodeServiceImpl implements CodeService{
 	}
 
 
-	public boolean delete(int id) {
+	public boolean delete(Integer id) {
 		return codeDao.delete(id);
 	}
 

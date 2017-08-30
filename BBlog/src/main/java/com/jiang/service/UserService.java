@@ -10,7 +10,7 @@ public interface UserService {
 	
 	public List<User> findAll();
 
-	public User findById(int id);
+	public User findById(Integer id);
 
 	public boolean insert(User user);
 
@@ -18,7 +18,7 @@ public interface UserService {
 
 	public List<User> findList(PageBean pageBean);
 
-	public boolean delete(int id);
+	public boolean delete(Integer id);
 	
 	public User findByEmail(String email);
 

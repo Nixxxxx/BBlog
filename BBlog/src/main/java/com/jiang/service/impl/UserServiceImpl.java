@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService{
 		return userDao.findAll();
 	}
 
-	public User findById(int id) {
+	public User findById(Integer id) {
 		return userDao.findById(id);
 	}
 
@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService{
 		return userDao.findList(pageBean);
 	}
 
-	public boolean delete(int id) {
+	public boolean delete(Integer id) {
 		return userDao.delete(id);
 	}
 

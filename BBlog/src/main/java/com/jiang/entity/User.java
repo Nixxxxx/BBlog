@@ -12,7 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "t_user")
 public class User {
 	
-	private int id;
+	private Integer id;
 	private String userName;
 	private String email;
 	private String password;
@@ -20,16 +20,16 @@ public class User {
 	private String mood;
 	private String signInIP;
 	private String signUpIP;
-	private int status;
+	private Integer status;
 	
 	@Id
 	@Column(name = "id",nullable = false,unique = true)
 	@GenericGenerator(name = "generator",strategy = "native")
 	@GeneratedValue(generator = "generator")
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	
@@ -90,10 +90,10 @@ public class User {
 	}
 	
 	@Column(name = "status", nullable = false, length = 1)
-	public int getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 	

@@ -9,7 +9,7 @@ public interface BloggerService {
 	
 	public List<Blogger> findAll();
 	
-	public Blogger findById(int id);
+	public Blogger findById(Integer id);
 
 	public boolean insert(Blogger user);
 

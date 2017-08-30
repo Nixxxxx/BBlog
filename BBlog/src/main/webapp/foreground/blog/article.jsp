@@ -33,6 +33,9 @@
 	</div>
 	<div class="blog_content">${blog.content }</div>
 
+	<div class="blog_lastAndNextPage">
+		${pageCode }
+	</div>
 
 
 

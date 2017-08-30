@@ -7,12 +7,12 @@ import com.jiang.entity.Code;
 public interface CodeService {
 
 	
-	public Code findById(int id);
+	public Code findById(Integer id);
 	
 	public List<Code> findAll();
 
 	public boolean insert(Code code);
 
-	public boolean delete(int id);
+	public boolean delete(Integer id);
 
 }

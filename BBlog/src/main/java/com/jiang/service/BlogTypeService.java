@@ -10,9 +10,9 @@ public interface BlogTypeService {
 
 	public boolean insert(BlogType blogType);
 
-	public BlogType findById(int id);
+	public BlogType findById(Integer id);
 
-	public boolean delete(int id);
+	public boolean delete(Integer id);
 
 	public boolean update(BlogType blogType);
 	

@@ -8,17 +8,21 @@ import com.jiang.entity.PageBean;
 public interface BlogService {
 
 
-	public Blog findById(int id);
+	public Blog findById(Integer id);
 
-	public List<Blog> findListByTypeId(PageBean pageBean, int typeId);
+	public List<Blog> findListByTypeId(PageBean pageBean, Integer typeId);
 	
-	public List<Blog> findByTypeId(int typeId);
+	public List<Blog> findByTypeId(Integer typeId);
 
 	public List<Blog> findAll();
+	
+	public Blog getLastBlog();
+	
+	public Blog getNextBlog();
 
 	public boolean insert(Blog blog);
 
-	public boolean delete(int id);
+	public boolean delete(Integer id);
 
 	public boolean update(Blog blog);
 }

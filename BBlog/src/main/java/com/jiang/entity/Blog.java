@@ -16,12 +16,13 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "t_blog")
 public class Blog {
 	
-	private int id;
+	private Integer id;
 	private BlogType blogType;
 	private String title;
 	private String content;
+	private String contentNoTag;
 	private String summary;
-	private int reader;
+	private Integer reader;
 	private Date updateTime;
 	private Date createTime;
 
@@ -44,11 +45,11 @@ public class Blog {
 	@Column(name = "id",nullable = false,unique = true)
 	@GenericGenerator(name = "generator",strategy = "native")
 	@GeneratedValue(generator = "generator")
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -82,6 +83,16 @@ public class Blog {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	
+	@Column(name = "contentNoTag", nullable = false)
+	public String getContentNoTag() {
+		return contentNoTag;
+	}
+
+	public void setContentNoTag(String contentNoTag) {
+		this.contentNoTag = contentNoTag;
+	}
+
 
 	@Column(name = "summary", nullable = false, length = 255)
 	public String getSummary() {
@@ -93,11 +104,11 @@ public class Blog {
 	}
 
 	@Column(name = "reader", nullable = false, length = 10)
-	public int getReader() {
+	public Integer getReader() {
 		return reader;
 	}
 
-	public void setReader(int reader) {
+	public void setReader(Integer reader) {
 		this.reader = reader;
 	}
 

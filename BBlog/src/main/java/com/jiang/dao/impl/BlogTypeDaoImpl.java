@@ -40,7 +40,7 @@ public class BlogTypeDaoImpl implements BlogTypeDao{
 		session.close();
 	}
 
-	public void delete(int id) {
+	public void delete(Integer id) {
 		Session session = this.sessionFactory.openSession();
 		Transaction tr = session.beginTransaction();
 		session.delete(this.findById(id));
@@ -89,7 +89,7 @@ public class BlogTypeDaoImpl implements BlogTypeDao{
 		return (List<BlogType>) this.hibernateTemplate.find("from BlogType");
 	}
 	
-	public BlogType findById(int id){
+	public BlogType findById(Integer id){
 		return this.hibernateTemplate.get(BlogType.class, id);
 	}
 

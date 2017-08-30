@@ -33,7 +33,7 @@ public class AdminDaoImpl implements AdminDao{
 		return true;
 	}
 	
-	public boolean delete(int id){
+	public boolean delete(Integer id){
 		Admin admin = this.findById(id);
 		Session session = this.sessionFactory.openSession();
 		Transaction tr = session.beginTransaction();
@@ -52,7 +52,7 @@ public class AdminDaoImpl implements AdminDao{
 		return true;
 	}
 	
-	public boolean changePassword(int id,String password){
+	public boolean changePassword(Integer id, String password){
 		Admin admin = this.findById(id);
 		admin.setPassword(password);
 		this.hibernateTemplate.merge(admin);
@@ -73,7 +73,7 @@ public class AdminDaoImpl implements AdminDao{
 		return adminList;
 	}
 
-	public Admin findById(int id){
+	public Admin findById(Integer id){
 		return this.hibernateTemplate.get(Admin.class, id);
 	}
 

@@ -2,33 +2,33 @@ package com.jiang.entity;
 
 public class PageBean {
 
-	private int page; // 第几页
-	private int pageSize; // 每页记录数
+	private Integer page; // 第几页
+	private Integer pageSize; // 每页记录数
 //	private int start; // 起始页
 
-	public PageBean(int page, int pageSize) {
+	public PageBean(Integer page, Integer pageSize) {
 		super();
 		this.page = page;
 		this.pageSize = pageSize;
 	}
 
-	public int getPage() {
+	public Integer getPage() {
 		return page;
 	}
 
-	public void setPage(int page) {
+	public void setPage(Integer page) {
 		this.page = page;
 	}
 
-	public int getPageSize() {
+	public Integer getPageSize() {
 		return pageSize;
 	}
 
-	public void setPageSize(int pageSize) {
+	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
 	}
 
-	public int getStart() {
+	public Integer getStart() {
 		return (page - 1) * pageSize;
 	}
 

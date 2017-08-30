@@ -19,7 +19,7 @@ public class BloggerServiceImpl implements BloggerService{
 		return bloggerDao.findAll();
 	}
 	
-	public Blogger findById(int id) {
+	public Blogger findById(Integer id) {
 		return bloggerDao.findById(id);
 	}
 

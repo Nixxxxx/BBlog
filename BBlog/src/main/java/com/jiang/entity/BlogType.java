@@ -20,9 +20,9 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "t_blogtype")
 public class BlogType {
 
-	private int id;
+	private Integer id;
 	private String typeName;
-	private int count;
+	private Integer count;
 	private Set<Blog> blogs = new HashSet<Blog>();
 	
 	
@@ -38,10 +38,10 @@ public class BlogType {
 	@Column(name = "id",nullable = false,unique = true)
 	@GenericGenerator(name = "generator",strategy = "native")
 	@GeneratedValue(generator = "generator")
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	
@@ -54,11 +54,11 @@ public class BlogType {
 	}
 
 	@Transient
-	public int getCount() {
+	public Integer getCount() {
 		return count;
 	}
 
-	public void setCount(int count) {
+	public void setCount(Integer count) {
 		this.count = count;
 	}
 

@@ -29,7 +29,7 @@ public class BloggerDaoImpl implements BloggerDao{
 		return true;
 	}
 	
-	public boolean delete(int id){
+	public boolean delete(Integer id){
 		Blogger blogger = this.findById(id);
 		Session session = this.sessionFactory.openSession();
 		Transaction tr = session.beginTransaction();
@@ -49,7 +49,7 @@ public class BloggerDaoImpl implements BloggerDao{
 	}
 	
 
-	public Blogger findById(int id){
+	public Blogger findById(Integer id){
 		return this.hibernateTemplate.get(Blogger.class, id);
 	}
 

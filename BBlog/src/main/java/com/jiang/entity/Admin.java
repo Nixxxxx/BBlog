@@ -12,7 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "t_admin")
 public class Admin {
 	
-	private int id;
+	private Integer id;
 	private String email;
 	private String password;
 	
@@ -20,10 +20,10 @@ public class Admin {
 	@Column(name = "id",nullable = false,unique = true)
 	@GenericGenerator(name = "generator",strategy = "native")
 	@GeneratedValue(generator = "generator")
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	

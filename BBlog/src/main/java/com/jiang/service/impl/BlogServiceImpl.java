@@ -16,15 +16,15 @@ public class BlogServiceImpl implements BlogService{
 	@Autowired
 	private BlogDao blogDao;
 
-	public Blog findById(int id) {
+	public Blog findById(Integer id) {
 		return blogDao.findById(id);
 	}
 
-	public List<Blog> findListByTypeId(PageBean pageBean, int typeId) {
+	public List<Blog> findListByTypeId(PageBean pageBean, Integer typeId) {
 		return blogDao.findListByTypeId(pageBean, typeId);
 	}
 	
-	public List<Blog> findByTypeId(int typeId) {
+	public List<Blog> findByTypeId(Integer typeId) {
 		return blogDao.findByTypeId(typeId);
 	}
 
@@ -37,7 +37,7 @@ public class BlogServiceImpl implements BlogService{
 		return true;
 	}
 
-	public boolean delete(int id) {
+	public boolean delete(Integer id) {
 		blogDao.delete(id);
 		return true;
 	}
@@ -45,5 +45,13 @@ public class BlogServiceImpl implements BlogService{
 	public boolean update(Blog blog) {
 		blogDao.update(blog);
 		return true;
+	}
+
+	public Blog getLastBlog() {
+		return null;
+	}
+
+	public Blog getNextBlog() {
+		return null;
 	}
 }

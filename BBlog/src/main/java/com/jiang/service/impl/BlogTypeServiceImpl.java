@@ -21,11 +21,11 @@ public class BlogTypeServiceImpl implements BlogTypeService{
 		return true;
 	}
 
-	public BlogType findById(int id) {
+	public BlogType findById(Integer id) {
 		return blogTypeDao.findById(id);
 	}
 
-	public boolean delete(int id) {
+	public boolean delete(Integer id) {
 		blogTypeDao.delete(id);
 		return true;
 	}

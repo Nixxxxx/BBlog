@@ -12,7 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "t_blogger")
 public class Blogger {
 
-	private int id;
+	private Integer id;
 	private String email;
 	private String userName;
 	private String imagePath;
@@ -22,10 +22,10 @@ public class Blogger {
 	@Column(name = "id", nullable = false, unique = true)
 	@GenericGenerator(name = "generator", strategy = "native")
 	@GeneratedValue(generator = "generator")
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	

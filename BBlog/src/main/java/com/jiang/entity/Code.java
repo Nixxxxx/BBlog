@@ -12,14 +12,14 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "t_code")
 public class Code {
 
-	private int id;
+	private Integer id;
 	private String code;
 	
 	public Code() {
 		super();
 	}
 	
-	public Code(int id, String code) {
+	public Code(Integer id, String code) {
 		super();
 		this.id = id;
 		this.code = code;
@@ -29,10 +29,10 @@ public class Code {
 	@Column(name = "id", nullable = false, unique = true)
 	@GenericGenerator(name = "generator", strategy = "assigned")
 	@GeneratedValue(generator = "generator")
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	

@@ -32,7 +32,7 @@ public class UserDaoImpl implements UserDao{
 		return true;
 	}
 	
-	public boolean delete(int id){
+	public boolean delete(Integer id){
 		User user = this.findById(id);
 		Session session = this.sessionFactory.openSession();
 		Transaction tr = session.beginTransaction();
@@ -51,7 +51,7 @@ public class UserDaoImpl implements UserDao{
 		return true;
 	}
 	
-	public boolean changePassword(int id,String password){
+	public boolean changePassword(Integer id,String password){
 		User user = this.findById(id);
 		user.setPassword(password);
 		this.hibernateTemplate.merge(user);
@@ -77,7 +77,7 @@ public class UserDaoImpl implements UserDao{
 		return (List<User>) this.hibernateTemplate.find("from User");
 	}
 	
-	public User findById(int id){
+	public User findById(Integer id){
 		return this.hibernateTemplate.get(User.class, id);
 	}
 

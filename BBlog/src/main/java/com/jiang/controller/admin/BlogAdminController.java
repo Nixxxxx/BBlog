@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.jiang.entity.Blog;
 import com.jiang.entity.PageBean;
+import com.jiang.lucene.BlogIndex;
 import com.jiang.service.BlogService;
 import com.jiang.service.BlogTypeService;
 import com.jiang.util.PageUtil;
@@ -29,6 +30,7 @@ public class BlogAdminController {
 	private BlogService blogService;
 	@Autowired
 	private BlogTypeService blogTypeService;
+	private BlogIndex blogIndex = new BlogIndex();
 	
 	public boolean check(String title, int typeId, int id){
 		List<Blog> blogs = blogService.findAll();
@@ -52,14 +54,16 @@ public class BlogAdminController {
 	}
 	
 	@RequestMapping("/insert")
-	public void insert(Blog bg, int typeId, HttpServletRequest request,HttpServletResponse response){
+	public void insert(Blog bg, int typeId, HttpServletRequest request,HttpServletResponse response) throws Exception{
 		boolean result;
 		String msg;
 		if(check(bg.getTitle(), typeId, 0)){
 			Blog blog = new Blog(blogTypeService.findById(typeId), bg.getTitle(), bg.getContent(), new Date());
+			blog.setContentNoTag(bg.getContentNoTag());
 			blog.setSummary(bg.getSummary());
 			result = blogService.insert(blog);
 			msg = result?"保存成功":"保存失败";
+			blogIndex.addIndex(blog); // 添加博客索引
 		}else {
 			msg = "类型名已存在";
 			result = false;
@@ -71,9 +75,10 @@ public class BlogAdminController {
 	}
 	
 	@RequestMapping("/del")
-	public void delete(@RequestParam Integer id, HttpServletRequest request,HttpServletResponse response){
+	public void delete(@RequestParam Integer id, HttpServletRequest request,HttpServletResponse response) throws Exception{
 		boolean result = blogService.delete(id);
 		String msg = result?"删除成功":"删除失败";
+		if(result)	blogIndex.deleteIndex(id+""); // 删除对应博客的索引
 		JSONObject resultJson = new JSONObject();
 		resultJson.put("result",result);
 		resultJson.put("msg", msg);
@@ -81,7 +86,7 @@ public class BlogAdminController {
 	}
 
 	@RequestMapping("/update")
-	public void update(Blog bg, int typeId, HttpServletRequest request, HttpServletResponse response){
+	public void update(Blog bg, int typeId, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		boolean result;
 		String msg;
 		if(check(bg.getTitle(), typeId, bg.getId())){
@@ -89,9 +94,11 @@ public class BlogAdminController {
 			blog.setBlogType(blogTypeService.findById(typeId));
 			blog.setTitle(bg.getTitle());
 			blog.setContent(bg.getContent());
+			blog.setContentNoTag(bg.getContentNoTag());
 			blog.setSummary(bg.getSummary());
 			blog.setUpdateTime(new Date());
 			result = blogService.update(blog);
+			blogIndex.updateIndex(blog); // 添加博客索引
 			msg = result?"更新成功":"更新失败";
 		}else {
 			msg = "文章已存在";

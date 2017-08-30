@@ -30,7 +30,7 @@ public class CodeDaoImpl implements CodeDao{
 		return true;
 	}
 	
-	public boolean delete(int id){
+	public boolean delete(Integer id){
 		Code code = this.findById(id);
 		Session session = this.sessionFactory.openSession();
 		Transaction tr = session.beginTransaction();
@@ -40,7 +40,7 @@ public class CodeDaoImpl implements CodeDao{
 		return true;
 	}
 	
-	public Code findById(int id){
+	public Code findById(Integer id){
 		return this.hibernateTemplate.get(Code.class, id);
 	}
 	

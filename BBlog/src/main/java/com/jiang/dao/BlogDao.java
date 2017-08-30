@@ -11,14 +11,14 @@ public interface BlogDao {
 	
 	public Blog update(Blog blog);
 
-	public void delete(int id);
+	public void delete(Integer id);
 	
-	public List<Blog> findListByTypeId(PageBean pageBean, int typeId);
+	public List<Blog> findListByTypeId(PageBean pageBean, Integer typeId);
 	
-	public List<Blog> findByTypeId(int typeId);
+	public List<Blog> findByTypeId(Integer typeId);
 	
 	public List<Blog> findAll();
 	
-	public Blog findById(int id);
+	public Blog findById(Integer id);
 
 }

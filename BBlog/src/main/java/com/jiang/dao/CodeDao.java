@@ -8,9 +8,9 @@ public interface CodeDao {
 	
 	public boolean insert(Code code);
 	
-	public boolean delete(int id);
+	public boolean delete(Integer id);
 	
-	public Code findById(int id);
+	public Code findById(Integer id);
 	
 	public List<Code> findAll();
 	

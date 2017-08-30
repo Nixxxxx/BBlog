@@ -85,6 +85,7 @@ $(function (){
 			var url = "admin/blog/insert";
 			var id = 0;
 		}
+		var contentNoTag = CKEDITOR.instances.content.document.getBody().getText();
 		var summary = CKEDITOR.instances.content.document.getBody().getText().substr(0,100);
 		var updateBtn = $("#updateBtn");
 		$.ajax({
@@ -94,6 +95,7 @@ $(function (){
 				id : id,
 				title : title,
 				content : content,
+				contentNoTag : contentNoTag,
 				typeId : typeId,
 				summary : summary,
 			},
@@ -112,9 +114,9 @@ $(function (){
 			},
 			error : function(XMLHttpRequest, textStatus) {
 				if (textStatus == "timeout") {
-					show_error("登录超时");
+					show_error("超时");
 				} else {
-					show_error("登录失败");
+					show_error("失败");
 				}
 			}
 		});

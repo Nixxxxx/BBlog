@@ -18,6 +18,8 @@
 <link rel="shortcut icon" href="static/images/avater.jpg">
 <link rel="stylesheet" href="static/css/index.css">
 <link rel="stylesheet" href="static/css/blog.css">
+<link rel="stylesheet" href="static/css/main.min.css">
+<link href="http://apps.bdimg.com/libs/fontawesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
@@ -26,7 +28,6 @@
 <body style="background: #eee;">
 
 <jsp:include page="./foreground/common/top.jsp"/>
-
 <div class="container" style="padding-top:75px;">
 	<div class="row-fluid">
 		<div class="col-md-9">
@@ -35,9 +36,8 @@
 			</c:if>
 		</div>
 		<div class="col-md-3">
-	        <form class="form-horizontal" action="" method="post">
-	            <input  id="search" class="form-control" name="s" type="text">
-	            <button type="submit" style="display:none" class="animation red-btn"><span class="glyphicon glyphicon glyphicon-search"></span></button>
+	        <form class="form-horizontal" action="blog/search" method="post">
+	            <input type="text" class="form-control" name="q" placeholder="搜索">
 	        </form> 
 			<div class="card">
 	            <div class="header" style="background:url(static/images/avater.jpg)"></div>
@@ -72,19 +72,16 @@
 		</div>
 	</div>
 </div>
-
-<jsp:include page="./foreground/common/footer.jsp"/>
-     
-       
+  
 <a class="to-top" id="toTop" style="cursor: pointer; display:none;">
 	<span class="topicon"><i class="glyphicon glyphicon-chevron-up"></i></span>
 	<span class="toptext">Top</span>
 </a> 
 
-
+<jsp:include page="./foreground/common/footer.jsp"/>
+     
 <script type="text/javascript">
 	$(function(){
-		
 		function signOut(){
 			if(confirm("您确定要退出系统吗？")){
 				window.location.href = "user/signOut";

@@ -20,7 +20,7 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.findAll();
 	}
 	
-	public Admin findById(int id) {
+	public Admin findById(Integer id) {
 		return adminDao.findById(id);
 	}
 
@@ -36,7 +36,7 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.findList(pageBean);
 	}
 
-	public boolean delete(int id) {
+	public boolean delete(Integer id) {
 		return adminDao.delete(id);
 	}
 	

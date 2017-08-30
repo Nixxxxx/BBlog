@@ -11,7 +11,7 @@ public interface BlogTypeDao {
 
 	public void update(BlogType blogType);
 
-	public void delete(int id);
+	public void delete(Integer id);
 
 	public List<BlogType> findList(PageBean pageBean);
 
@@ -19,6 +19,6 @@ public interface BlogTypeDao {
 	
 	public List<BlogType> findAll();
 	
-	public BlogType findById(int id);
+	public BlogType findById(Integer id);
 	
 }

@@ -10,7 +10,7 @@ public interface AdminService {
 	
 	public List<Admin> findAll();
 	
-	public Admin findById(int id);
+	public Admin findById(Integer id);
 
 	public boolean insert(Admin admin);
 
@@ -18,7 +18,7 @@ public interface AdminService {
 
 	public List<Admin> findList(PageBean pageBean);
 
-	public boolean delete(int id);
+	public boolean delete(Integer id);
 
 	public Admin findByEmail(String email);
 }

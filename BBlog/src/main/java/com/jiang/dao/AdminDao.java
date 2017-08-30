@@ -9,15 +9,15 @@ public interface AdminDao {
 	
 	public boolean insert(Admin admin);
 	
-	public boolean delete(int id);
+	public boolean delete(Integer id);
 	
 	public boolean update(Admin admin);
 	
-	public boolean changePassword(int id, String password);
+	public boolean changePassword(Integer id, String password);
 	
 	public List<Admin> findList(PageBean pageBean);
 
-	public Admin findById(int id);
+	public Admin findById(Integer id);
 
 	public List<Admin> findAll();
 

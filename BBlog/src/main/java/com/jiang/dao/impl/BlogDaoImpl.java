@@ -39,7 +39,7 @@ public class BlogDaoImpl implements BlogDao{
 		return findById(blog.getId());
 	}
 
-	public void delete(int id) {
+	public void delete(Integer id) {
 		Blog blog = this.findById(id);
 		Session session = this.sessionFactory.openSession();
 		Transaction tr = session.beginTransaction();
@@ -48,7 +48,7 @@ public class BlogDaoImpl implements BlogDao{
 		session.close();
 	}
 	
-	public List<Blog> findListByTypeId(PageBean pageBean, int typeId) {
+	public List<Blog> findListByTypeId(PageBean pageBean, Integer typeId) {
 		StringBuffer sb = new StringBuffer("from Blog");
 		if (typeId != 0) {
 			sb.append(" where typeId = " + typeId);
@@ -67,7 +67,7 @@ public class BlogDaoImpl implements BlogDao{
 	
 	
 	@SuppressWarnings("unchecked")
-	public List<Blog> findByTypeId(int typeId) {
+	public List<Blog> findByTypeId(Integer typeId) {
 		return (List<Blog>) this.hibernateTemplate.find("from Blog where blogType.id= " + typeId);
 	}
 	
@@ -76,7 +76,7 @@ public class BlogDaoImpl implements BlogDao{
 		return (List<Blog>) this.hibernateTemplate.find("from Blog");
 	}
 	
-	public Blog findById(int id){
+	public Blog findById(Integer id){
 		return this.hibernateTemplate.get(Blog.class, id);
 	}
 
