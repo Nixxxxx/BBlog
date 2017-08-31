@@ -1,16 +1,4 @@
-//回到顶部
-#btn{
-	width:40px;
-	height:40px;
-	position:fixed;
-	left:50%;
-	margin-left:610px;
-	bottom:30px;
-	
-}
-#btn:hover{
-	background:url()
-}
+
 
 
 ::selection{background:#f4645f;}

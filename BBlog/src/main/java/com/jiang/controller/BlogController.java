@@ -15,7 +15,6 @@ import com.jiang.entity.Blog;
 import com.jiang.entity.PageBean;
 import com.jiang.lucene.BlogIndex;
 import com.jiang.service.BlogService;
-import com.jiang.service.impl.BlogServiceImpl;
 import com.jiang.util.PageUtil;
 import com.jiang.util.StringUtil;
 
@@ -98,20 +97,20 @@ public class BlogController {
 	 * @param nextBlog
 	 * @return
 	 */
-	private String genUpAndDownPageCode(Blog lastBlog,Blog nextBlog){
-		StringBuffer pageCode=new StringBuffer();
-		if(lastBlog == null || lastBlog.getId() == null){
-			pageCode.append("<p>上一篇：没有了</p>");
-		}else{
-			pageCode.append("<p>上一篇：<a href='blog/articles/"+lastBlog.getId()+"'>"+lastBlog.getTitle()+"</a></p>");
-		}
-		if(nextBlog==null || nextBlog.getId()==null){
-			pageCode.append("<p>下一篇：没有了</p>");
-		}else{
-			pageCode.append("<p>下一篇：<a href='blog/articles/"+nextBlog.getId()+"'>"+nextBlog.getTitle()+"</a></p>");
-		}
-		return pageCode.toString();
-	}
+//	private String genUpAndDownPageCode(Blog lastBlog,Blog nextBlog){
+//		StringBuffer pageCode=new StringBuffer();
+//		if(lastBlog == null || lastBlog.getId() == null){
+//			pageCode.append("<p>上一篇：没有了</p>");
+//		}else{
+//			pageCode.append("<p>上一篇：<a href='blog/articles/"+lastBlog.getId()+"'>"+lastBlog.getTitle()+"</a></p>");
+//		}
+//		if(nextBlog==null || nextBlog.getId()==null){
+//			pageCode.append("<p>下一篇：没有了</p>");
+//		}else{
+//			pageCode.append("<p>下一篇：<a href='blog/articles/"+nextBlog.getId()+"'>"+nextBlog.getTitle()+"</a></p>");
+//		}
+//		return pageCode.toString();
+//	}
 	
 	/**
 	 * 获取上一页，下一页代码 查询博客用到
@@ -133,12 +132,12 @@ public class BlogController {
 			if(page>1){
 				pageCode.append("<li><a href='blog/search?page="+(page-1)+"&q="+q+"'>上一页</a></li>");
 			}else{
-				pageCode.append("<li class='disabled'><a href='#'>上一页</a></li>");
+				pageCode.append("<li class='disabled'><a>上一页</a></li>");
 			}
 			if(page<totalPage){
 				pageCode.append("<li><a href='/blog/search?page="+(page+1)+"&q="+q+"'>下一页</a></li>");				
 			}else{
-				pageCode.append("<li class='disabled'><a href='#'>下一页</a></li>");				
+				pageCode.append("<li class='disabled'><a>下一页</a></li>");				
 			}
 			pageCode.append("</ul>");
 			pageCode.append("</nav>");

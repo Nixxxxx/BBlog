@@ -16,10 +16,6 @@ public interface BlogService {
 
 	public List<Blog> findAll();
 	
-	public Blog getLastBlog();
-	
-	public Blog getNextBlog();
-
 	public boolean insert(Blog blog);
 
 	public boolean delete(Integer id);

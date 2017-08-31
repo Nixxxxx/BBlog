@@ -18,8 +18,6 @@
 <link rel="shortcut icon" href="static/images/avater.jpg">
 <link rel="stylesheet" href="static/css/index.css">
 <link rel="stylesheet" href="static/css/blog.css">
-<link rel="stylesheet" href="static/css/main.min.css">
-<link href="http://apps.bdimg.com/libs/fontawesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>

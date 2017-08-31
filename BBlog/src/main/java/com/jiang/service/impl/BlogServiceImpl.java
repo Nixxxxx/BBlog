@@ -47,11 +47,4 @@ public class BlogServiceImpl implements BlogService{
 		return true;
 	}
 
-	public Blog getLastBlog() {
-		return null;
-	}
-
-	public Blog getNextBlog() {
-		return null;
-	}
 }

@@ -139,7 +139,7 @@ public class BlogIndex {
 			Document doc = is.doc(scoreDoc.doc);
 			Blog blog = new Blog();
 			blog.setId(Integer.parseInt(doc.get(("id"))));
-//			blog.setReleaseDateStr(doc.get(("releaseDate")));
+			blog.setUpdateTime(new SimpleDateFormat("yyyy-MM-dd").parse(doc.get("updateTime")));
 			String title = doc.get("title");
 			String content = StringEscapeUtils.escapeHtml(doc.get("content"));
 			if (title != null) {
