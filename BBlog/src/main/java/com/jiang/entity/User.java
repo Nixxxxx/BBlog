@@ -8,18 +8,32 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+/**
+ * 用户类
+ * @author JH
+ *
+ */
 @Entity
 @Table(name = "t_user")
 public class User {
 	
+	/* 用户id */
 	private Integer id;
+	/* 用户名 */
 	private String userName;
+	/* 用户邮箱 */
 	private String email;
+	/* 用户密码 */
 	private String password;
+	/* 用户头像地址 */
 	private String imagePath;
+	/* 用户个性签名 */
 	private String mood;
+	/* 用户登陆ip */
 	private String signInIP;
+	/* 用户注册ip */
 	private String signUpIP;
+	/* 用户状态（是否审核） */
 	private Integer status;
 	
 	@Id

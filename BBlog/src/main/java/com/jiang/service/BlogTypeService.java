@@ -5,8 +5,12 @@ import java.util.List;
 import com.jiang.entity.BlogType;
 import com.jiang.entity.PageBean;
 
+/**
+ * 博客类型service接口
+ * @author JH
+ *
+ */
 public interface BlogTypeService {
-
 
 	public boolean insert(BlogType blogType);
 

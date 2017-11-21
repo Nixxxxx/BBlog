@@ -5,8 +5,12 @@ import java.util.List;
 import com.jiang.entity.PageBean;
 import com.jiang.entity.User;
 
+/**
+ * 用户service接口
+ * @author JH
+ *
+ */
 public interface UserService {
-
 	
 	public List<User> findAll();
 

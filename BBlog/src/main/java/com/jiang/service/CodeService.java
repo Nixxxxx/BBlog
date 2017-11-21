@@ -4,8 +4,12 @@ import java.util.List;
 
 import com.jiang.entity.Code;
 
+/**
+ * 注册激活码service接口
+ * @author JH
+ *
+ */
 public interface CodeService {
-
 	
 	public Code findById(Integer id);
 	

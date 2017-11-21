@@ -5,8 +5,12 @@ import java.util.List;
 import com.jiang.entity.Blog;
 import com.jiang.entity.PageBean;
 
+/**
+ * 博客service接口
+ * @author JH
+ *
+ */
 public interface BlogService {
-
 
 	public Blog findById(Integer id);
 

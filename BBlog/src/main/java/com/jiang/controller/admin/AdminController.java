@@ -6,6 +6,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,8 @@ import com.jiang.util.StringUtil;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+	
+	private static Logger logger = Logger.getLogger(AdminController.class);
 	
 	@Autowired
 	private AdminService adminService;
@@ -54,6 +57,7 @@ public class AdminController {
 			if(adminService.insert(adm)){
 				result = true;
 				msg = "注册成功";
+				logger.info("注册  - " + adm.getId() + " - " + adm.getEmail());
 			}else msg = "注册失败";
 		}
 		JSONObject resultJson = new JSONObject();
@@ -90,6 +94,7 @@ public class AdminController {
 		if(adminService.delete(id)){
 			result = true;
 			msg = "删除成功";
+			logger.info("删除管理员  - " + "id：" + id);
 		}
 		else msg = "更新失败";
 		JSONObject resultJson = new JSONObject();

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,12 +17,15 @@ import com.jiang.entity.PageBean;
 import com.jiang.lucene.BlogIndex;
 import com.jiang.service.BlogService;
 import com.jiang.util.PageUtil;
+import com.jiang.util.RequestUtil;
 import com.jiang.util.StringUtil;
 
 
 @Controller
 @RequestMapping("/blog")
 public class BlogController {
+	
+	private static Logger logger = Logger.getLogger(BlogController.class);
 
 	@Autowired
 	private BlogService blogService;
@@ -30,15 +34,16 @@ public class BlogController {
 	
 	
 	@RequestMapping("/articles/{id}")
-	public ModelAndView read(@PathVariable("id") Integer id){
+	public ModelAndView read(@PathVariable("id") Integer id, HttpServletRequest request){
 		Blog blog = blogService.findById(id);
-		blog.setReader(blog.getReader()+1);
+		blog.setReader(blog.getReader() + 1);
 		blogService.update(blog);
+		logger.info("查看文章 - " + RequestUtil.getRemoteIP(request) + "博客：" + blog.getId() + blog.getTitle());
 		ModelAndView mav = new ModelAndView("index");
 		mav.addObject("pagePath", "./foreground/blog/article.jsp");
 		mav.addObject("blog", blogService.findById(id));
 //		mav.addObject("pageCode", this.genUpAndDownPageCode(blogService.getLastBlog(id),blogService.getNextBlog(id)));
-		mav.addObject("pageTitle", blog.getTitle()+"_Java开源博客系统");
+		mav.addObject("pageTitle", blog.getTitle()+"_Nix博客");
 		return mav;
 	}
 
@@ -81,6 +86,7 @@ public class BlogController {
 		}
 		List<Blog> blogList = blogIndex.searchBlog(q.trim());
 		Integer toIndex = blogList.size() >= Integer.parseInt(page)*10?Integer.parseInt(page)*10:blogList.size();
+		logger.info("搜索  - " + RequestUtil.getRemoteIP(request) + q);
 		ModelAndView mav = new ModelAndView("index");
 		mav.addObject("pagePath", "./foreground/search.jsp");
 		mav.addObject("blogList", blogList.subList((Integer.parseInt(page)-1)*10, toIndex));

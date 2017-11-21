@@ -16,13 +16,22 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
+/**
+ * 博客类型实体类
+ * @author JH
+ *
+ */
 @Entity
 @Table(name = "t_blogtype")
 public class BlogType {
 
+	/* 博客类型id */
 	private Integer id;
+	/* 博客类型名 */
 	private String typeName;
+	/* 此博客类型下博客数量 */
 	private Integer count;
+	/* 此博客类型下博客集合 */
 	private Set<Blog> blogs = new HashSet<Blog>();
 	
 	

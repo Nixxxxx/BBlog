@@ -5,8 +5,12 @@ import java.util.List;
 import com.jiang.entity.Admin;
 import com.jiang.entity.PageBean;
 
+/**
+ * 管理员service接口
+ * @author JH
+ *
+ */
 public interface AdminService {
-	
 	
 	public List<Admin> findAll();
 	

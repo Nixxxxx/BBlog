@@ -2,13 +2,13 @@ package com.jiang.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.security.GeneralSecurityException;
 import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +30,8 @@ import com.jiang.util.ResponseUtil;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+	
+	private static Logger logger = Logger.getLogger(UserController.class);
 
 	@Autowired
 	private UserService userService;
@@ -49,6 +51,7 @@ public class UserController {
 					userService.update(user);
 					request.getSession().setAttribute("user", user);
 					result = true;
+					logger.info("用户登陆 - " + user.getId() + user.getEmail());
 				}else{
 					msg = "账号未激活";
 				}
@@ -107,11 +110,8 @@ public class UserController {
 					content.append(user.getEmail()+"&code="+code.getCode());
 					content.append("'>http://www.jiangh.me/BBlog/user/active?email=");
 					content.append(user.getEmail()+"&code="+code.getCode()+"</a>");
-					try {
-						EmailUtil.sendEmail(user.getEmail(), content.toString());
-					} catch (GeneralSecurityException e) {
-						e.printStackTrace();
-					}
+					logger.info("用户注册 - " + user.getId() + user.getEmail());
+					EmailUtil.sendEmail(user.getEmail(), content.toString());
 					result = true;
 					msg = "注册成功，去邮箱激活";
 				}else msg = "注册失败";
@@ -135,6 +135,7 @@ public class UserController {
 					if(userService.update(user)){
 						msg = "激活成功";
 						codeService.delete(c.getId());
+						logger.info("用户激活 - " + user.getId() + user.getEmail());
 					}
 					else msg = "异常";
 				}else msg = "邮箱不正确";
@@ -187,6 +188,7 @@ public class UserController {
 				result = true;
 				msg = "更新成功";
 				request.getSession().setAttribute("user", userService.findById(u.getId()));
+				logger.info("用户注册 - " + user.getId() + user.getEmail());
 			}else msg = "更新失败";
 		}
 		if(result == true){

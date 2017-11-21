@@ -9,6 +9,11 @@ import org.json.JSONObject;
 
 public class ResponseUtil {
 	
+	/**
+	 * 向页面返回JSONObject对象
+	 * @param response
+	 * @param json
+	 */
 	public static void writeJson(HttpServletResponse response,JSONObject json){
 		try {  
 			response.setContentType("text/html;charset=utf-8");
@@ -17,7 +22,6 @@ public class ResponseUtil {
 			out.flush();
 			out.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

@@ -12,18 +12,32 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+/**
+ * 博客实体类
+ * @author JH
+ *
+ */
 @Entity
 @Table(name = "t_blog")
 public class Blog {
 	
+	/* 博客id */
 	private Integer id;
+	/* 博客类型 */
 	private BlogType blogType;
+	/* 博客标题 */
 	private String title;
+	/* 博客内容（带html标签） */
 	private String content;
+	/* 博客内容（不带html标签） */
 	private String contentNoTag;
+	/* 博客概要 */
 	private String summary;
+	/* 博客阅读量 */
 	private Integer reader;
+	/* 博客更新时间 */
 	private Date updateTime;
+	/* 博客创建时间 */
 	private Date createTime;
 
 	
