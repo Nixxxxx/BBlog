@@ -158,7 +158,7 @@ public class AdminController {
 		
 		JSONObject resultJson = new JSONObject();
 		resultJson.put("msg", "更新成功");
-		
+
 		ResponseUtil.writeJson(response, resultJson);
 	}
 }

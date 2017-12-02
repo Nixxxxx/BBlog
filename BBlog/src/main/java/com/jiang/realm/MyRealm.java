@@ -19,7 +19,7 @@ import com.jiang.service.AdminService;
 
 /**
  * 自定义Realm
- * @author java1234_小锋
+ * @author JH
  *
  */
 public class MyRealm extends AuthorizingRealm{

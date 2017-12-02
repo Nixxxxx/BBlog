@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,11 +50,11 @@ public class BloggerController {
 			UsernamePasswordToken token=new UsernamePasswordToken(adm.getEmail() , CryptographyUtil.md5(adm.getPassword(), "jiang"));
 			try{
 				subject.login(token);
-				Session session = subject.getSession();
-				System.out.println("sessionId:"+session.getId());
-				System.out.println("sessionHost:"+session.getHost());
-				System.out.println("sessionTimeout:"+session.getTimeout());
-				session.setAttribute("info", "session的数据");
+//				Session session = subject.getSession();
+//				System.out.println("sessionId:"+session.getId());
+//				System.out.println("sessionHost:"+session.getHost());
+//				System.out.println("sessionTimeout:"+session.getTimeout());
+//				session.setAttribute("info", "session的数据");
 				result = true;
 			}catch(Exception e){
 				e.printStackTrace();
@@ -77,7 +76,7 @@ public class BloggerController {
         String callback = request.getParameter("CKEditorFuncNum");
 		String fileName = UUID.randomUUID().toString().replace("-", "") 
 				+ "."+upload.getOriginalFilename().split("\\.")[1];
-		String imagePath = "C:/image/upload/";
+		String imagePath = "/root/BBlog/image/upload/";
         if(!upload.isEmpty()){
 			try {
 				File file = new File(imagePath + fileName);

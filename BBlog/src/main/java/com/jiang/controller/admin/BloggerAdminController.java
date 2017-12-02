@@ -32,7 +32,7 @@ public class BloggerAdminController {
 		String msg;
 		if(!imageFile.isEmpty()){
 			String fileName = "blogger" + "." + imageFile.getOriginalFilename().split("\\.")[1];
-			String imagePath = "C:/image/avater/";
+			String imagePath = "/root/BBlog/image/avater/";
 			bgr.setImagePath("/BBlog/image/avater/"+fileName);
 			try {
 				File file = new File(imagePath+fileName);

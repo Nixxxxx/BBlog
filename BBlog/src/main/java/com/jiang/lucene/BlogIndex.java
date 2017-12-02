@@ -39,7 +39,7 @@ import com.jiang.util.StringUtil;
 /**
  * 博客索引类
  * 
- * @author Administrator
+ * @author JH
  *
  */
 public class BlogIndex {
@@ -53,7 +53,7 @@ public class BlogIndex {
 	 * @throws Exception
 	 */
 	private IndexWriter getWriter() throws Exception {
-		dir = FSDirectory.open(Paths.get("C://lucene"));
+		dir = FSDirectory.open(Paths.get("/root/BBlog/lucene"));
 		SmartChineseAnalyzer analyzer = new SmartChineseAnalyzer();
 		IndexWriterConfig iwc = new IndexWriterConfig(analyzer);
 		IndexWriter writer = new IndexWriter(dir, iwc);
@@ -117,7 +117,7 @@ public class BlogIndex {
 	 * @throws Exception
 	 */
 	public List<Blog> searchBlog(String q) throws Exception {
-		dir = FSDirectory.open(Paths.get("C://lucene"));
+		dir = FSDirectory.open(Paths.get("/root/BBlog/lucene"));
 		IndexReader reader = DirectoryReader.open(dir);
 		IndexSearcher is = new IndexSearcher(reader);
 		BooleanQuery.Builder booleanQuery = new BooleanQuery.Builder();

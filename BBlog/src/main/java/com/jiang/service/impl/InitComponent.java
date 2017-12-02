@@ -18,7 +18,7 @@ import com.jiang.service.BloggerService;
 
 /**
  * 初始化组件 把博主信息 根据博客类别分类信息 根据日期归档分类信息 存放到application中，用以提供页面请求性能
- * @author Administrator
+ * @author JH
  *
  */
 @Component
@@ -40,7 +40,6 @@ public class InitComponent implements ServletContextListener,ApplicationContextA
 		BlogTypeService blogTypeService = (BlogTypeService) applicationContext.getBean("blogTypeService");
 		List<BlogType> blogTypeCountList = blogTypeService.countList(); // 查询博客类别以及博客的数量
 		application.setAttribute("blogTypeCountList", blogTypeCountList);
-		
 	}
 
 	public void contextDestroyed(ServletContextEvent sce) {

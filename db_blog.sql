@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50508
 File Encoding         : 65001
 
-Date: 2017-08-24 15:33:20
+Date: 2017-11-22 16:51:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -35,6 +35,7 @@ CREATE TABLE `t_blog` (
   `typeId` int(10) NOT NULL COMMENT '博客类型id',
   `title` varchar(60) NOT NULL COMMENT '文章标题',
   `content` text NOT NULL COMMENT '文章内容',
+  `contentNoTag` text NOT NULL COMMENT '文章内容（无标签）',
   `summary` varchar(255) NOT NULL COMMENT '文章内容概要',
   `reader` int(10) NOT NULL COMMENT '阅读量',
   `updateTime` datetime NOT NULL COMMENT '更新时间',
@@ -42,7 +43,7 @@ CREATE TABLE `t_blog` (
   PRIMARY KEY (`id`),
   KEY `FK_t_diary` (`typeId`),
   CONSTRAINT `专栏` FOREIGN KEY (`typeId`) REFERENCES `t_blogtype` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for t_blogger
@@ -75,22 +76,6 @@ CREATE TABLE `t_code` (
   `id` int(10) NOT NULL COMMENT '用户账号id',
   `code` varchar(255) NOT NULL COMMENT '激活码',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for t_comment
--- ----------------------------
-DROP TABLE IF EXISTS `t_comment`;
-CREATE TABLE `t_comment` (
-  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '评论id（本表）',
-  `userId` int(10) NOT NULL COMMENT '用户id',
-  `blogId` int(10) NOT NULL COMMENT '博客id',
-  `content` varchar(255) NOT NULL COMMENT '评论内容',
-  PRIMARY KEY (`id`),
-  KEY `用户` (`userId`),
-  KEY `博客` (`blogId`),
-  CONSTRAINT `用户` FOREIGN KEY (`userId`) REFERENCES `t_user` (`id`),
-  CONSTRAINT `博客` FOREIGN KEY (`blogId`) REFERENCES `t_blog` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
