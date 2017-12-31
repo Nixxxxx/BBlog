@@ -28,3 +28,11 @@ tomcat配置虚拟路径，上传文件与服务器分离（修改apache-tomcat/
 	<Context path="/BBlog/image" docBase="/root/BBlog/image" reloadable="false"></Context>  <!-- 虚拟路径 -->
 </Host>
 ```
+
+网站页面演示
+---
+![用户预览页](https://raw.githubusercontent.com/Nixxxxx/BBlog-Website/master/BBlog/readme/foreground.png)
+![管理页](https://raw.githubusercontent.com/Nixxxxx/BBlog-Website/master/BBlog/readme/admin_page.png)
+![管理员登录页](https://raw.githubusercontent.com/Nixxxxx/BBlog-Website/master/BBlog/readme/admin_login.png)
+![用户登录页](https://raw.githubusercontent.com/Nixxxxx/BBlog-Website/master/BBlog/readme/user_signin.png)
+![用户注册页](https://raw.githubusercontent.com/Nixxxxx/BBlog-Website/master/BBlog/readme/user_signup.png)
