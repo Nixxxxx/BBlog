@@ -14,11 +14,9 @@ public interface AdminService {
 	
 	public List<Admin> findAll();
 	
-	public Admin findById(Integer id);
+	public Admin findOne(Integer id);
 
-	public boolean insert(Admin admin);
-
-	public boolean update(Admin admin);
+	public boolean save(Admin admin);
 
 	public List<Admin> findList(PageBean pageBean);
 

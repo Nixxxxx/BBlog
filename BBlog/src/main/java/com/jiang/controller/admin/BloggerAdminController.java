@@ -2,32 +2,35 @@ package com.jiang.controller.admin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jiang.entity.Blogger;
 import com.jiang.service.BloggerService;
-import com.jiang.util.ResponseUtil;
 
 @Controller
-@RequestMapping("/admin/blogger")
+@RequestMapping("/manage/blogger")
 public class BloggerAdminController {
 
 	@Autowired
 	private BloggerService bloggerService;
 	
+	@ResponseBody
 	@RequestMapping("/update")
-	public void update(@RequestParam("imageFile") MultipartFile imageFile, Blogger bgr, 
+	public Map<String, Object> update(@RequestParam("imageFile") MultipartFile imageFile, Blogger bgr, 
 			HttpServletRequest request, HttpServletResponse response) throws IOException{
+		Map<String, Object> map = new HashMap<>();
 		boolean result = false;
 		String msg;
 		if(!imageFile.isEmpty()){
@@ -45,27 +48,26 @@ public class BloggerAdminController {
 				msg = "更新异常";
 			}
 		}else {
-			bgr.setImagePath(bloggerService.findById(1).getImagePath());
+			bgr.setImagePath(bloggerService.findOne(1).getImagePath());
 		}
-		if(bloggerService.update(bgr)){
+		if(bloggerService.save(bgr)){
 			result = true;
 			msg = "更新成功";
 		}else msg = "更新失败";
 		if(result == true){
 			response.sendRedirect("info");
 		}else {
-			JSONObject resultJson=new JSONObject();
-			resultJson.put("result", result);
-			resultJson.put("msg", msg);
-			ResponseUtil.writeJson(response, resultJson);
+			map.put("result", result);
+			map.put("msg", msg);
 		}
+		return map;
 	}
 
 	@RequestMapping("/info")
 	public ModelAndView info() {
 		ModelAndView mav = new ModelAndView("admin/index");
 		mav.addObject("pagePath", "./admin/bloggerInfo.jsp");
-		mav.addObject("blogger", bloggerService.findById(1));
+		mav.addObject("blogger", bloggerService.findOne(1));
 		return mav;
 	}
 }

@@ -13,10 +13,8 @@ public interface BloggerService {
 	
 	public List<Blogger> findAll();
 	
-	public Blogger findById(Integer id);
+	public Blogger findOne(Integer id);
 
-	public boolean insert(Blogger user);
-
-	public boolean update(Blogger user);
+	public boolean save(Blogger user);
 
 }

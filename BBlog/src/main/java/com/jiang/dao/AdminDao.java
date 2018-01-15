@@ -2,6 +2,9 @@ package com.jiang.dao;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
 import com.jiang.entity.Admin;
 import com.jiang.entity.PageBean;
 
@@ -10,28 +13,7 @@ import com.jiang.entity.PageBean;
  * @author JH
  *
  */
-public interface AdminDao {
-	
-	/**
-	 * 添加管理员
-	 * @param admin
-	 * @return
-	 */
-	public boolean insert(Admin admin);
-	
-	/**
-	 * 删除管理员
-	 * @param id
-	 * @return
-	 */
-	public boolean delete(Integer id);
-	
-	/**
-	 * 更新管理员
-	 * @param admin
-	 * @return
-	 */
-	public boolean update(Admin admin);
+public interface AdminDao extends JpaRepository<Admin, Integer>{
 	
 	/**
 	 * 修改管理员密码
@@ -39,6 +21,7 @@ public interface AdminDao {
 	 * @param password
 	 * @return
 	 */
+	@Query(value="select * from t_admin where id<?1 order by id desc limit 1",nativeQuery = true)
 	public boolean changePassword(Integer id, String password);
 	
 	/**
@@ -46,26 +29,15 @@ public interface AdminDao {
 	 * @param pageBean
 	 * @return
 	 */
+	@Query(value="select * from t_admin where id<?1 order by id desc limit 1",nativeQuery = true)
 	public List<Admin> findList(PageBean pageBean);
-
-	/**
-	 * 根据id查询管理员
-	 * @param id
-	 * @return
-	 */
-	public Admin findById(Integer id);
-
-	/**
-	 * 查出所有管理员
-	 * @return
-	 */
-	public List<Admin> findAll();
 
 	/**
 	 * 根据email查询管理员
 	 * @param email
 	 * @return
 	 */
+	@Query(value="select * from t_film where id<?1 order by id desc limit 1",nativeQuery = true)
 	public Admin findByEmail(String email);
 	
 }

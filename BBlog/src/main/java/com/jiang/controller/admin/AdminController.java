@@ -1,17 +1,18 @@
 package com.jiang.controller.admin;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jiang.entity.Admin;
@@ -23,7 +24,6 @@ import com.jiang.service.BlogTypeService;
 import com.jiang.service.BloggerService;
 import com.jiang.util.CryptographyUtil;
 import com.jiang.util.PageUtil;
-import com.jiang.util.ResponseUtil;
 import com.jiang.util.StringUtil;
 
 @Controller
@@ -45,50 +45,52 @@ public class AdminController {
 		return mav;
 	}
 	
-	
-	@RequestMapping("/insert")
-	public void insert(Admin adm, HttpServletRequest request, HttpServletResponse response) {
+	@ResponseBody
+	@RequestMapping("/add")
+	public Map<String, Object> insert(Admin adm, HttpServletRequest request) {
+		Map<String, Object> map = new HashMap<>();
 		boolean result = false;
 		String msg = "";
 		if(!checkEmail(adm.getEmail(), 0)){
 			msg = "该邮箱已存在";
 		}else {
 			adm.setPassword(CryptographyUtil.md5(adm.getPassword(), "jiang"));
-			if(adminService.insert(adm)){
+			if(adminService.save(adm)){
 				result = true;
 				msg = "注册成功";
 				logger.info("注册  - " + adm.getId() + " - " + adm.getEmail());
 			}else msg = "注册失败";
 		}
-		JSONObject resultJson = new JSONObject();
-		resultJson.put("result", result);
-		resultJson.put("msg", msg);
-		ResponseUtil.writeJson(response, resultJson);
+		map.put("result", result);
+		map.put("msg", msg);
+		return map;
 	}
 	
+	@ResponseBody
 	@RequestMapping("/update")
-	public void update(Admin adm, HttpServletRequest request, HttpServletResponse response) {
+	public Map<String, Object> update(Admin adm, HttpServletRequest request) {
+		Map<String, Object> map = new HashMap<>();
 		boolean result = false;
 		String msg = "";
 		if (!checkEmail(adm.getEmail(), adm.getId())) {
 			msg = "该邮箱已存在";
 		}else {
 			adm.setPassword(CryptographyUtil.md5(adm.getPassword(), "jiang"));
-			if(adminService.update(adm)){
+			if(adminService.save(adm)){
 				result = true;
 				msg ="更新成功";
 			}
 			else msg = "更新失败";
 		}
-		JSONObject resultJson = new JSONObject();
-		resultJson.put("result", result);
-		resultJson.put("msg", msg);
-		ResponseUtil.writeJson(response, resultJson);
+		map.put("result", result);
+		map.put("msg", msg);
+		return map;
 	}
 	
-	
+	@ResponseBody
 	@RequestMapping("/del")
-	public void delete(int id, HttpServletRequest request, HttpServletResponse response) {
+	public Map<String, Object> delete(Integer id, HttpServletRequest request) {
+		Map<String, Object> map = new HashMap<>();
 		boolean result = false;
 		String msg = "";
 		if(adminService.delete(id)){
@@ -97,15 +99,14 @@ public class AdminController {
 			logger.info("删除管理员  - " + "id：" + id);
 		}
 		else msg = "更新失败";
-		JSONObject resultJson = new JSONObject();
-		resultJson.put("result", result);
-		resultJson.put("msg", msg);
-		ResponseUtil.writeJson(response, resultJson);
+		map.put("result", result);
+		map.put("msg", msg);
+		return map;
 	}
 	
 	@RequestMapping("/list")
 	public ModelAndView list(@RequestParam(required = false)String page, 
-			HttpServletRequest request, HttpServletResponse response) {
+			HttpServletRequest request) {
 		if (StringUtil.isEmpty(page)) {
 			page = "1";
 		}
@@ -126,7 +127,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/logout")
-	public String logout(HttpServletRequest request, HttpServletResponse response) {
+	public String logout(HttpServletRequest request) {
 		request.getSession().removeAttribute("admin");
 		return null;
 	}
@@ -144,21 +145,21 @@ public class AdminController {
 	/**
 	 * 刷新系统缓存
 	 * @param request
+	 * @return 
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/refreshSystem")
-	public void refreshSystem(HttpServletResponse response,HttpServletRequest request)throws Exception{
+	public Map<String, String> refreshSystem(HttpServletRequest request)throws Exception{
+		Map<String, String> map = new HashMap<>();
 		ServletContext application = request.getServletContext();
-		Blogger blogger = bloggerService.findById(1); // 查询博主信息
+		Blogger blogger = bloggerService.findOne(1); // 查询博主信息
 		application.setAttribute("blogger", blogger);
 		
 		List<BlogType> blogTypeCountList = blogTypeService.countList(); // 查询博客类别以及博客的数量
 		application.setAttribute("blogTypeCountList", blogTypeCountList);
 		
-		JSONObject resultJson = new JSONObject();
-		resultJson.put("msg", "更新成功");
-
-		ResponseUtil.writeJson(response, resultJson);
+		map.put("msg", "更新成功");
+		return map;
 	}
 }

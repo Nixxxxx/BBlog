@@ -16,33 +16,34 @@ public class BlogTypeServiceImpl implements BlogTypeService{
 	@Autowired
 	private BlogTypeDao blogTypeDao;
 
-	public boolean insert(BlogType blogType) {
-		blogTypeDao.insert(blogType);
+	@Override
+	public boolean save(BlogType blogType) {
+		blogTypeDao.save(blogType);
 		return true;
 	}
 
-	public BlogType findById(Integer id) {
-		return blogTypeDao.findById(id);
+	@Override
+	public BlogType findOne(Integer id) {
+		return blogTypeDao.findOne(id);
 	}
 
+	@Override
 	public boolean delete(Integer id) {
 		blogTypeDao.delete(id);
 		return true;
 	}
-
-	public boolean update(BlogType blogType) {
-		blogTypeDao.update(blogType);
-		return true;
-	}
 	
+	@Override
 	public List<BlogType> countList(){
-		return blogTypeDao.countList();
+		return blogTypeDao.findcount();
 	}
 
+	@Override
 	public List<BlogType> findAll() {
 		return blogTypeDao.findAll();
 	}
 
+	@Override
 	public List<BlogType> findList(PageBean pageBean) {
 		return blogTypeDao.findList(pageBean);
 	}

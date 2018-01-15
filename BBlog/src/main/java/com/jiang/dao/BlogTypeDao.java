@@ -2,6 +2,9 @@ package com.jiang.dao;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
 import com.jiang.entity.BlogType;
 import com.jiang.entity.PageBean;
 
@@ -10,49 +13,21 @@ import com.jiang.entity.PageBean;
  * @author JH
  *
  */
-public interface BlogTypeDao {
-
-	/**
-	 * 添加博客类型
-	 * @param blogType
-	 */
-	public void insert(BlogType blogType);
-
-	/**
-	 * 更新博客类型
-	 * @param blogType
-	 */
-	public void update(BlogType blogType);
-
-	/**
-	 * 删除博客类型
-	 * @param id
-	 */
-	public void delete(Integer id);
+public interface BlogTypeDao extends JpaRepository<BlogType, Integer>{
 
 	/**
 	 * 分页查询博客类型
 	 * @param pageBean
 	 * @return
 	 */
+	@Query(value="select * from t_film where id<?1 order by id desc limit 1",nativeQuery = true)
 	public List<BlogType> findList(PageBean pageBean);
 
 	/**
 	 * 查询每个博客类型下的博客数量
 	 * @return
 	 */
-	public List<BlogType> countList();
-	
-	/*
-	 * 查询所有博客类型列表
-	 */
-	public List<BlogType> findAll();
-	
-	/**
-	 * 根据id查询博客类型
-	 * @param id
-	 * @return
-	 */
-	public BlogType findById(Integer id);
+	@Query(value="select * from t_film where id<?1 order by id desc limit 1",nativeQuery = true)
+	public List<BlogType> findcount();
 	
 }

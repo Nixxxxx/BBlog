@@ -16,31 +16,36 @@ public class AdminServiceImpl implements AdminService{
 	@Autowired
 	private AdminDao adminDao;
 	
+	@Override
 	public List<Admin> findAll(){
 		return adminDao.findAll();
 	}
 	
-	public Admin findById(Integer id) {
-		return adminDao.findById(id);
+	@Override
+	public Admin findOne(Integer id) {
+		return adminDao.findOne(id);
 	}
 
-	public boolean insert(Admin admin) {
-		return adminDao.insert(admin);
+	@Override
+	public boolean save(Admin admin) {
+		adminDao.save(admin);
+		return true;
+	}
+	
+	@Override
+	public boolean delete(Integer id) {
+		adminDao.delete(id);
+		return false;
 	}
 
-	public boolean update(Admin admin) {
-		return adminDao.update(admin);
-	}
-
+	@Override
 	public List<Admin> findList(PageBean pageBean) {
 		return adminDao.findList(pageBean);
 	}
-
-	public boolean delete(Integer id) {
-		return adminDao.delete(id);
-	}
 	
+	@Override
 	public Admin findByEmail(String email){
 		return adminDao.findByEmail(email);
 	}
+
 }

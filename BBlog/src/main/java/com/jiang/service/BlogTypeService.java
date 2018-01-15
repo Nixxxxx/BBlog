@@ -12,13 +12,11 @@ import com.jiang.entity.PageBean;
  */
 public interface BlogTypeService {
 
-	public boolean insert(BlogType blogType);
-
-	public BlogType findById(Integer id);
+	public boolean save(BlogType blogType);
 
 	public boolean delete(Integer id);
 
-	public boolean update(BlogType blogType);
+	public BlogType findOne(Integer id);
 	
 	public List<BlogType> countList();
 

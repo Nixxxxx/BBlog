@@ -15,20 +15,20 @@ public class BloggerServiceImpl implements BloggerService{
 	@Autowired
 	private BloggerDao bloggerDao;
 	
+	@Override
 	public List<Blogger> findAll(){
 		return bloggerDao.findAll();
 	}
 	
-	public Blogger findById(Integer id) {
-		return bloggerDao.findById(id);
+	@Override
+	public Blogger findOne(Integer id) {
+		return bloggerDao.findOne(id);
 	}
 
-	public boolean insert(Blogger user) {
-		return bloggerDao.insert(user);
-	}
-
-	public boolean update(Blogger user) {
-		return bloggerDao.update(user);
+	@Override
+	public boolean save(Blogger user) {
+		bloggerDao.save(user);
+		return true;
 	}
 	
 }
