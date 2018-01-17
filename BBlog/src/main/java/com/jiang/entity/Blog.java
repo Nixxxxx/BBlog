@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -67,7 +68,6 @@ public class Blog {
 		this.id = id;
 	}
 
-
 	@ManyToOne
 	@JoinColumn(name = "typeId")
 	public BlogType getBlogType() {
@@ -78,7 +78,6 @@ public class Blog {
 		this.blogType = blogType;
 	}
 
-
 	@Column(name = "title", nullable = false,length = 60)
 	public String getTitle() {
 		return title;
@@ -88,8 +87,8 @@ public class Blog {
 		this.title = title;
 	}
 
-	
-	@Column(name = "content", nullable = false)
+	@Lob
+	@Column(name = "content", nullable = false, columnDefinition="TEXT")
 	public String getContent() {
 		return content;
 	}
@@ -126,7 +125,6 @@ public class Blog {
 		this.reader = reader;
 	}
 
-	
 	@Column(name = "updateTime", nullable = false)
 	public Date getUpdateTime() {
 		return updateTime;
@@ -136,7 +134,6 @@ public class Blog {
 		this.updateTime = updateTime;
 	}
 
-	
 	@Column(name = "createTime", nullable = false)
 	public Date getCreateTime() {
 		return createTime;
