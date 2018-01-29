@@ -14,7 +14,7 @@ public interface AdminService {
 	
 	public List<Admin> findAll();
 	
-	public Admin findOne(Integer id);
+	public Admin findById(Integer id);
 
 	public boolean save(Admin admin);
 

@@ -1,13 +1,6 @@
 package com.jiang.entity;
 
-import javax.persistence.Column;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
+import java.util.Date;
 
 /**
  * 管理员实体类
@@ -15,8 +8,6 @@ import org.hibernate.annotations.GenericGenerator;
  * @author JH
  *
  */
-@Entity
-@Table(name = "t_admin")
 public class Admin {
 
 	/* 管理员id */
@@ -25,11 +16,11 @@ public class Admin {
 	private String email;
 	/* 管理员密码 */
 	private String password;
+	
+	private Date addTime;
+	
+	private Integer status;
 
-	@Id
-	@Column(name = "id", nullable = false, unique = true)
-	@GenericGenerator(name = "generator", strategy = "native")
-	@GeneratedValue(generator = "generator")
 	public Integer getId() {
 		return id;
 	}
@@ -38,7 +29,6 @@ public class Admin {
 		this.id = id;
 	}
 
-	@Column(name = "email", nullable = false, unique = true, length = 40)
 	public String getEmail() {
 		return email;
 	}
@@ -47,7 +37,6 @@ public class Admin {
 		this.email = email;
 	}
 
-	@Column(name = "password", nullable = false, length = 100)
 	public String getPassword() {
 		return password;
 	}
@@ -56,4 +45,19 @@ public class Admin {
 		this.password = password;
 	}
 
+	public Date getAddTime() {
+		return addTime;
+	}
+
+	public void setAddTime(Date addTime) {
+		this.addTime = addTime;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 }

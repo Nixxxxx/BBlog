@@ -37,7 +37,7 @@ public class BloggerController {
 	@RequestMapping("/info")
 	public ModelAndView info(){
 		ModelAndView mav = new ModelAndView("index");
-		mav.addObject("blogger", bloggerService.findOne(1));
+		mav.addObject("blogger", bloggerService.findById(1));
 		mav.addObject("pagePath" , "./foreground/about.jsp");
 		return mav;
 	}

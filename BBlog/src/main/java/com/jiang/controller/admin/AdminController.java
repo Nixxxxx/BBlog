@@ -46,7 +46,7 @@ public class AdminController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/add")
+	@RequestMapping("/save")
 	public Map<String, Object> insert(Admin adm, HttpServletRequest request) {
 		Map<String, Object> map = new HashMap<>();
 		boolean result = false;
@@ -153,7 +153,7 @@ public class AdminController {
 	public Map<String, String> refreshSystem(HttpServletRequest request)throws Exception{
 		Map<String, String> map = new HashMap<>();
 		ServletContext application = request.getServletContext();
-		Blogger blogger = bloggerService.findOne(1); // 查询博主信息
+		Blogger blogger = bloggerService.findById(1); // 查询博主信息
 		application.setAttribute("blogger", blogger);
 		
 		List<BlogType> blogTypeCountList = blogTypeService.countList(); // 查询博客类别以及博客的数量

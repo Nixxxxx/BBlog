@@ -2,24 +2,11 @@ package com.jiang.entity;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-
 /**
  * 博客实体类
  * @author JH
  *
  */
-@Entity
-@Table(name = "t_blog")
 public class Blog {
 	
 	/* 博客id */
@@ -55,11 +42,6 @@ public class Blog {
 		this.updateTime = this.createTime = date;
 	}
 
-	
-	@Id
-	@Column(name = "id",nullable = false,unique = true)
-	@GenericGenerator(name = "generator",strategy = "native")
-	@GeneratedValue(generator = "generator")
 	public Integer getId() {
 		return id;
 	}
@@ -68,8 +50,6 @@ public class Blog {
 		this.id = id;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "typeId")
 	public BlogType getBlogType() {
 		return blogType;
 	}
@@ -78,7 +58,6 @@ public class Blog {
 		this.blogType = blogType;
 	}
 
-	@Column(name = "title", nullable = false,length = 60)
 	public String getTitle() {
 		return title;
 	}
@@ -87,8 +66,6 @@ public class Blog {
 		this.title = title;
 	}
 
-	@Lob
-	@Column(name = "content", nullable = false, columnDefinition="TEXT")
 	public String getContent() {
 		return content;
 	}
@@ -97,7 +74,6 @@ public class Blog {
 		this.content = content;
 	}
 	
-	@Column(name = "contentNoTag", nullable = false)
 	public String getContentNoTag() {
 		return contentNoTag;
 	}
@@ -106,8 +82,6 @@ public class Blog {
 		this.contentNoTag = contentNoTag;
 	}
 
-
-	@Column(name = "summary", nullable = false, length = 255)
 	public String getSummary() {
 		return summary;
 	}
@@ -116,7 +90,6 @@ public class Blog {
 		this.summary = summary;
 	}
 
-	@Column(name = "reader", nullable = false, length = 10)
 	public Integer getReader() {
 		return reader;
 	}
@@ -125,7 +98,6 @@ public class Blog {
 		this.reader = reader;
 	}
 
-	@Column(name = "updateTime", nullable = false)
 	public Date getUpdateTime() {
 		return updateTime;
 	}
@@ -134,7 +106,6 @@ public class Blog {
 		this.updateTime = updateTime;
 	}
 
-	@Column(name = "createTime", nullable = false)
 	public Date getCreateTime() {
 		return createTime;
 	}

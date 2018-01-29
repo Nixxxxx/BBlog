@@ -47,7 +47,7 @@ public class BlogManageController {
 	public ModelAndView edit(@RequestParam(required = false) Integer id){
 		ModelAndView mav = new ModelAndView("admin/index");
 		if(id != null){
-			Blog blog = blogService.findOne(id);
+			Blog blog = blogService.findById(id);
 			mav.addObject("blog", blog);
 		}
 		mav.addObject("pagePath", "./blog/write.jsp");
@@ -59,7 +59,7 @@ public class BlogManageController {
 	public Map<String, Object> insert(Blog bg, int typeId, HttpServletRequest request,HttpServletResponse response) throws Exception{
 		Map<String, Object> map = new HashMap<>();
 		if(check(bg.getTitle(), typeId, 0)){
-			Blog blog = new Blog(blogTypeService.findOne(typeId), bg.getTitle(), bg.getContent(), new Date());
+			Blog blog = new Blog(blogTypeService.findById(typeId), bg.getTitle(), bg.getContent(), new Date());
 			blog.setContentNoTag(bg.getContentNoTag());
 			blog.setSummary(bg.getSummary());
 			boolean result = blogService.save(blog);
@@ -89,8 +89,8 @@ public class BlogManageController {
 		boolean result;
 		String msg;
 		if(check(bg.getTitle(), typeId, bg.getId())){
-			Blog blog = blogService.findOne(bg.getId());
-			blog.setBlogType(blogTypeService.findOne(typeId));
+			Blog blog = blogService.findById(bg.getId());
+			blog.setBlogType(blogTypeService.findById(typeId));
 			blog.setTitle(bg.getTitle());
 			blog.setContent(bg.getContent());
 			blog.setContentNoTag(bg.getContentNoTag());

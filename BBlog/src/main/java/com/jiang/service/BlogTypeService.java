@@ -16,7 +16,7 @@ public interface BlogTypeService {
 
 	public boolean delete(Integer id);
 
-	public BlogType findOne(Integer id);
+	public BlogType findById(Integer id);
 	
 	public List<BlogType> countList();
 

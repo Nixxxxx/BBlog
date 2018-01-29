@@ -16,7 +16,7 @@ public interface BlogService {
 	
 	public boolean delete(Integer id);
 
-	public Blog findOne(Integer id);
+	public Blog findById(Integer id);
 
 	public List<Blog> findListByTypeId(PageBean pageBean, Integer typeId);
 	

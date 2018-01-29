@@ -9,7 +9,6 @@ import javax.servlet.ServletContextListener;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.stereotype.Component;
 
 import com.jiang.entity.BlogType;
 import com.jiang.entity.Blogger;
@@ -34,7 +33,7 @@ public class InitComponent implements ServletContextListener,ApplicationContextA
 	public void contextInitialized(ServletContextEvent servletContextEvent) {
 		ServletContext application = servletContextEvent.getServletContext();
 		BloggerService bloggerService = (BloggerService) applicationContext.getBean("bloggerService");
-		Blogger blogger=bloggerService.findOne(1); // 查询博主信息
+		Blogger blogger=bloggerService.findById(1); // 查询博主信息
 		application.setAttribute("blogger", blogger);
 		
 		BlogTypeService blogTypeService = (BlogTypeService) applicationContext.getBean("blogTypeService");

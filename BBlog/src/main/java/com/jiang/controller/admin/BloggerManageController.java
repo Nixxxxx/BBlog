@@ -21,7 +21,7 @@ import com.jiang.service.BloggerService;
 
 @Controller
 @RequestMapping("/manage/blogger")
-public class BloggerAdminController {
+public class BloggerManageController {
 
 	@Autowired
 	private BloggerService bloggerService;
@@ -48,7 +48,7 @@ public class BloggerAdminController {
 				msg = "更新异常";
 			}
 		}else {
-			bgr.setImagePath(bloggerService.findOne(1).getImagePath());
+			bgr.setImagePath(bloggerService.findById(1).getImagePath());
 		}
 		if(bloggerService.save(bgr)){
 			result = true;
@@ -67,7 +67,7 @@ public class BloggerAdminController {
 	public ModelAndView info() {
 		ModelAndView mav = new ModelAndView("admin/index");
 		mav.addObject("pagePath", "./admin/bloggerInfo.jsp");
-		mav.addObject("blogger", bloggerService.findOne(1));
+		mav.addObject("blogger", bloggerService.findById(1));
 		return mav;
 	}
 }

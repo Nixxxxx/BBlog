@@ -22,8 +22,8 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-	public Admin findOne(Integer id) {
-		return adminDao.findOne(id);
+	public Admin findById(Integer id) {
+		return adminDao.findById(id);
 	}
 
 	@Override

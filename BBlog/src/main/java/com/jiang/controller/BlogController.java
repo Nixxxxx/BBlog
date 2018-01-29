@@ -35,13 +35,13 @@ public class BlogController {
 	
 	@RequestMapping("/articles/{id}")
 	public ModelAndView read(@PathVariable("id") Integer id, HttpServletRequest request){
-		Blog blog = blogService.findOne(id);
+		Blog blog = blogService.findById(id);
 		blog.setReader(blog.getReader() + 1);
 		blogService.save(blog);
 		logger.info("查看文章 - " + RequestUtil.getRemoteIP(request) + "博客：" + blog.getId() + blog.getTitle());
 		ModelAndView mav = new ModelAndView("index");
 		mav.addObject("pagePath", "./foreground/blog/article.jsp");
-		mav.addObject("blog", blogService.findOne(id));
+		mav.addObject("blog", blogService.findById(id));
 //		mav.addObject("pageCode", this.genUpAndDownPageCode(blogService.getLastBlog(id),blogService.getNextBlog(id)));
 		mav.addObject("pageTitle", blog.getTitle()+"_Nix博客");
 		return mav;

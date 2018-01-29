@@ -1,11 +1,11 @@
 <ol class="breadcrumb">
 	<li><i class="fa fa-dashboard"></i> 首页</li>
 	<li>博客</li>
-	<li class="active">{title}</li>
+	<li class="active">{blog.title}</li>
 </ol>
 <div class="box box-primary">
 	<div class="box-header with-border">
-		<h3 class="box-title"><i class="fa fa-hand-peace-o"></i>文章</h3>
+		<h3 class="box-title">文章</h3>
 		<div class="box-tools pull-right">
 			<a href="#" class="btn btn-box-tool" data-toggle="tooltip" title=""
 				data-original-title="上一篇"><i class="fa fa-arrow-left"></i></a>
@@ -15,39 +15,21 @@
 	</div>
 	<div class="box-body no-padding">
 		<div class="mailbox-read-info">
-			<h3>Message Subject Is Placed Here</h3>
+			<h2>{blog.title}</h2>
 			<h5>
-				From: help@example.com <span class="mailbox-read-time pull-right">15
-					Feb. 2016 11:03 PM</span>
+				类别：{blog.blogType.name}&nbsp;&nbsp;浏览量：{blog.name}
+				<span class="mailbox-read-time pull-right">{blog.createTime}</span>
 			</h5>
-		</div>
-		<div class="mailbox-controls with-border text-center">
-			<div class="btn-group">
-				<button type="button" class="btn btn-default btn-sm"
-					data-toggle="tooltip" data-container="body" title=""
-					data-original-title="Reply">
-					<i class="fa fa-reply"></i>
-				</button>
-				<button type="button" class="btn btn-default btn-sm"
-					data-toggle="tooltip" data-container="body" title=""
-					data-original-title="Forward">
-					<i class="fa fa-share"></i>
-				</button>
-			</div>
-			<button type="button" class="btn btn-default btn-sm"
-				data-toggle="tooltip" title="" data-original-title="Print">
-				<i class="fa fa-print"></i>
-			</button>
 		</div>
 		<div class="mailbox-read-message">{cotent}</div>
 	</div>
 	<div class="box-footer">
 		<div class="pull-right">
 			<button type="button" class="btn btn-default">
-				<i class="fa fa-reply"></i> Reply
+				<i class="fa fa-reply"></i> 上一篇
 			</button>
 			<button type="button" class="btn btn-default">
-				<i class="fa fa-share"></i> Forward
+				<i class="fa fa-share"></i> 下一篇
 			</button>
 		</div>
 	</div>

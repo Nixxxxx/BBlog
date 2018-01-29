@@ -21,8 +21,8 @@ public class BloggerServiceImpl implements BloggerService{
 	}
 	
 	@Override
-	public Blogger findOne(Integer id) {
-		return bloggerDao.findOne(id);
+	public Blogger findById(Integer id) {
+		return bloggerDao.findById(id);
 	}
 
 	@Override

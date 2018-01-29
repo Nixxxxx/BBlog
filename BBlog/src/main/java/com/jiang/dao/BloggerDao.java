@@ -1,6 +1,6 @@
 package com.jiang.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
 
 import com.jiang.entity.Blogger;
 
@@ -9,7 +9,15 @@ import com.jiang.entity.Blogger;
  * @author JH
  *
  */
-public interface BloggerDao extends JpaRepository<Blogger, Integer>{
+public interface BloggerDao {
 	
+	public boolean save(Blogger blogger);
+	
+	public boolean update(Blogger blogger);
+	
+	public boolean delete(Integer id);
+	
+	public Blogger findById(Integer id);
 
+	public List<Blogger> findAll();
 }

@@ -17,8 +17,8 @@ public class BlogServiceImpl implements BlogService{
 	private BlogDao blogDao;
 
 	@Override
-	public Blog findOne(Integer id) {
-		return blogDao.findOne(id);
+	public Blog findById(Integer id) {
+		return blogDao.findById(id);
 	}
 	
 	@Override

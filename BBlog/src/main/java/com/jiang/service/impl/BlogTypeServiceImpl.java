@@ -23,8 +23,8 @@ public class BlogTypeServiceImpl implements BlogTypeService{
 	}
 
 	@Override
-	public BlogType findOne(Integer id) {
-		return blogTypeDao.findOne(id);
+	public BlogType findById(Integer id) {
+		return blogTypeDao.findById(id);
 	}
 
 	@Override

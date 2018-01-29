@@ -19,22 +19,22 @@
 </head>
 <body class="hold-transition skin-blue layout-top-nav">
 	<div class="wrapper">
-		<#include "./common/navbar.ftl">
+		<#include "../common/navbar.ftl">
 		<div class="content-wrapper">
 			<br><br>
 			<div class="container">
 				<section class="content">
-					<div class="col-md-4">
+					<div class="col-md-8">
 						<#include "./common/profile.ftl">
 					</div>
-					<div class="col-md-8">
+					<div class="col-md-4">
 						<#include "./common/carousel.ftl">
 						<#include "./blog/article.ftl">
 					</div>
 				</section>
 			</div>
 		</div>
-		<#include "./common/footer.ftl">
+		<#include ".。/common/footer.ftl">
 	</div>
 
 	<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
