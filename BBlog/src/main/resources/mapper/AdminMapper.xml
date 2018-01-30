@@ -53,7 +53,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where id=#{id}
 	</update>
 
-	<select id="findOne" parameterType="Integer" resultMap="AdminResult">
+	<select id="findById" parameterType="Integer" resultMap="AdminResult">
 		select * from admin where id=#{id}
 	</select>
 	

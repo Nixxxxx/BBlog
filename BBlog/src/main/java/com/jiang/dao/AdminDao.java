@@ -1,9 +1,9 @@
 package com.jiang.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.jiang.entity.Admin;
-import com.jiang.entity.BlogType;
 import com.jiang.entity.PageBean;
 
 /**
@@ -37,6 +37,8 @@ public interface AdminDao {
 	 * @return
 	 */
 	public List<Admin> findList(PageBean pageBean);
+	
+	public List<Admin> findByPage(Map<String, Object> map);
 
 	/**
 	 * 根据email查询管理员

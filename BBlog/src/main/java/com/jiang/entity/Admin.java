@@ -3,23 +3,17 @@ package com.jiang.entity;
 import java.util.Date;
 
 /**
- * 管理员实体类
- * 
+ * 管理员
  * @author JH
  *
  */
 public class Admin {
 
-	/* 管理员id */
-	private Integer id;
-	/* 管理员邮箱 */
-	private String email;
-	/* 管理员密码 */
-	private String password;
-	
-	private Date addTime;
-	
-	private Integer status;
+	private Integer id;			/* 管理员id */
+	private String email;		/* 管理员邮箱 */
+	private String password;	/* 管理员密码 */
+	private Date createTime;	/* 创建时间 */
+	private Integer status;		/* 管理员状态  0正常  1已禁用 */
 
 	public Integer getId() {
 		return id;
@@ -45,12 +39,12 @@ public class Admin {
 		this.password = password;
 	}
 
-	public Date getAddTime() {
-		return addTime;
+	public Date getCreateTime() {
+		return createTime;
 	}
 
-	public void setAddTime(Date addTime) {
-		this.addTime = addTime;
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 
 	public Integer getStatus() {

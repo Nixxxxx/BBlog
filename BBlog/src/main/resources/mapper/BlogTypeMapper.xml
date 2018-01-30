@@ -2,37 +2,24 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jiang.dao.BlogDao">
+<mapper namespace="com.jiang.dao.BlogTypeDao">
 
-	<resultMap type="Blog" id="BlogResult">
+	<resultMap type="BlogType" id="BlogTypeResult">
 		<result property="id" column="id"/>
-		<result property="title" column="title"/>
-		<result property="summary" column="summary"/>
-		<result property="reader" column="reader"/>
+		<result property="typeName" column="type_name"/>
+		<result property="count" column="count"/>
 		<result property="createTime" column="create_time"/>
 		<result property="status" column="status"/>
 	</resultMap>
 	
-	<insert id="save" parameterType="Blog">
-		insert t_blog
+	<insert id="save" parameterType="BlogType">
+		insert t_blogtype
 		<set>
-		    <if test="title!=null and title!='' ">
-				title=#{title},
+		    <if test="typeName!=null and typeName!='' ">
+				type_name=#{typeName},
 			</if>
-		    <if test="content!=null and content!='' ">
-				content=#{content},
-			</if>
-		    <if test="contentNoTag!=null and contentNoTag!='' ">
-				content_no_tag=#{contentNoTag},
-			</if>
-		    <if test="summary!=null and summary!='' ">
-				summary=#{summary},
-			</if>
-		    <if test="reader!=null and reader!='' ">
-				reader=#{reader},
-			</if>
-		    <if test="updateTime!=null and updateTime!='' ">
-				update_time=#{updateTime},
+		    <if test="count!=null and count!='' ">
+				count=#{count},
 			</if>
 		    <if test="createTime!=null and createTime!='' ">
 				create_time=#{createTime},
@@ -44,20 +31,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<delete id="delete" parameterType="Integer">
-		update t_blog status=-1 where id=#{id}
+		update t_blogtype status=-1 where id=#{id}
 	</delete>
 
-	<update id="update" parameterType="Blog">
-		update t_blog
+	<update id="update" parameterType="BlogType">
+		update t_blogtype
 		<set>
-		    <if test="email!=null and email!='' ">
-				email=#{email},
+		    <if test="typeName!=null and typeName!='' ">
+				type_name=#{typeName},
 			</if>
-		    <if test="password!=null and password!='' ">
-				password=#{password},
+		    <if test="count!=null and count!='' ">
+				count=#{count},
 			</if>
-		    <if test="addTime!=null and addTime!='' ">
-				add_time=#{addTime},
+		    <if test="createTime!=null and createTime!='' ">
+				create_time=#{createTime},
 			</if>
 		    <if test="status!=null and status!='' ">
 				status=#{status},
@@ -66,20 +53,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where id=#{id}
 	</update>
 
-	<select id="findOne" parameterType="Integer" resultMap="BlogResult">
-		select * from t_blog where id=#{id}
+	<select id="findById" parameterType="Integer" resultMap="BlogTypeResult">
+		select * from t_blogtype where id=#{id}
 	</select>
 	
-	<select id="findAll" resultMap="BlogResult">
-		select * from t_blog order by id desc
+	<select id="findAll" resultMap="BlogTypeResult">
+		select * from t_blogtype order by id desc
 	</select>
 	
 	<select id="countAll" resultType="Integer">
-		select count(*) from t_blog
+		select count(*) from t_blogtype
 	</select>
 
-	<select id="findByPage" parameterType="Map" resultMap="BlogResult">
-		select * from t_blog order by id desc
+	<select id="findByPage" parameterType="Map" resultMap="BlogTypeResult">
+		select * from t_blogtype order by id desc
 		<if test="start!=null and quantity!=null">
 			limit #{start},#{quantity}
 		</if>

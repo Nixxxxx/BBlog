@@ -5,15 +5,11 @@ import java.util.Date;
 public class Carousel {
 
 	private Integer id;
-	
 	private String path;
-	
 	private Integer type;
-	
 	private Date createTime;
-	
 	private Integer status;
-
+	
 	public Integer getId() {
 		return id;
 	}

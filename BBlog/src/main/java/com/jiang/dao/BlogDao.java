@@ -3,7 +3,6 @@ package com.jiang.dao;
 import java.util.List;
 
 import com.jiang.entity.Blog;
-import com.jiang.entity.BlogType;
 import com.jiang.entity.PageBean;
 
 /**

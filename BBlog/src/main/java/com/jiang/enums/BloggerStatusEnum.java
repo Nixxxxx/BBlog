@@ -1,14 +1,14 @@
 package com.jiang.enums;
 
-public enum AdminStatusEnum {
+public enum BloggerStatusEnum {
 	
 	NORMAL(0, "正常"),
-	DISABLE(1, "已禁用");
+	HIDDEN(1, "隐藏");
 	
 	private Integer code;
 	private String message;
 
-	private AdminStatusEnum(Integer code, String message) {
+	private BloggerStatusEnum(Integer code, String message) {
 		this.code = code;
 		this.message = message;
 	}

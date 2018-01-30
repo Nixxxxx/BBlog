@@ -23,4 +23,6 @@ public interface AdminService {
 	public boolean delete(Integer id);
 
 	public Admin findByEmail(String email);
+	
+	public List<Admin> findByPage(Integer page, int quantity);
 }

@@ -1,5 +1,7 @@
 package com.jiang.entity;
 
+import java.util.Date;
+
 /**
  * 博客类型实体类
  * @author JH
@@ -7,12 +9,11 @@ package com.jiang.entity;
  */
 public class BlogType {
 
-	/* 博客类型id */
-	private Integer id;
-	/* 博客类型名 */
-	private String typeName;
-	/* 此博客类型下博客数量 */
-	private Integer count;
+	private Integer id;			/* 博客类型id */
+	private String typeName;	/* 博客类型名 */
+	private Integer count;		/* 此博客类型下博客数量 */
+	private Date createTime;	/* 创建时间 */
+	private Integer status;		/* 状态 */
 	
 	public BlogType() {
 		super();
@@ -43,4 +44,21 @@ public class BlogType {
 	public void setCount(Integer count) {
 		this.count = count;
 	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	
 }

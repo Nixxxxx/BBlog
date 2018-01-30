@@ -36,7 +36,7 @@ public class BloggerManageController {
 		if(!imageFile.isEmpty()){
 			String fileName = "blogger" + "." + imageFile.getOriginalFilename().split("\\.")[1];
 			String imagePath = "/root/BBlog/image/avater/";
-			bgr.setImagePath("/BBlog/image/avater/"+fileName);
+			bgr.setAvatarPath("/BBlog/image/avater/"+fileName);
 			try {
 				File file = new File(imagePath+fileName);
 				if (!file.exists()) { // 如果路径不存在，创建 
@@ -48,7 +48,7 @@ public class BloggerManageController {
 				msg = "更新异常";
 			}
 		}else {
-			bgr.setImagePath(bloggerService.findById(1).getImagePath());
+			bgr.setAvatarPath(bloggerService.findById(1).getAvatarPath());
 		}
 		if(bloggerService.save(bgr)){
 			result = true;
