@@ -2,6 +2,8 @@ package com.jiang.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.jiang.entity.BlogType;
 import com.jiang.entity.PageBean;
 
@@ -10,6 +12,7 @@ import com.jiang.entity.PageBean;
  * @author JH
  *
  */
+@Mapper
 public interface BlogTypeDao {
 	
 	public boolean save(BlogType blogType);

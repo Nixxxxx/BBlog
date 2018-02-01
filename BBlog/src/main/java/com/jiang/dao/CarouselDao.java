@@ -2,8 +2,11 @@ package com.jiang.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.jiang.entity.Carousel;
 
+@Mapper
 public interface CarouselDao {
 	
 	public boolean save(Carousel carousel);

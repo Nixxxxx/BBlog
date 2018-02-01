@@ -24,4 +24,6 @@ public interface BlogTypeService {
 
 	public List<BlogType> findList(PageBean pageBean);
 	
+	public boolean checkTypeName(String typeName, int id);
+	
 }

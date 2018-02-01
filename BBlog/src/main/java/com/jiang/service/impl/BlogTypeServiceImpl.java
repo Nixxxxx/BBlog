@@ -15,6 +15,15 @@ public class BlogTypeServiceImpl implements BlogTypeService{
 
 	@Autowired
 	private BlogTypeDao blogTypeDao;
+	
+	public boolean checkTypeName(String typeName, int id){
+		List<BlogType> blogTypes = blogTypeDao.findAll();
+		for(BlogType blogType:blogTypes){
+			if(blogType.getTypeName().equals(typeName) && blogType.getId() != id)
+				return false;
+		}
+		return true;
+	}
 
 	@Override
 	public boolean save(BlogType blogType) {

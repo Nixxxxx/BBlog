@@ -1,4 +1,4 @@
-package com.jiang.controller.admin;
+package com.jiang.controller.manage;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

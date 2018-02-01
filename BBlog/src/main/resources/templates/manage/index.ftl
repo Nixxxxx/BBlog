@@ -6,23 +6,22 @@
   <title>AdminLTE 2 | Simple Tables</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../../bower_components/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../../bower_components/Ionicons/css/ionicons.min.css">
-  <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
-  <link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css">
-
+<link rel="icon" href="../../favicon.png">
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../../bower_components/Ionicons/css/ionicons.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/admin-lte/2.4.2/css/AdminLTE.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/admin-lte/2.4.2/css/skins/_all-skins.min.css">
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
-
 <#include "./common/navbar.ftl">
-      <#include "">
-  <footer class="main-footer">
-    <strong>Copyright &copy; 2017 <a href="#">~</a>.</strong>
-  </footer>
+${page }
+<#if pagePath??>
+	<#include "${pagePath }">
+</#if>
 </div>
 
 <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>

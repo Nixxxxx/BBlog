@@ -25,4 +25,6 @@ public interface AdminService {
 	public Admin findByEmail(String email);
 	
 	public List<Admin> findByPage(Integer page, int quantity);
+	
+	public boolean checkEmail(String email, Integer id);
 }

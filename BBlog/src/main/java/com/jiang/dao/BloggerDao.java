@@ -2,6 +2,8 @@ package com.jiang.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.jiang.entity.Blogger;
 
 /**
@@ -9,6 +11,7 @@ import com.jiang.entity.Blogger;
  * @author JH
  *
  */
+@Mapper
 public interface BloggerDao {
 	
 	public boolean save(Blogger blogger);

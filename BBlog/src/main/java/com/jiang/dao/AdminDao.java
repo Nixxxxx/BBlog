@@ -3,6 +3,8 @@ package com.jiang.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.jiang.entity.Admin;
 import com.jiang.entity.PageBean;
 
@@ -11,6 +13,7 @@ import com.jiang.entity.PageBean;
  * @author JH
  *
  */
+@Mapper
 public interface AdminDao {
 	
 	public boolean save(Admin admin);

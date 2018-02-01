@@ -1,4 +1,4 @@
-package com.jiang.controller.admin;
+package com.jiang.controller.manage;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package com.jiang.controller.admin;
+package com.jiang.controller.manage;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,8 +32,7 @@ public class BlogTypeManageController {
 	private BlogService blogservice;
 	
 	@RequestMapping("/list")
-	public ModelAndView list(@RequestParam(required = false)String page,
-			HttpServletRequest request,BlogType s_blogType){
+	public ModelAndView list(String page, HttpServletRequest request, BlogType s_blogType){
 		if (StringUtil.isEmpty(page)) {
 			page = "1";
 		} else {
@@ -53,20 +52,12 @@ public class BlogTypeManageController {
 		return mav;
 	}
 	
-	public boolean checkTypeName(String typeName, int id){
-		List<BlogType> blogTypes = blogTypeService.findAll();
-		for(BlogType blogType:blogTypes){
-			if(blogType.getTypeName().equals(typeName) && blogType.getId() != id)
-				return false;
-		}
-		return true;
-	}
 	
 	@ResponseBody
-	@RequestMapping("/add")
-	public Map<String, Object> add(@RequestParam String typeName, HttpServletRequest request,HttpServletResponse response){
+	@RequestMapping("/save")
+	public Map<String, Object> save(@RequestParam String typeName, HttpServletRequest request){
 		Map<String, Object> map = new HashMap<>();
-		if(checkTypeName(typeName, 0)){
+		if(blogTypeService.checkTypeName(typeName, 0)){
 			BlogType blogType = new BlogType(typeName);
 			boolean result = blogTypeService.save(blogType);
 			map.put("result", result);
@@ -80,7 +71,7 @@ public class BlogTypeManageController {
 	
 	@ResponseBody
 	@RequestMapping("/del")
-	public Map<String, Object> delete(@RequestParam int id, HttpServletRequest request,HttpServletResponse response){
+	public Map<String, Object> delete(@RequestParam Integer id, HttpServletRequest request){
 		Map<String, Object> map = new HashMap<>();
 		if(blogservice.findByTypeId(id).isEmpty()){
 			boolean result = blogTypeService.delete(id);
@@ -97,7 +88,7 @@ public class BlogTypeManageController {
 	@PostMapping("/update")
 	public Map<String, Object> update(BlogType blogType, HttpServletRequest request, HttpServletResponse response){
 		Map<String, Object> map = new HashMap<>();
-		if(checkTypeName(blogType.getTypeName(), 0)){
+		if(blogTypeService.checkTypeName(blogType.getTypeName(), 0)){
 			boolean result = blogTypeService.save(blogType);
 			map.put("result", result);
 			map.put("msg", result?"更新成功":"更新失败");
