@@ -1,7 +1,7 @@
 <ol class="breadcrumb">
 	<li><i class="fa fa-dashboard"></i> 首页</li>
 	<li>博客</li>
-	<li class="active">{blog.title}</li>
+	<li class="active">${blog.title}</li>
 </ol>
 <div class="box box-primary">
 	<div class="box-header with-border">
@@ -15,13 +15,13 @@
 	</div>
 	<div class="box-body no-padding">
 		<div class="mailbox-read-info">
-			<h2>{blog.title}</h2>
+			<h2>${blog.title}</h2>
 			<h5>
-				类别：{blog.blogType.name}&nbsp;&nbsp;浏览量：{blog.name}
-				<span class="mailbox-read-time pull-right">{blog.createTime}</span>
+				类别：${blog.blogType.name}&nbsp;&nbsp;浏览量：${blog.name}
+				<span class="mailbox-read-time pull-right">${blog.createTime}</span>
 			</h5>
 		</div>
-		<div class="mailbox-read-message">{cotent}</div>
+		<div class="mailbox-read-message">${cotent}</div>
 	</div>
 	<div class="box-footer">
 		<div class="pull-right">

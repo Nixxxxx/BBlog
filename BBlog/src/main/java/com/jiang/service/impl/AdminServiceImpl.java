@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.jiang.dao.AdminDao;
 import com.jiang.entity.Admin;
-import com.jiang.entity.PageBean;
 import com.jiang.service.AdminService;
 
 @Service("adminService")
@@ -40,11 +39,6 @@ public class AdminServiceImpl implements AdminService{
 		return false;
 	}
 
-	@Override
-	public List<Admin> findList(PageBean pageBean) {
-		return adminDao.findList(pageBean);
-	}
-	
 	@Override
 	public Admin findByEmail(String email){
 		return adminDao.findByEmail(email);

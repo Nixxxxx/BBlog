@@ -1,11 +1,11 @@
 package com.jiang.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import com.jiang.entity.Blog;
-import com.jiang.entity.PageBean;
 
 /**
  * 博客dao接口
@@ -31,7 +31,7 @@ public interface BlogDao {
 	 * @param typeId
 	 * @return
 	 */
-	public List<Blog> findListByTypeId(PageBean pageBean, Integer typeId);
+	public List<Blog> findListByTypeId(Map<String, Object> map);
 	
 	/**
 	 * 根据typeId查出所有博客

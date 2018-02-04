@@ -16,11 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jiang.entity.BlogType;
-import com.jiang.entity.PageBean;
 import com.jiang.service.BlogService;
 import com.jiang.service.BlogTypeService;
 import com.jiang.util.PageUtil;
-import com.jiang.util.StringUtil;
+import com.jiang.util.VariateUtil;
 
 @Controller
 @RequestMapping("/manage/blogType")
@@ -29,25 +28,18 @@ public class BlogTypeManageController {
 	@Autowired
 	private BlogTypeService blogTypeService;
 	@Autowired
-	private BlogService blogservice;
+	private BlogService blogService;
 	
 	@RequestMapping("/list")
-	public ModelAndView list(String page, HttpServletRequest request, BlogType s_blogType){
-		if (StringUtil.isEmpty(page)) {
-			page = "1";
-		} else {
-			// s_blogType=(BlogType) session.getAttribute("s_blogType");
-		}
-		PageBean pageBean = new PageBean(Integer.parseInt(page), 10);
-		List<BlogType> blogTypeList = blogTypeService.findList(pageBean);
-		int total = blogTypeService.findAll().size();
-		String pageCode = PageUtil.genPagination("admin/blogType/list", total, pageBean.getPage(),
-				pageBean.getPageSize(), null);
-		ModelAndView mav = new ModelAndView("admin/index");
-		mav.addObject("pagePath","./blog/blogTypeManage.jsp");
-		if(!blogTypeList.isEmpty()){
+	public ModelAndView list(@RequestParam("page")String pageStr) {
+		Integer page = VariateUtil.solveNullPage(pageStr);
+		List<BlogType> BlogTypeList = blogTypeService.findByPage(page, 10);
+		String pageCode = PageUtil.getPagination("manage/admin/list", 1, page, 10, "");
+		ModelAndView mav = new ModelAndView("manage/index");
+		mav.addObject("pagePath", "./admin/admin_list.ftl");
+		if(!BlogTypeList.isEmpty()){
 			mav.addObject("pageCode", pageCode);
-			mav.addObject("blogTypeList", blogTypeList);
+			mav.addObject("BlogTypeList", BlogTypeList);
 		}
 		return mav;
 	}
@@ -73,7 +65,7 @@ public class BlogTypeManageController {
 	@RequestMapping("/del")
 	public Map<String, Object> delete(@RequestParam Integer id, HttpServletRequest request){
 		Map<String, Object> map = new HashMap<>();
-		if(blogservice.findByTypeId(id).isEmpty()){
+		if(blogService.findByTypeId(id).isEmpty()){
 			boolean result = blogTypeService.delete(id);
 			map.put("result", result);
 			map.put("msg", result?"删除成功":"删除失败");

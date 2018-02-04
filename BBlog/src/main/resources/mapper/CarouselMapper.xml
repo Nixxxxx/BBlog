@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiang.dao.CarouselDao">
+
+	<resultMap type="Carousel" id="CarouselResult">
+		<result property="id" column="id"/>
+		<result property="path" column="path"/>
+		<result property="type" column="type"/>
+		<result property="createTime" column="create_time"/>
+		<result property="status" column="status"/>
+	</resultMap>
+	
+	<insert id="save" parameterType="Carousel">
+		insert t_carousel
+		<set>
+		    <if test="path!=null and path!='' ">
+				path=#{path},
+			</if>
+		    <if test="type!=null and type!='' ">
+				type=#{type},
+			</if>
+		    <if test="createTime!=null and createTime!='' ">
+				create_time=#{createTime},
+			</if>
+		    <if test="status!=null and status!='' ">
+				status=#{status},
+			</if>
+		</set>
+	</insert>
+	
+	<delete id="delete" parameterType="Integer">
+		update t_carousel status=-1 where id=#{id}
+	</delete>
+
+	<update id="update" parameterType="Carousel">
+		update t_carousel
+		<set>
+		    <if test="path!=null and path!='' ">
+				path=#{path},
+			</if>
+		    <if test="type!=null and type!='' ">
+				type=#{type},
+			</if>
+		    <if test="createTime!=null and createTime!='' ">
+				create_time=#{createTime},
+			</if>
+		    <if test="status!=null and status!='' ">
+				status=#{status},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+
+	<select id="findById" parameterType="Integer" resultMap="CarouselResult">
+		select * from t_carousel where id=#{id}
+	</select>
+	
+	<select id="findAll" resultMap="CarouselResult">
+		select * from t_carousel order by id desc
+	</select>
+	
+	<select id="countAll" resultType="Integer">
+		select count(*) from t_carousel
+	</select>
+
+	<select id="findByPage" parameterType="Map" resultMap="CarouselResult">
+		select * from t_carousel order by id desc
+		<if test="start!=null and quantity!=null">
+			limit #{start},#{quantity}
+		</if>
+	</select>	
+</mapper> 

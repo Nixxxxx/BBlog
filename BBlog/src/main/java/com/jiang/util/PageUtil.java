@@ -15,7 +15,7 @@ public class PageUtil {
 	 * @param pageSize 每页大小
 	 * @return
 	 */
-	public static String genPagination(String targetUrl,long totalNum,int currentPage,int pageSize,String param){
+	public static String getPagination(String targetUrl, long totalNum, int currentPage, int pageSize, String param){
 		long totalPage=totalNum%pageSize==0?totalNum/pageSize:totalNum/pageSize+1;
 		if(totalPage==0){
 			return "未查询到数据";

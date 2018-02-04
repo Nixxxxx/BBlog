@@ -3,7 +3,7 @@ package com.jiang.enums;
 public enum BlogStatusEnum {
 	
 	NORMAL(0, "正常"),
-	DISABLE(1, "不可看");
+	DISABLE(1, "已隐藏");
 	
 	private Integer code;
 	private String message;

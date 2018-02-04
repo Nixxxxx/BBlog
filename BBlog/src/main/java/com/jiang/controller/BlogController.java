@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,18 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jiang.entity.Blog;
-import com.jiang.entity.PageBean;
 import com.jiang.lucene.BlogIndex;
 import com.jiang.service.BlogService;
 import com.jiang.util.PageUtil;
-import com.jiang.util.RequestUtil;
-import com.jiang.util.StringUtil;
+import com.jiang.util.VariateUtil;
 
 @Controller
 @RequestMapping("/blog")
 public class BlogController {
-	
-	private static Logger logger = Logger.getLogger(BlogController.class);
 
 	@Autowired
 	private BlogService blogService;
@@ -38,8 +33,7 @@ public class BlogController {
 		Blog blog = blogService.findById(id);
 		blog.setReader(blog.getReader() + 1);
 		blogService.save(blog);
-		logger.info("查看文章 - " + RequestUtil.getRemoteIP(request) + "博客：" + blog.getId() + blog.getTitle());
-		ModelAndView mav = new ModelAndView("index");
+		ModelAndView mav = new ModelAndView("foreground/index");
 		mav.addObject("pagePath", "./foreground/blog/article.jsp");
 		mav.addObject("blog", blogService.findById(id));
 //		mav.addObject("pageCode", this.genUpAndDownPageCode(blogService.getLastBlog(id),blogService.getNextBlog(id)));
@@ -49,23 +43,12 @@ public class BlogController {
 
 	
 	@RequestMapping("/list")
-	public ModelAndView list(@RequestParam(required = false)String page, 
-			@RequestParam(required = false)String typeId, HttpServletRequest request) throws Exception{
-		if (StringUtil.isEmpty(page)) {
-			page = "1";
-		}
-		PageBean pageBean = new PageBean(Integer.parseInt(page), 5);
-		int nowTypeId = (typeId == null?0:Integer.parseInt(typeId));
-		List<Blog> blogList = blogService.findListByTypeId(pageBean, nowTypeId);
-		int total;
-		if(nowTypeId == 0){
-			total = blogService.findAll().size();
-		}else{
-			total = blogService.findByTypeId(nowTypeId).size();
-		}
-		String pageCode = PageUtil.genPagination("blog/list", total, pageBean.getPage(),pageBean.getPageSize(), "typeId="+nowTypeId);
-		ModelAndView mav = new ModelAndView("index");
-		mav.addObject("pagePath", "./foreground/blog/list.jsp");
+	public ModelAndView list(@RequestParam("page")String pageStr, String typeId) throws Exception{
+		Integer page = VariateUtil.solveNullPage(pageStr);
+		List<Blog> blogList = blogService.findListByTypeId(Integer.parseInt(typeId), page, 10);
+		String pageCode = PageUtil.getPagination("blog/list", 1, page, 10, "typeId="+Integer.parseInt(typeId));
+		ModelAndView mav = new ModelAndView("foreground/index");
+		mav.addObject("pagePath", "./blog/main.ftl");
 		mav.addObject("pageCode", pageCode);
 		mav.addObject("blogList", blogList);
 		return mav;
@@ -81,12 +64,11 @@ public class BlogController {
 	 */
 	@PostMapping("/search")
 	public ModelAndView search(String q, String page, HttpServletRequest request)throws Exception{
-		if(StringUtil.isEmpty(page)){
+		if(VariateUtil.isEmpty(page)){
 			page = "1";
 		}
 		List<Blog> blogList = blogIndex.searchBlog(q.trim());
 		Integer toIndex = blogList.size() >= Integer.parseInt(page)*10?Integer.parseInt(page)*10:blogList.size();
-		logger.info("搜索  - " + RequestUtil.getRemoteIP(request) + q);
 		ModelAndView mav = new ModelAndView("index");
 		mav.addObject("pagePath", "./foreground/search.jsp");
 		mav.addObject("blogList", blogList.subList((Integer.parseInt(page)-1)*10, toIndex));
@@ -130,7 +112,7 @@ public class BlogController {
 	private String genUpAndDownPageCode(Integer page,Integer totalNum,String q,Integer pageSize){
 		long totalPage=totalNum%pageSize==0?totalNum/pageSize:totalNum/pageSize+1;
 		StringBuffer pageCode=new StringBuffer();
-		if(totalPage==0){
+		if(totalPage == 0){
 			return "";
 		}else{
 			pageCode.append("<nav>");

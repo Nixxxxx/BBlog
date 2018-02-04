@@ -6,7 +6,6 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.jiang.entity.Admin;
-import com.jiang.entity.PageBean;
 
 /**
  * 管理员dao接口
@@ -39,8 +38,6 @@ public interface AdminDao {
 	 * @param pageBean
 	 * @return
 	 */
-	public List<Admin> findList(PageBean pageBean);
-	
 	public List<Admin> findByPage(Map<String, Object> map);
 
 	/**

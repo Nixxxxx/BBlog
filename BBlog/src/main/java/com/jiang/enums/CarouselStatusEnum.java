@@ -1,15 +1,15 @@
 package com.jiang.enums;
 
-public enum CarouselTypeEnum {
+public enum CarouselStatusEnum {
 
-	INDEX(1, "主页"),
-	BLOG(2, "博客"),
-	MOVIE(3, "电影榜单");
+	
+	NORMAL(0, "正常"),
+	DISABLE(1, "已隐藏");
 	
 	private Integer code;
 	private String message;
 
-	private CarouselTypeEnum(Integer code, String message) {
+	private CarouselStatusEnum(Integer code, String message) {
 		this.code = code;
 		this.message = message;
 	}
@@ -29,5 +29,4 @@ public enum CarouselTypeEnum {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
 }

@@ -80,10 +80,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="countAll" resultType="Integer">
 		select count(*) from t_blog
+		where 1=1
+		<if test="typeId!=null">
+			and type_id=#{typeId}
+		</if>
 	</select>
 
 	<select id="findByPage" parameterType="Map" resultMap="BlogResult">
-		select * from t_blog order by id desc
+		select * from t_blog 
+		where 1=1
+		<if test="typeId!=null">
+			and type_id=#{typeId}
+		</if>
+		order by id desc
 		<if test="start!=null and quantity!=null">
 			limit #{start},#{quantity}
 		</if>

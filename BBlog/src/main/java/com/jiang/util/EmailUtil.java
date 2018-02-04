@@ -29,11 +29,11 @@ import com.sun.mail.util.MailSSLSocketFactory;
  *
  */
 public class EmailUtil {
-	public static final String HOST = "smtp.exmail.qq.com"; // 邮件服务器地址
-	public static final String PROTOCOL = "smtp"; // 邮件协议
-	public static final int PORT = 465; // 邮箱端口号
-	public static final String FROM = ""; // 发件人的email地址
-	public static final String PWD = ""; // 发件人密码
+	public static final String HOST = "smtp.exmail.qq.com"; 	// 邮件服务器地址
+	public static final String PROTOCOL = "smtp"; 				// 邮件协议
+	public static final int PORT = 465; 						// 邮箱端口号
+	public static final String FROM = "";						// 发件人的email地址
+	public static final String PWD = ""; 						// 发件人密码
 
 	/**
 	 * 获取Session
@@ -43,13 +43,13 @@ public class EmailUtil {
 	 */
 	private static Session getSession(){
 		Properties props = System.getProperties();
-		props.put("mail.smtp.host", HOST); // 设置服务器地址
-		props.put("mail.store.protocol", PROTOCOL); // 设置协议
-		props.put("mail.smtp.port", PORT); // 设置端口
+		props.put("mail.smtp.host", HOST); 						// 设置服务器地址
+		props.put("mail.store.protocol", PROTOCOL);				// 设置协议
+		props.put("mail.smtp.port", PORT); 						// 设置端口
 		props.put("mail.smtp.auth", "true");
 		MailSSLSocketFactory sf;
 		try {
-			sf = new MailSSLSocketFactory();  // SSL加密（部分邮箱 例如腾讯）
+			sf = new MailSSLSocketFactory();  					// SSL加密（部分邮箱 例如腾讯）
 			sf.setTrustAllHosts(true);
 			props.put("mail.smtp.ssl.enable", "true");
 			props.put("mail.smtp.ssl.socketFactory", sf);

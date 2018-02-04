@@ -3,7 +3,6 @@ package com.jiang.service;
 import java.util.List;
 
 import com.jiang.entity.BlogType;
-import com.jiang.entity.PageBean;
 
 /**
  * 博客类型service接口
@@ -22,7 +21,7 @@ public interface BlogTypeService {
 
 	public List<BlogType> findAll();
 
-	public List<BlogType> findList(PageBean pageBean);
+	public List<BlogType> findByPage(Integer page, Integer quantity);
 	
 	public boolean checkTypeName(String typeName, int id);
 	

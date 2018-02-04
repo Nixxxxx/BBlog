@@ -22,17 +22,7 @@
 		<#include "./common/navbar.ftl">
 		<div class="content-wrapper">
 			<br><br>
-			<div class="container">
-				<section class="content">
-					<div class="col-md-4">
-						<#include "./common/profile.ftl">
-					</div>
-					<div class="col-md-8">
-						<#include "./common/carousel.ftl">
-						<#include "./blog/article.ftl">
-					</div>
-				</section>
-			</div>
+			<#include "./index/main.ftl">
 		</div>
 		<#include "./common/footer.ftl">
 	</div>

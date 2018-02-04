@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,6 +21,8 @@ import com.jiang.service.AdminService;
 import com.jiang.service.BlogTypeService;
 import com.jiang.service.BloggerService;
 import com.jiang.util.CryptographyUtil;
+import com.jiang.util.PageUtil;
+import com.jiang.util.VariateUtil;
 
 @Controller
 @RequestMapping("/manage/admin")
@@ -34,15 +35,9 @@ public class AdminController {
 	@Autowired
 	private BlogTypeService blogTypeService;
 	
-	@RequestMapping("/index")
-	public ModelAndView index(){
-		ModelAndView mav = new ModelAndView("manage/index");
-		return mav;
-	}
-	
 	@ResponseBody
 	@PostMapping("/save")
-	public Map<String, Object> save(Admin admin, HttpServletRequest request) {
+	public Map<String, Object> save(Admin admin) {
 		Map<String, Object> map = new HashMap<>();
 		if(!adminService.checkEmail(admin.getEmail(), 0)){
 			map.put("msg", "该邮箱已存在");
@@ -61,7 +56,7 @@ public class AdminController {
 	
 	@ResponseBody
 	@PostMapping("/update")
-	public Map<String, Object> update(Admin admin, HttpServletRequest request) {
+	public Map<String, Object> update(Admin admin) {
 		Map<String, Object> map = new HashMap<>();
 		if (!adminService.checkEmail(admin.getEmail(), admin.getId())) {
 			map.put("result", false);
@@ -81,7 +76,7 @@ public class AdminController {
 	
 	@ResponseBody
 	@PostMapping("/del")
-	public Map<String, Object> delete(Integer id, HttpServletRequest request) {
+	public Map<String, Object> delete(Integer id) {
 		Map<String, Object> map = new HashMap<>();
 		if(adminService.delete(id)){
 			map.put("result", true);
@@ -94,25 +89,16 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/list")
-	public ModelAndView list(@RequestParam(required = false)String page, 
-			HttpServletRequest request) {
-//		if (StringUtil.isEmpty(page)) {
-//			page = "1";
-//		}
-//		PageBean pageBean = new PageBean(Integer.parseInt(page), 10);
-//		List<Admin> adminList = adminService.findList(pageBean);
-//		for(Admin admin:adminList){
-//			admin.setPassword(CryptographyUtil.md5(admin.getPassword(), "jiang"));
-//		}
-//		int total = adminList.size();
-//		String pageCode = PageUtil.genPagination("manage/list", total, pageBean.getPage(),pageBean.getPageSize(), null);
+	public ModelAndView list(String pageStr) {
+		Integer page = VariateUtil.solveNullPage(pageStr);
+		List<Admin> adminList = adminService.findByPage(page, 10);
+		String pageCode = PageUtil.getPagination("manage/admin/list", 1, page, 10, "");
 		ModelAndView mav = new ModelAndView("manage/index");
-		mav.addObject("page", "in_list");
 		mav.addObject("pagePath", "./admin/admin_list.ftl");
-//		if(!adminList.isEmpty()){
-//			mav.addObject("pageCode", pageCode);
-//			mav.addObject("adminList", adminList);
-//		}
+		if(!adminList.isEmpty()){
+			mav.addObject("pageCode", pageCode);
+			mav.addObject("adminList", adminList);
+		}
 		return mav;
 	}
 	

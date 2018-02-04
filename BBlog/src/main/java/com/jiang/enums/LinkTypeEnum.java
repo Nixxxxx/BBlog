@@ -1,6 +1,6 @@
 package com.jiang.enums;
 
-public enum CarouselTypeEnum {
+public enum LinkTypeEnum {
 
 	INDEX(1, "主页"),
 	BLOG(2, "博客"),
@@ -9,7 +9,7 @@ public enum CarouselTypeEnum {
 	private Integer code;
 	private String message;
 
-	private CarouselTypeEnum(Integer code, String message) {
+	private LinkTypeEnum(Integer code, String message) {
 		this.code = code;
 		this.message = message;
 	}

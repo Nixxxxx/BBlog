@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.jiang.entity.BlogType;
-import com.jiang.entity.PageBean;
 
 /**
  * 博客类型dao接口
@@ -30,7 +29,7 @@ public interface BlogTypeDao {
 	 * @param pageBean
 	 * @return
 	 */
-	public List<BlogType> findList(PageBean pageBean);
+	public List<BlogType> findList(Integer page, Integer quantity);
 
 	/**
 	 * 查询每个博客类型下的博客数量

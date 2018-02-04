@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.jiang.dao.BlogTypeDao;
 import com.jiang.entity.BlogType;
-import com.jiang.entity.PageBean;
 import com.jiang.service.BlogTypeService;
 
 @Service("blogTypeService")
@@ -53,8 +52,8 @@ public class BlogTypeServiceImpl implements BlogTypeService{
 	}
 
 	@Override
-	public List<BlogType> findList(PageBean pageBean) {
-		return blogTypeDao.findList(pageBean);
+	public List<BlogType> findByPage(Integer page, Integer quantity) {
+		return null;
 	}
 	
 	

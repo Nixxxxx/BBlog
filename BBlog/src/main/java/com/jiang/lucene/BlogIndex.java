@@ -34,7 +34,7 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
 import com.jiang.entity.Blog;
-import com.jiang.util.StringUtil;
+import com.jiang.util.VariateUtil;
 
 /**
  * 博客索引类
@@ -145,7 +145,7 @@ public class BlogIndex {
 			if (title != null) {
 				TokenStream tokenStream = analyzer.tokenStream("title", new StringReader(title));
 				String hTitle = highlighter.getBestFragment(tokenStream, title);
-				if (StringUtil.isEmpty(hTitle)) {
+				if (VariateUtil.isEmpty(hTitle)) {
 					blog.setTitle(title);
 				} else {
 					blog.setTitle(hTitle);
@@ -154,7 +154,7 @@ public class BlogIndex {
 			if (content != null) {
 				TokenStream tokenStream = analyzer.tokenStream("content", new StringReader(content));
 				String hContent = highlighter.getBestFragment(tokenStream, content);
-				if (StringUtil.isEmpty(hContent)) {
+				if (VariateUtil.isEmpty(hContent)) {
 					if (content.length() <= 200) {
 						blog.setContent(content);
 					} else {
